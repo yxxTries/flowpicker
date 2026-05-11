@@ -1,0 +1,218 @@
+.table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+  min-height: 32px;
+}
+
+.reset-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.reset-btn:hover {
+  background: #fff0ee;
+  border-color: #d97560;
+  color: #a3382c;
+}
+
+.reset-btn[hidden] { display: none; }
+
+.picker-table {
+  width: 100%;
+  margin: 240px auto 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  table-layout: fixed;
+}
+
+.picker-table th,
+.picker-table td {
+  text-align: center;
+}
+
+.picker-table th.col-layer,
+.picker-table th.col-selection,
+.picker-table td:first-child,
+.picker-table td:nth-child(2) {
+  text-align: left;
+}
+
+.picker-table thead th {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding: 14px 20px;
+  background: #f7f7f5;
+  border-bottom: 1px solid var(--border);
+}
+
+.col-layer      { width: 16%; }
+.col-selection  { width: 26%; }
+.col-cost       { width: 11%; }
+.col-source     { width: 11%; }
+.col-complexity { width: 12%; }
+.col-provider   { width: 11%; }
+.col-keyspecs   { width: 13%; }
+
+.placeholder-cell {
+  color: var(--muted);
+  text-align: center;
+}
+
+.configure-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.configure-btn:hover,
+.configure-btn:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.picker-table tbody tr + tr td {
+  border-top: 1px solid var(--border);
+}
+
+.picker-table td {
+  padding: 18px 20px;
+  vertical-align: middle;
+}
+
+.layer-name {
+  font-weight: 600;
+}
+
+.layer-optional {
+  margin-left: 6px;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.selection-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.selection-list {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.selection-name-wrap {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.selection-add {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.selection-cell:hover .selection-add,
+.selection-list:focus-within .selection-add,
+.selection-add:focus-visible {
+  opacity: 1;
+}
+
+.selection-add:hover,
+.selection-add:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  outline: none;
+}
+
+.selection-name {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.selection-name:hover,
+.selection-name:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+  outline: none;
+}
+
+.selection-remove {
+  margin-left: 0;
+  width: 0;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(-4px);
+  transition: width 0.18s ease, margin-left 0.18s ease,
+              opacity 0.15s ease, transform 0.18s ease,
+              color 0.12s ease;
+}
+
+.selection-name-wrap:hover .selection-remove,
+.selection-name-wrap:focus-within .selection-remove {
+  width: 22px;
+  margin-left: 6px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.selection-remove:hover,
+.selection-remove:focus-visible {
+  color: #a3382c;
+  outline: none;
+}

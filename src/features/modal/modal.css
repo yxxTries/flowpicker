@@ -1,0 +1,240 @@
+.modal[hidden] { display: none; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 15, 14, 0.45);
+}
+
+.modal-panel {
+  position: relative;
+  background: var(--surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 1200px;
+  height: 90vh;
+  max-height: 920px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  flex: 1;
+  min-height: 0;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.modal-close:hover { background: var(--chip-bg); color: var(--text); }
+
+.card-grid {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  overflow-y: auto;
+  align-content: start;
+  min-height: 0;
+}
+
+.card-grid-empty {
+  grid-column: 1 / -1;
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.option-card {
+  position: relative;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.05s ease;
+  font: inherit;
+  color: inherit;
+}
+
+.option-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.option-info {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.option-info:hover,
+.option-info:focus-visible {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  outline: none;
+}
+
+.about-view {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.about-back {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.about-back:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.about-body {
+  color: var(--muted);
+  font-size: 14px;
+  min-height: 200px;
+}
+
+.modal-panel[data-view="about"] .modal-body,
+.modal-panel[data-view="configure"] .modal-body {
+  grid-template-columns: 1fr;
+}
+
+.modal-panel[data-view="about"] .modal-sidebar,
+.modal-panel[data-view="configure"] .modal-sidebar {
+  display: none;
+}
+
+.configure-view {
+  padding: 24px;
+  min-height: 200px;
+  overflow-y: auto;
+}
+
+.option-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.option-card:active { transform: scale(0.99); }
+
+.option-card.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.option-card.is-conflict {
+  border-color: #f3d775;
+  background: #fffaeb;
+}
+
+.option-card.is-conflict:hover {
+  border-color: #d99e00;
+  background: #fff3cf;
+}
+
+.conflict-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 8px;
+  background: #d99e00;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.option-card h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.option-card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  font-size: 12.5px;
+}
+
+.option-card dt {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.option-card dd {
+  margin: 0;
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .modal-body { grid-template-columns: 1fr; }
+}

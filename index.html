@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowpicker</title>
+
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/features/table/table.css" />
+  <link rel="stylesheet" href="src/features/warnings/warnings.css" />
+  <link rel="stylesheet" href="src/features/modal/modal.css" />
+  <link rel="stylesheet" href="src/features/filters/filters.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="/" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" class="active" aria-current="page">Plan</a>
+        <a href="browse.html">Browse</a>
+      </nav>
+    </header>
+    <p class="tagline">Assemble your AI coding stack, layer by layer.</p>
+
+    <details id="warning-banner" class="warning-banner" hidden>
+      <summary class="warning-summary">
+        <span class="warning-icon" aria-hidden="true">!</span>
+        <span class="warning-headline" id="warning-headline">Compatibility issues</span>
+        <span class="warning-toggle-hint">click to expand</span>
+      </summary>
+      <ul id="warning-list" class="warning-list"></ul>
+    </details>
+
+    <div class="table-toolbar">
+      <button type="button" id="reset-btn" class="reset-btn" hidden>Reset all</button>
+    </div>
+
+    <table class="picker-table">
+      <thead>
+        <tr>
+          <th class="col-layer">Layer</th>
+          <th class="col-selection">Selection</th>
+          <th class="col-cost">Cost</th>
+          <th class="col-source">Source</th>
+          <th class="col-complexity">Setup Complexity</th>
+          <th class="col-provider">Provider</th>
+          <th class="col-keyspecs">Key Specs</th>
+        </tr>
+      </thead>
+      <tbody id="picker-body"></tbody>
+    </table>
+  </main>
+
+  <div id="picker-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <header class="modal-header">
+        <h2 id="modal-title">Pick an option</h2>
+        <button type="button" class="modal-close" data-close="true" aria-label="Close">×</button>
+      </header>
+      <div class="modal-body">
+        <aside class="modal-sidebar">
+          <h3 class="sidebar-heading">Filters</h3>
+          <label class="filter-row">
+            <input type="checkbox" id="filter-compat" checked />
+            <span>
+              <span class="filter-label">Compatible only</span>
+              <span class="filter-hint">Hide options that conflict with your other picks.</span>
+            </span>
+          </label>
+          <p id="filter-status" class="filter-status"></p>
+        </aside>
+        <div id="modal-cards" class="card-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/sql-wasm.js"></script>
+  <script src="data/rules.js"></script>
+  <script src="data/attribute-labels.js"></script>
+  <script src="src/main.js"></script>
+  <script src="src/db.js"></script>
+  <script src="src/features/warnings/warnings.js"></script>
+  <script src="src/features/filters/filters.js"></script>
+  <script src="src/features/table/table.js"></script>
+  <script src="src/features/modal/modal.js"></script>
+</body>
+</html>
