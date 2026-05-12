@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="src/features/table/table.css" />
   <link rel="stylesheet" href="src/features/warnings/warnings.css" />
   <link rel="stylesheet" href="src/features/modal/modal.css" />
-  <link rel="stylesheet" href="src/features/filters/filters.css" />
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
 </head>
 <body>
@@ -82,17 +81,6 @@
         <button type="button" class="modal-close" data-close="true" aria-label="Close">×</button>
       </header>
       <div class="modal-body">
-        <aside class="modal-sidebar">
-          <h3 class="sidebar-heading">Filters</h3>
-          <label class="filter-row">
-            <input type="checkbox" id="filter-compat" checked />
-            <span>
-              <span class="filter-label">Compatible only</span>
-              <span class="filter-hint">Hide options that conflict with your other picks.</span>
-            </span>
-          </label>
-          <p id="filter-status" class="filter-status"></p>
-        </aside>
         <div id="modal-cards" class="card-grid"></div>
       </div>
     </div>
@@ -103,10 +91,10 @@
   <script src="data/attribute-labels.js"></script>
   <script src="src/main.js"></script>
   <script src="src/db.js"></script>
+  <script src="src/features/selections-store/selections-store.js"></script>
   <script src="src/features/darkmode/darkmode.js"></script>
   <script src="src/features/browse-menu/browse-menu-preview.js"></script>
   <script src="src/features/warnings/warnings.js"></script>
-  <script src="src/features/filters/filters.js"></script>
   <script src="src/features/table/table.js"></script>
   <script src="src/features/modal/modal.js"></script>
 </body>

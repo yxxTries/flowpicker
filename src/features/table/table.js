@@ -51,11 +51,10 @@ App.features.table = (() => {
     const picks = App.state.selections[layer.id] || [];
 
     if (picks.length === 0) {
-      const btn = document.createElement('button');
-      btn.type = 'button';
+      const btn = document.createElement('a');
       btn.className = 'choose-btn';
       btn.textContent = `Choose ${shortLayerName(layer.name)}`;
-      btn.addEventListener('click', () => App.features.modal.open(layer.id));
+      btn.href = `browse.html#${layer.id}`;
       wrap.appendChild(btn);
       return wrap;
     }
@@ -64,13 +63,12 @@ App.features.table = (() => {
       wrap.appendChild(renderPick(layer, option));
     }
 
-    const add = document.createElement('button');
-    add.type = 'button';
+    const add = document.createElement('a');
     add.className = 'selection-add';
     add.setAttribute('aria-label', `Add another ${shortLayerName(layer.name)}`);
     add.title = `Add another ${shortLayerName(layer.name)}`;
     add.textContent = '+';
-    add.addEventListener('click', () => App.features.modal.open(layer.id));
+    add.href = `browse.html#${layer.id}`;
     wrap.appendChild(add);
 
     return wrap;

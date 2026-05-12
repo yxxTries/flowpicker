@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="src/styles/base.css" />
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
   <link rel="stylesheet" href="src/features/browse-filters/browse-filters.css" />
+  <link rel="stylesheet" href="src/features/modal/modal.css" />
 </head>
 <body>
   <main class="page">
@@ -58,13 +59,29 @@
 
     <p class="tagline">Explore all available tools and options.</p>
 
-    <aside class="browse-filters" aria-label="Filters">
-      <h2 class="browse-filters-title">Filters</h2>
-      <p class="browse-filters-subtitle" id="browse-filters-subtitle">IDE / Editor</p>
-      <div class="browse-filters-body" id="browse-filters-body"></div>
-    </aside>
+    <div class="browse-layout">
+      <aside class="browse-filters" aria-label="Filters">
+        <div class="browse-filters-tabs" role="tablist">
+          <button type="button" class="browse-filters-tab active" id="browse-tab-filters" role="tab" aria-selected="true" data-tab="filters">Filters</button>
+          <button type="button" class="browse-filters-tab" id="browse-tab-sort" role="tab" aria-selected="false" data-tab="sort">Sort</button>
+        </div>
+        <p class="browse-filters-subtitle" id="browse-filters-subtitle">IDE / Editor</p>
+        <div class="browse-filters-body" id="browse-filters-body"></div>
+        <div class="browse-filters-body browse-sort-body" id="browse-sort-body" hidden></div>
+      </aside>
+
+      <section class="browse-results" aria-label="Results">
+        <p class="browse-results-status" id="browse-results-status"></p>
+        <div class="card-grid" id="browse-cards"></div>
+      </section>
+    </div>
   </main>
 
+  <script>window.App = { features: {} };</script>
+  <script src="vendor/sql-wasm.js"></script>
+  <script src="data/attribute-labels.js"></script>
+  <script src="src/db.js"></script>
+  <script src="src/features/selections-store/selections-store.js"></script>
   <script src="src/features/darkmode/darkmode.js"></script>
   <script src="src/features/browse-filters/browse-filters.js"></script>
 </body>

@@ -139,6 +139,9 @@
 }
 
 .selection-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 22px;
   height: 22px;
   padding: 0;
@@ -149,6 +152,7 @@
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
+  text-decoration: none;
   opacity: 0;
   transition: opacity 0.15s ease, color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }

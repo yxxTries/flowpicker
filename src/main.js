@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     warningBanner:   document.getElementById('warning-banner'),
     warningHeadline: document.getElementById('warning-headline'),
     warningList:     document.getElementById('warning-list'),
-    filterCompat:    document.getElementById('filter-compat'),
-    filterStatus:    document.getElementById('filter-status'),
     resetBtn:        document.getElementById('reset-btn'),
   };
 
@@ -38,9 +36,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     throw err;
   }
 
+  // Pick up any selections added from the Browse page (or prior Plan session).
+  if (window.SelectionsStore) {
+    App.state.selections = window.SelectionsStore.load();
+  }
+
   App.features.darkmode.init();
   App.features.warnings.init();
-  App.features.filters.init();
   App.features.modal.init();
   App.features.table.init();
 
@@ -52,6 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function refresh() {
   const hasAny = Object.keys(App.state.selections).length > 0;
   App.refs.resetBtn.hidden = !hasAny;
+  if (window.SelectionsStore) window.SelectionsStore.save(App.state.selections);
   App.features.table.render();
   App.features.warnings.render();
 }

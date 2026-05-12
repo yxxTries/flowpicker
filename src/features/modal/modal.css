@@ -32,7 +32,7 @@
 
 .modal-body {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 1fr;
   flex: 1;
   min-height: 0;
 }
@@ -178,15 +178,34 @@
 }
 
 .option-card:hover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--text);
+  background: var(--surface);
 }
 
 .option-card:active { transform: scale(0.99); }
 
 .option-card.is-selected {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--text);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--text);
+}
+
+.option-card.is-selected::before {
+  content: "✓";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 50%;
+  z-index: 1;
 }
 
 .option-card.is-conflict {

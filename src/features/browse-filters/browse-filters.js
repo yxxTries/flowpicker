@@ -1,24 +1,874 @@
 (() => {
-  // Per-layer filter definitions. Each layer maps to an array of filter groups.
-  // A group is { key, label, options: [{ value, label }] } and renders as a
-  // checkbox group. Fill these in as we agree on filters for each layer.
+  // Per-layer filter definitions. Each group renders as a checkbox group;
+  // selecting nothing means "show all". Filter values are matched against the
+  // option attribute named by `key`. For comma-joined attributes (e.g. `os`,
+  // `compatibility`), an option matches if any selected value appears in its
+  // string.
   const FILTERS_BY_LAYER = {
-    ide:         { label: 'IDE / Editor',          groups: [] },
-    llm:         { label: 'LLM Provider / Model',  groups: [] },
-    integration: { label: 'Integration',           groups: [] },
-    context:     { label: 'Context / RAG',         groups: [] },
-    agent:       { label: 'Agent / Orchestration', groups: [] },
+    ide: {
+      label: 'IDE / Editor',
+      groups: [
+        {
+          key: 'os',
+          label: 'OS support',
+          match: 'contains',
+          options: [
+            { value: 'macOS',   label: 'macOS' },
+            { value: 'Windows', label: 'Windows' },
+            { value: 'Linux',   label: 'Linux' },
+          ],
+        },
+        {
+          key: 'pricing',
+          label: 'Pricing',
+          match: 'equals',
+          options: [
+            { value: 'Free',     label: 'Free' },
+            { value: 'Freemium', label: 'Freemium' },
+            { value: 'Paid',     label: 'Paid' },
+          ],
+        },
+        {
+          key: 'aiIntegration',
+          label: 'AI integration',
+          match: 'equals',
+          options: [
+            { value: 'AI-native',         label: 'AI-native' },
+            { value: 'AI via extension',  label: 'AI via extension' },
+          ],
+        },
+        {
+          key: 'interface',
+          label: 'Interface',
+          match: 'equals',
+          options: [
+            { value: 'GUI',          label: 'GUI' },
+            { value: 'Terminal/TUI', label: 'Terminal/TUI' },
+          ],
+        },
+      ],
+    },
+    llm: {
+      label: 'LLM Provider / Model',
+      groups: [
+        {
+          key: 'provider',
+          label: 'Provider',
+          match: 'equals',
+          options: [
+            { value: 'Anthropic', label: 'Anthropic' },
+            { value: 'OpenAI',    label: 'OpenAI' },
+            { value: 'Google',    label: 'Google' },
+            { value: 'Meta',      label: 'Meta' },
+            { value: 'DeepSeek',  label: 'DeepSeek' },
+          ],
+        },
+        {
+          key: 'hosting',
+          label: 'Hosting',
+          match: 'equals',
+          options: [
+            { value: 'Closed/API',    label: 'Closed / API' },
+            { value: 'Open-weights',  label: 'Open-weights' },
+          ],
+        },
+        {
+          key: 'priceTier',
+          label: 'Price tier',
+          match: 'equals',
+          options: [
+            { value: 'Free',    label: 'Free' },
+            { value: 'Budget',  label: 'Budget' },
+            { value: 'Mid',     label: 'Mid' },
+            { value: 'Premium', label: 'Premium' },
+          ],
+        },
+        {
+          key: 'contextTier',
+          label: 'Context window',
+          match: 'equals',
+          options: [
+            { value: '<32K',       label: '<32K' },
+            { value: '32K-128K',   label: '32K–128K' },
+            { value: '128K-500K',  label: '128K–500K' },
+            { value: '500K+',      label: '500K+' },
+          ],
+        },
+        {
+          key: 'modality',
+          label: 'Modality',
+          match: 'equals',
+          options: [
+            { value: 'Text-only',                   label: 'Text-only' },
+            { value: 'Multimodal (vision)',         label: 'Vision' },
+            { value: 'Multimodal (vision + audio)', label: 'Vision + audio' },
+          ],
+        },
+        {
+          key: 'speedTier',
+          label: 'Speed',
+          match: 'equals',
+          options: [
+            { value: 'Fast',           label: 'Fast' },
+            { value: 'Standard',       label: 'Standard' },
+            { value: 'Slow/Reasoning', label: 'Slow / Reasoning' },
+          ],
+        },
+      ],
+    },
+    integration: {
+      label: 'Integration',
+      groups: [
+        {
+          key: 'compatibility',
+          label: 'Compatible IDE',
+          match: 'contains',
+          options: [
+            { value: 'VS Code',   label: 'VS Code' },
+            { value: 'JetBrains', label: 'JetBrains' },
+            { value: 'Neovim',    label: 'Neovim' },
+            { value: 'Cursor',    label: 'Cursor' },
+            { value: 'terminal',  label: 'Terminal' },
+            { value: 'Anywhere',  label: 'Anywhere' },
+          ],
+        },
+        {
+          key: 'pricing',
+          label: 'Pricing',
+          match: 'equals',
+          options: [
+            { value: 'Free',              label: 'Free' },
+            { value: 'Freemium',          label: 'Freemium' },
+            { value: 'Paid subscription', label: 'Paid subscription' },
+            { value: 'BYO API key',       label: 'BYO API key' },
+          ],
+        },
+        {
+          key: 'openSource',
+          label: 'Open source',
+          match: 'equals',
+          options: [
+            { value: 'Yes', label: 'Yes' },
+            { value: 'No',  label: 'No' },
+          ],
+        },
+        {
+          key: 'interface',
+          label: 'Interface',
+          match: 'equals',
+          options: [
+            { value: 'In-editor',    label: 'In-editor' },
+            { value: 'Terminal/CLI', label: 'Terminal / CLI' },
+            { value: 'API/SDK',      label: 'API / SDK' },
+          ],
+        },
+      ],
+    },
+    context: {
+      label: 'Context / RAG',
+      groups: [
+        {
+          key: 'hosting',
+          label: 'Hosting',
+          match: 'equals',
+          options: [
+            { value: 'Cloud', label: 'Cloud' },
+            { value: 'Local', label: 'Local' },
+          ],
+        },
+        {
+          key: 'setup',
+          label: 'Setup effort',
+          match: 'equals',
+          options: [
+            { value: 'Zero',   label: 'Zero' },
+            { value: 'Low',    label: 'Low' },
+            { value: 'Medium', label: 'Medium' },
+            { value: 'High',   label: 'High' },
+          ],
+        },
+        {
+          key: 'staleness',
+          label: 'Freshness',
+          match: 'equals',
+          options: [
+            { value: 'auto',   label: 'Auto' },
+            { value: 'manual', label: 'Manual' },
+            { value: 'N/A',    label: 'N/A' },
+          ],
+        },
+        {
+          key: 'openSource',
+          label: 'Open source',
+          match: 'equals',
+          options: [
+            { value: 'Yes', label: 'Yes' },
+            { value: 'No',  label: 'No' },
+            { value: 'N/A', label: 'N/A' },
+          ],
+        },
+      ],
+    },
+    agent: {
+      label: 'Agent / Orchestration',
+      groups: [
+        {
+          key: 'autonomy',
+          label: 'Autonomy',
+          match: 'equals',
+          options: [
+            { value: 'None',            label: 'None' },
+            { value: 'Assist',          label: 'Assist' },
+            { value: 'Semi-autonomous', label: 'Semi-autonomous' },
+            { value: 'Autonomous',      label: 'Autonomous' },
+          ],
+        },
+        {
+          key: 'interface',
+          label: 'Interface',
+          match: 'equals',
+          options: [
+            { value: 'In-editor',      label: 'In-editor' },
+            { value: 'Terminal/CLI',   label: 'Terminal / CLI' },
+            { value: 'Framework/SDK',  label: 'Framework / SDK' },
+          ],
+        },
+        {
+          key: 'openSource',
+          label: 'Open source',
+          match: 'equals',
+          options: [
+            { value: 'Yes', label: 'Yes' },
+            { value: 'No',  label: 'No' },
+            { value: 'N/A', label: 'N/A' },
+          ],
+        },
+        {
+          key: 'cost',
+          label: 'Cost model',
+          match: 'equals',
+          options: [
+            { value: 'Free',              label: 'Free' },
+            { value: 'BYO API key',       label: 'BYO API key' },
+            { value: 'Paid subscription', label: 'Paid subscription' },
+            { value: 'N/A',               label: 'N/A' },
+          ],
+        },
+      ],
+    },
+  };
+
+  // Ordered tiers used by sort options. Values not in the list sort last.
+  const TIER_ORDER = {
+    pricing:     ['Free', 'Freemium', 'Paid', 'Paid subscription', 'BYO API key'],
+    priceTier:   ['Free', 'Budget', 'Mid', 'Premium'],
+    contextTier: ['<32K', '32K-128K', '128K-500K', '500K+'],
+    speedTier:   ['Fast', 'Standard', 'Slow/Reasoning'],
+    setup:       ['Zero', 'Low', 'Medium', 'High'],
+    autonomy:    ['None', 'Assist', 'Semi-autonomous', 'Autonomous'],
+    cost:        ['Free', 'BYO API key', 'Paid subscription', 'N/A'],
+  };
+
+  const SORTS_COMMON = [
+    { value: 'default', label: 'Default' },
+    { value: 'name-asc',  label: 'Name (A → Z)' },
+    { value: 'name-desc', label: 'Name (Z → A)' },
+  ];
+
+  const SORTS_BY_LAYER = {
+    ide: [
+      ...SORTS_COMMON,
+      { value: 'tier:pricing:asc',  label: 'Price (low → high)' },
+      { value: 'tier:pricing:desc', label: 'Price (high → low)' },
+    ],
+    llm: [
+      ...SORTS_COMMON,
+      { value: 'tier:priceTier:asc',    label: 'Price (low → high)' },
+      { value: 'tier:priceTier:desc',   label: 'Price (high → low)' },
+      { value: 'tier:contextTier:asc',  label: 'Context (small → large)' },
+      { value: 'tier:contextTier:desc', label: 'Context (large → small)' },
+      { value: 'tier:speedTier:asc',    label: 'Speed (fast → slow)' },
+    ],
+    integration: [
+      ...SORTS_COMMON,
+      { value: 'tier:pricing:asc',  label: 'Price (low → high)' },
+      { value: 'tier:pricing:desc', label: 'Price (high → low)' },
+    ],
+    context: [
+      ...SORTS_COMMON,
+      { value: 'tier:setup:asc',  label: 'Setup effort (low → high)' },
+      { value: 'tier:setup:desc', label: 'Setup effort (high → low)' },
+    ],
+    agent: [
+      ...SORTS_COMMON,
+      { value: 'tier:autonomy:asc',  label: 'Autonomy (low → high)' },
+      { value: 'tier:autonomy:desc', label: 'Autonomy (high → low)' },
+      { value: 'tier:cost:asc',      label: 'Cost (low → high)' },
+    ],
   };
 
   // { [layerId]: { [groupKey]: Set<value> } }
   const selections = {};
+  // { [layerId]: sortValue }
+  const sortBy = {};
 
   function getActiveLayer() {
     const active = document.querySelector('.browse-menu-item.active');
     return active?.dataset.layer || 'ide';
   }
 
-  function render(layerId) {
+  function optionMatches(option, group, selected) {
+    if (selected.size === 0) return true;
+    const raw = option[group.key];
+    if (raw == null || raw === '—') return false;
+    if (group.match === 'contains') {
+      for (const v of selected) {
+        if (String(raw).toLowerCase().includes(v.toLowerCase())) return true;
+      }
+      return false;
+    }
+    return selected.has(String(raw));
+  }
+
+  function filterOptions(layerId, options) {
+    const cfg = FILTERS_BY_LAYER[layerId];
+    if (!cfg || cfg.groups.length === 0) return options;
+    const layerSel = selections[layerId];
+    if (!layerSel) return options;
+
+    return options.filter(opt => {
+      for (const group of cfg.groups) {
+        const sel = layerSel[group.key];
+        if (!sel || sel.size === 0) continue;
+        if (!optionMatches(opt, group, sel)) return false;
+      }
+      return true;
+    });
+  }
+
+  function tierIndex(key, value) {
+    const order = TIER_ORDER[key];
+    if (!order) return Number.MAX_SAFE_INTEGER;
+    const i = order.indexOf(String(value));
+    return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+  }
+
+  function sortOptions(layerId, options) {
+    const mode = sortBy[layerId] || 'default';
+    if (mode === 'default') return options;
+    const arr = options.slice();
+    if (mode === 'name-asc') {
+      arr.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+    } else if (mode === 'name-desc') {
+      arr.sort((a, b) => String(b.name).localeCompare(String(a.name)));
+    } else if (mode.startsWith('tier:')) {
+      const [, key, dir] = mode.split(':');
+      arr.sort((a, b) => {
+        const diff = tierIndex(key, a[key]) - tierIndex(key, b[key]);
+        if (diff !== 0) return dir === 'desc' ? -diff : diff;
+        return String(a.name).localeCompare(String(b.name));
+      });
+    }
+    return arr;
+  }
+
+  function renderCards(layerId) {
+    const container = document.getElementById('browse-cards');
+    const status = document.getElementById('browse-results-status');
+    if (!container) return;
+
+    const layer = (window.LAYERS || []).find(l => l.id === layerId);
+    if (!layer) {
+      container.innerHTML = '';
+      if (status) status.textContent = '';
+      return;
+    }
+
+    const all = layer.options;
+    const visible = sortOptions(layerId, filterOptions(layerId, all));
+
+    container.innerHTML = '';
+    if (visible.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'card-grid-empty';
+      empty.textContent = 'No matches. Try clearing some filters.';
+      container.appendChild(empty);
+    } else {
+      for (const option of visible) {
+        container.appendChild(buildCard(option, layerId));
+      }
+    }
+
+    if (status) {
+      const hidden = all.length - visible.length;
+      status.textContent = hidden > 0
+        ? `Showing ${visible.length} of ${all.length} (${hidden} filtered out)`
+        : `Showing ${visible.length} of ${all.length}`;
+    }
+  }
+
+  function buildCard(option, layerId) {
+    const card = document.createElement('div');
+    card.className = 'option-card browse-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `View details for ${option.name}`);
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.browse-add, .browse-confirm')) return;
+      openDetail(option, layerId);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (e.target !== card) return;
+        e.preventDefault();
+        openDetail(option, layerId);
+      }
+    });
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'browse-add';
+    addBtn.setAttribute('aria-label', `Add ${option.name} to Plan`);
+    addBtn.title = `Add ${option.name} to Plan`;
+    addBtn.textContent = '+';
+    addBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openConfirm(card, addBtn, option, layerId);
+    });
+    card.appendChild(addBtn);
+
+    const title = document.createElement('h3');
+    title.textContent = option.name;
+    card.appendChild(title);
+
+    const labels = (typeof ATTRIBUTE_LABELS !== 'undefined') ? ATTRIBUTE_LABELS : {};
+    const cardKeys = CARD_KEYS_BY_LAYER[layerId];
+    const entries = cardKeys
+      ? cardKeys.map(k => [k, option[k]])
+      : Object.entries(option).filter(([k]) => k !== 'id' && k !== 'name');
+
+    const dl = document.createElement('dl');
+    for (const [key, value] of entries) {
+      if (!value || value === '—') continue;
+      const dt = document.createElement('dt');
+      dt.textContent = labels[key] || key;
+      const dd = document.createElement('dd');
+      dd.textContent = value;
+      dl.appendChild(dt);
+      dl.appendChild(dd);
+    }
+    card.appendChild(dl);
+    return card;
+  }
+
+  const CARD_KEYS_BY_LAYER = {
+    llm: ['provider', 'priceTier', 'contextWindow', 'speedTier'],
+  };
+
+  function shortLayerName(layerId) {
+    const cfg = FILTERS_BY_LAYER[layerId];
+    if (!cfg) return layerId;
+    return cfg.label.split(/[/(]/)[0].trim();
+  }
+
+  function hasVal(v) {
+    return v != null && v !== '' && v !== '—';
+  }
+
+  function renderLlmDetail(body, option) {
+    const sidebar = document.createElement('aside');
+    sidebar.className = 'browse-detail-sidebar';
+
+    const sidebarStats = [
+      {
+        label: 'Price · per M tokens',
+        render: () => {
+          if (!hasVal(option.priceInput) && !hasVal(option.priceOutput)) return null;
+          const wrap = document.createElement('div');
+          wrap.className = 'detail-price';
+          const main = document.createElement('div');
+          main.className = 'detail-price-main';
+          main.textContent = `${option.priceInput || '—'} in  ·  ${option.priceOutput || '—'} out`;
+          wrap.appendChild(main);
+          if (hasVal(option.priceCache)) {
+            const cache = document.createElement('div');
+            cache.className = 'detail-price-sub';
+            cache.textContent = `${option.priceCache} cached`;
+            wrap.appendChild(cache);
+          }
+          if (hasVal(option.priceTier)) {
+            const tier = document.createElement('div');
+            tier.className = 'detail-price-tier';
+            tier.textContent = `${option.priceTier} tier`;
+            wrap.appendChild(tier);
+          }
+          return wrap;
+        },
+      },
+      {
+        label: 'Context',
+        render: () => {
+          if (!hasVal(option.contextWindow) && !hasVal(option.maxOutput)) return null;
+          const wrap = document.createElement('div');
+          const ctx = document.createElement('div');
+          ctx.className = 'detail-stat-big';
+          ctx.textContent = option.contextWindow || '—';
+          wrap.appendChild(ctx);
+          if (hasVal(option.maxOutput)) {
+            const out = document.createElement('div');
+            out.className = 'detail-stat-sub';
+            out.textContent = `${option.maxOutput} max output`;
+            wrap.appendChild(out);
+          }
+          return wrap;
+        },
+      },
+      {
+        label: 'Speed',
+        render: () => {
+          if (!hasVal(option.speedTier)) return null;
+          const wrap = document.createElement('div');
+          const big = document.createElement('div');
+          big.className = 'detail-stat-big';
+          big.textContent = option.speedTier;
+          wrap.appendChild(big);
+          if (hasVal(option.latency)) {
+            const sub = document.createElement('div');
+            sub.className = 'detail-stat-sub';
+            sub.textContent = `${option.latency} latency`;
+            wrap.appendChild(sub);
+          }
+          return wrap;
+        },
+      },
+      {
+        label: 'Hosting',
+        render: () => {
+          if (!hasVal(option.hosting)) return null;
+          const wrap = document.createElement('div');
+          wrap.className = 'detail-stat-text';
+          wrap.textContent = option.hosting;
+          return wrap;
+        },
+      },
+      {
+        label: 'Model ID',
+        render: () => {
+          if (!hasVal(option.modelId)) return null;
+          const wrap = document.createElement('div');
+          wrap.className = 'detail-model-id';
+          const code = document.createElement('code');
+          code.textContent = option.modelId;
+          wrap.appendChild(code);
+          const copy = document.createElement('button');
+          copy.type = 'button';
+          copy.className = 'detail-copy';
+          copy.textContent = 'copy';
+          copy.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(option.modelId);
+              copy.textContent = 'copied';
+              setTimeout(() => { copy.textContent = 'copy'; }, 1200);
+            } catch {}
+          });
+          wrap.appendChild(copy);
+          return wrap;
+        },
+      },
+    ];
+
+    for (const stat of sidebarStats) {
+      const content = stat.render();
+      if (!content) continue;
+      const block = document.createElement('div');
+      block.className = 'detail-sidebar-block';
+      const label = document.createElement('div');
+      label.className = 'detail-sidebar-label';
+      label.textContent = stat.label;
+      block.appendChild(label);
+      block.appendChild(content);
+      sidebar.appendChild(block);
+    }
+
+    const main = document.createElement('div');
+    main.className = 'browse-detail-main';
+
+    if (hasVal(option.bestFor)) {
+      main.appendChild(buildSection('Best for', (sec) => {
+        const p = document.createElement('p');
+        p.className = 'detail-prose';
+        p.textContent = option.bestFor;
+        sec.appendChild(p);
+      }));
+    }
+
+    if (hasVal(option.capabilities) || hasVal(option.modality)) {
+      main.appendChild(buildSection('Capabilities', (sec) => {
+        const list = document.createElement('ul');
+        list.className = 'detail-caps';
+        const caps = [];
+        if (hasVal(option.modality)) caps.push(option.modality);
+        if (hasVal(option.capabilities)) {
+          for (const c of String(option.capabilities).split(',')) {
+            const t = c.trim();
+            if (t) caps.push(t);
+          }
+        }
+        for (const c of caps) {
+          const li = document.createElement('li');
+          li.textContent = c;
+          list.appendChild(li);
+        }
+        sec.appendChild(list);
+      }));
+    }
+
+    const benchmarks = [
+      { key: 'sweBench',  label: 'SWE-bench' },
+      { key: 'humanEval', label: 'HumanEval' },
+      { key: 'mmlu',      label: 'MMLU' },
+    ].filter(b => hasVal(option[b.key]));
+
+    if (benchmarks.length > 0) {
+      main.appendChild(buildSection('Benchmarks', (sec) => {
+        const table = document.createElement('div');
+        table.className = 'detail-benchmarks';
+        for (const b of benchmarks) {
+          const raw = String(option[b.key]);
+          const pct = parseFloat(raw);
+          const row = document.createElement('div');
+          row.className = 'detail-bench-row';
+          const name = document.createElement('span');
+          name.className = 'detail-bench-name';
+          name.textContent = b.label;
+          row.appendChild(name);
+          const bar = document.createElement('span');
+          bar.className = 'detail-bench-bar';
+          const fill = document.createElement('span');
+          fill.className = 'detail-bench-fill';
+          fill.style.width = Number.isFinite(pct) ? `${Math.max(0, Math.min(100, pct))}%` : '0%';
+          bar.appendChild(fill);
+          row.appendChild(bar);
+          const val = document.createElement('span');
+          val.className = 'detail-bench-val';
+          val.textContent = raw;
+          row.appendChild(val);
+          table.appendChild(row);
+        }
+        sec.appendChild(table);
+        if (hasVal(option.benchmark)) {
+          const note = document.createElement('p');
+          note.className = 'detail-bench-note';
+          note.textContent = option.benchmark;
+          sec.appendChild(note);
+        }
+      }));
+    }
+
+    const metaRows = [
+      { label: 'Knowledge cutoff', value: option.knowledgeCutoff },
+      { label: 'Released',         value: option.released },
+    ].filter(r => hasVal(r.value));
+
+    if (metaRows.length > 0) {
+      main.appendChild(buildSection('Details', (sec) => {
+        const dl = document.createElement('dl');
+        dl.className = 'detail-meta';
+        for (const r of metaRows) {
+          const dt = document.createElement('dt');
+          dt.textContent = r.label;
+          const dd = document.createElement('dd');
+          dd.textContent = r.value;
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        }
+        sec.appendChild(dl);
+      }));
+    }
+
+    const footerLinks = [
+      { url: option.websiteUrl, label: 'Website →' },
+      { url: option.docsUrl,    label: 'Docs →' },
+    ].filter(l => hasVal(l.url));
+
+    if (footerLinks.length > 0) {
+      const footer = document.createElement('div');
+      footer.className = 'detail-footer';
+      for (const l of footerLinks) {
+        const link = document.createElement('a');
+        link.className = 'detail-link';
+        link.href = l.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = l.label;
+        footer.appendChild(link);
+      }
+      main.appendChild(footer);
+    }
+
+    body.appendChild(sidebar);
+    body.appendChild(main);
+  }
+
+  function buildSection(title, fill) {
+    const sec = document.createElement('section');
+    sec.className = 'detail-section';
+    const h = document.createElement('h3');
+    h.className = 'detail-section-title';
+    h.textContent = title;
+    sec.appendChild(h);
+    fill(sec);
+    return sec;
+  }
+
+  let activeDetail = null;
+
+  function closeDetail() {
+    if (!activeDetail) return;
+    const { overlay, onKey, prevOverflow } = activeDetail;
+    document.removeEventListener('keydown', onKey, true);
+    document.body.style.overflow = prevOverflow;
+    overlay.remove();
+    activeDetail = null;
+  }
+
+  function openDetail(option, layerId) {
+    closeDetail();
+
+    const overlay = document.createElement('div');
+    overlay.className = 'browse-detail-overlay';
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'browse-detail-backdrop';
+    backdrop.addEventListener('click', closeDetail);
+    overlay.appendChild(backdrop);
+
+    const panel = document.createElement('div');
+    panel.className = 'browse-detail-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-label', `${option.name} details`);
+
+    const header = document.createElement('header');
+    header.className = 'browse-detail-header';
+
+    const titleWrap = document.createElement('div');
+    titleWrap.className = 'browse-detail-title-wrap';
+
+    const title = document.createElement('h2');
+    title.className = 'browse-detail-title';
+    title.textContent = option.name;
+    titleWrap.appendChild(title);
+
+    if (option.provider) {
+      const sub = document.createElement('span');
+      sub.className = 'browse-detail-subtitle';
+      sub.textContent = option.provider;
+      titleWrap.appendChild(sub);
+    }
+    header.appendChild(titleWrap);
+
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'browse-detail-close';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.textContent = '×';
+    closeBtn.addEventListener('click', closeDetail);
+    header.appendChild(closeBtn);
+
+    panel.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'browse-detail-body';
+
+    if (layerId === 'llm') {
+      renderLlmDetail(body, option);
+    }
+
+    panel.appendChild(body);
+
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeDetail();
+    };
+    document.addEventListener('keydown', onKey, true);
+
+    closeBtn.focus();
+
+    activeDetail = { overlay, onKey, prevOverflow };
+  }
+
+  function openConfirm(card, addBtn, option, layerId) {
+    if (card.querySelector('.browse-confirm')) return;
+
+    const existing = window.SelectionsStore?.load() || {};
+    const already = (existing[layerId] || []).some(o => o.id === option.id);
+
+    const popover = document.createElement('div');
+    popover.className = 'browse-confirm';
+
+    const msg = document.createElement('p');
+    msg.className = 'browse-confirm-msg';
+    msg.textContent = already
+      ? `${option.name} is already in your Plan.`
+      : `Add ${option.name} to your ${shortLayerName(layerId)} pick?`;
+    popover.appendChild(msg);
+
+    const actions = document.createElement('div');
+    actions.className = 'browse-confirm-actions';
+
+    const cancel = document.createElement('button');
+    cancel.type = 'button';
+    cancel.className = 'browse-confirm-btn cancel';
+    cancel.textContent = already ? 'Close' : 'Cancel';
+    cancel.addEventListener('click', (e) => {
+      e.stopPropagation();
+      popover.remove();
+    });
+    actions.appendChild(cancel);
+
+    if (!already) {
+      const confirm = document.createElement('button');
+      confirm.type = 'button';
+      confirm.className = 'browse-confirm-btn confirm';
+      confirm.textContent = 'Add';
+      confirm.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (window.SelectionsStore) window.SelectionsStore.add(layerId, option);
+        popover.remove();
+        flashAdded(addBtn);
+      });
+      actions.appendChild(confirm);
+    }
+
+    popover.appendChild(actions);
+    card.appendChild(popover);
+
+    const onDocClick = (e) => {
+      if (!popover.contains(e.target) && e.target !== addBtn) {
+        popover.remove();
+        document.removeEventListener('click', onDocClick, true);
+      }
+    };
+    setTimeout(() => document.addEventListener('click', onDocClick, true), 0);
+  }
+
+  function flashAdded(addBtn) {
+    const original = addBtn.textContent;
+    addBtn.textContent = '✓';
+    addBtn.classList.add('is-added');
+    setTimeout(() => {
+      addBtn.textContent = original;
+      addBtn.classList.remove('is-added');
+    }, 1200);
+  }
+
+  function renderFilters(layerId) {
     const subtitle = document.getElementById('browse-filters-subtitle');
     const body = document.getElementById('browse-filters-body');
     if (!subtitle || !body) return;
@@ -31,7 +881,7 @@
     if (!cfg || cfg.groups.length === 0) {
       const empty = document.createElement('p');
       empty.className = 'browse-filters-empty';
-      empty.textContent = 'No filters yet.';
+      empty.textContent = 'No filters for this category.';
       body.appendChild(empty);
       return;
     }
@@ -60,12 +910,18 @@
         cb.addEventListener('change', () => {
           if (cb.checked) groupSel.add(opt.value);
           else groupSel.delete(opt.value);
+          renderCards(layerId);
         });
+
+        const tick = document.createElement('span');
+        tick.className = 'browse-tick';
+        tick.setAttribute('aria-hidden', 'true');
 
         const text = document.createElement('span');
         text.textContent = opt.label;
 
         row.appendChild(cb);
+        row.appendChild(tick);
         row.appendChild(text);
         wrap.appendChild(row);
       }
@@ -74,22 +930,126 @@
     }
   }
 
-  function init() {
+  function renderSort(layerId) {
+    const body = document.getElementById('browse-sort-body');
+    if (!body) return;
+
+    body.innerHTML = '';
+    const opts = SORTS_BY_LAYER[layerId] || SORTS_COMMON;
+    const current = sortBy[layerId] || 'default';
+    const groupName = `browse-sort-${layerId}`;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'browse-filters-group';
+
+    for (const opt of opts) {
+      const row = document.createElement('label');
+      row.className = 'browse-sort-row';
+
+      const rb = document.createElement('input');
+      rb.type = 'radio';
+      rb.name = groupName;
+      rb.value = opt.value;
+      rb.checked = current === opt.value;
+      rb.addEventListener('change', () => {
+        if (rb.checked) {
+          sortBy[layerId] = opt.value;
+          renderCards(layerId);
+        }
+      });
+
+      const tick = document.createElement('span');
+      tick.className = 'browse-tick';
+      tick.setAttribute('aria-hidden', 'true');
+
+      const text = document.createElement('span');
+      text.textContent = opt.label;
+
+      row.appendChild(rb);
+      row.appendChild(tick);
+      row.appendChild(text);
+      wrap.appendChild(row);
+    }
+
+    body.appendChild(wrap);
+  }
+
+  let activeTab = 'filters';
+
+  function setActiveTab(tab) {
+    activeTab = tab;
+    const filtersBody = document.getElementById('browse-filters-body');
+    const sortBody = document.getElementById('browse-sort-body');
+    const tabs = document.querySelectorAll('.browse-filters-tab');
+    tabs.forEach(t => {
+      const isActive = t.dataset.tab === tab;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    if (filtersBody) filtersBody.hidden = tab !== 'filters';
+    if (sortBody) sortBody.hidden = tab !== 'sort';
+  }
+
+  function render(layerId) {
+    renderFilters(layerId);
+    renderSort(layerId);
+    renderCards(layerId);
+  }
+
+  function activateLayerFromHash(menu) {
+    const hash = (window.location.hash || '').replace(/^#/, '');
+    if (!hash) return;
+    const target = menu.querySelector(`.browse-menu-item[data-layer="${hash}"]`);
+    if (!target) return;
+    for (const item of menu.querySelectorAll('.browse-menu-item')) {
+      item.classList.toggle('active', item === target);
+    }
+  }
+
+  async function init() {
     const menu = document.querySelector('.browse-menu');
     if (!menu) return;
+
+    activateLayerFromHash(menu);
 
     menu.addEventListener('click', (e) => {
       const btn = e.target.closest('.browse-menu-item');
       if (!btn) return;
-
       for (const item of menu.querySelectorAll('.browse-menu-item')) {
         item.classList.toggle('active', item === btn);
       }
-
       render(btn.dataset.layer);
     });
 
-    render(getActiveLayer());
+    window.addEventListener('hashchange', () => {
+      activateLayerFromHash(menu);
+      render(getActiveLayer());
+    });
+
+    const tabs = document.querySelector('.browse-filters-tabs');
+    if (tabs) {
+      tabs.addEventListener('click', (e) => {
+        const btn = e.target.closest('.browse-filters-tab');
+        if (!btn) return;
+        setActiveTab(btn.dataset.tab);
+      });
+    }
+
+    // Render filter UI immediately so the sidebar isn't blank while DB loads.
+    const initialLayer = getActiveLayer();
+    renderFilters(initialLayer);
+    renderSort(initialLayer);
+
+    if (window.App?.db?.load) {
+      try {
+        window.LAYERS = await window.App.db.load();
+      } catch (err) {
+        const status = document.getElementById('browse-results-status');
+        if (status) status.textContent = `Failed to load database: ${err.message}`;
+        return;
+      }
+    }
+    renderCards(getActiveLayer());
   }
 
   document.addEventListener('DOMContentLoaded', init);
