@@ -463,6 +463,10 @@
 
   const CARD_KEYS_BY_LAYER = {
     llm: ['provider', 'priceTier', 'contextWindow', 'speedTier'],
+    ide: ['os', 'pricing', 'aiIntegration', 'notes'],
+    integration: ['compatibility', 'pricing', 'openSource', 'interface'],
+    context: ['hosting', 'staleness', 'setup', 'indexLimit'],
+    agent: ['notes', 'autonomy', 'interface', 'cost'],
   };
 
   function shortLayerName(layerId) {
@@ -710,6 +714,202 @@
     body.appendChild(main);
   }
 
+  function sidebarStat(label, value) {
+    const block = document.createElement('div');
+    block.className = 'detail-sidebar-block';
+    const lbl = document.createElement('div');
+    lbl.className = 'detail-sidebar-label';
+    lbl.textContent = label;
+    block.appendChild(lbl);
+    const val = document.createElement('div');
+    val.className = 'detail-stat-text';
+    val.textContent = value;
+    block.appendChild(val);
+    return block;
+  }
+
+  function commonDetailSections(body, option) {
+    if (hasVal(option.bestFor)) {
+      body.appendChild(buildSection('Best for', (sec) => {
+        const p = document.createElement('p');
+        p.className = 'detail-prose';
+        p.textContent = option.bestFor;
+        sec.appendChild(p);
+      }));
+    }
+
+    if (hasVal(option.capabilities)) {
+      body.appendChild(buildSection('Capabilities', (sec) => {
+        const list = document.createElement('ul');
+        list.className = 'detail-caps';
+        for (const c of String(option.capabilities).split(',')) {
+          const t = c.trim();
+          if (!t) continue;
+          const li = document.createElement('li');
+          li.textContent = t;
+          list.appendChild(li);
+        }
+        sec.appendChild(list);
+      }));
+    }
+
+    const metaRows = [
+      { label: 'Released', value: option.released },
+    ].filter(r => hasVal(r.value));
+
+    if (metaRows.length > 0) {
+      body.appendChild(buildSection('Details', (sec) => {
+        const dl = document.createElement('dl');
+        dl.className = 'detail-meta';
+        for (const r of metaRows) {
+          const dt = document.createElement('dt');
+          dt.textContent = r.label;
+          const dd = document.createElement('dd');
+          dd.textContent = r.value;
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        }
+        sec.appendChild(dl);
+      }));
+    }
+
+    const footerLinks = [
+      { url: option.websiteUrl, label: 'Website →' },
+      { url: option.docsUrl,    label: 'Docs →' },
+    ].filter(l => hasVal(l.url));
+
+    if (footerLinks.length > 0) {
+      const footer = document.createElement('div');
+      footer.className = 'detail-footer';
+      for (const l of footerLinks) {
+        const link = document.createElement('a');
+        link.className = 'detail-link';
+        link.href = l.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = l.label;
+        footer.appendChild(link);
+      }
+      body.appendChild(footer);
+    }
+  }
+
+  function renderIdeDetail(body, option) {
+    const sidebar = document.createElement('aside');
+    sidebar.className = 'browse-detail-sidebar';
+    const stats = [
+      ['OS', option.os],
+      ['Pricing', option.pricing],
+      ['AI Integration', option.aiIntegration],
+      ['Interface', option.interface],
+      ['Extensibility', option.extensibility],
+      ['Collaboration', option.collaboration],
+      ['Notes', option.notes],
+    ];
+    for (const [label, value] of stats) {
+      if (!hasVal(value)) continue;
+      sidebar.appendChild(sidebarStat(label, value));
+    }
+
+    const main = document.createElement('div');
+    main.className = 'browse-detail-main';
+    commonDetailSections(main, option);
+
+    if (hasVal(option.languages)) {
+      main.insertBefore(buildSection('Languages', (sec) => {
+        const list = document.createElement('ul');
+        list.className = 'detail-caps';
+        for (const c of String(option.languages).split(',')) {
+          const t = c.trim();
+          if (!t) continue;
+          const li = document.createElement('li');
+          li.textContent = t;
+          list.appendChild(li);
+        }
+        sec.appendChild(list);
+      }), main.lastChild);
+    }
+
+    body.appendChild(sidebar);
+    body.appendChild(main);
+  }
+
+  function renderIntegrationDetail(body, option) {
+    const sidebar = document.createElement('aside');
+    sidebar.className = 'browse-detail-sidebar';
+    const stats = [
+      ['Compatibility', option.compatibility],
+      ['Pricing', option.pricing],
+      ['Open Source', option.openSource],
+      ['Interface', option.interface],
+      ['Model Choice', option.modelChoice],
+      ['Context Handling', option.contextHandling],
+      ['Privacy', option.privacy],
+    ];
+    for (const [label, value] of stats) {
+      if (!hasVal(value)) continue;
+      sidebar.appendChild(sidebarStat(label, value));
+    }
+
+    const main = document.createElement('div');
+    main.className = 'browse-detail-main';
+    commonDetailSections(main, option);
+
+    body.appendChild(sidebar);
+    body.appendChild(main);
+  }
+
+  function renderContextDetail(body, option) {
+    const sidebar = document.createElement('aside');
+    sidebar.className = 'browse-detail-sidebar';
+    const stats = [
+      ['Index Limit', option.indexLimit],
+      ['Hosting', option.hosting],
+      ['Staleness', option.staleness],
+      ['Setup', option.setup],
+      ['Open Source', option.openSource],
+      ['Index Type', option.indexType],
+      ['Update Mode', option.updateMode],
+      ['Privacy', option.privacy],
+    ];
+    for (const [label, value] of stats) {
+      if (!hasVal(value)) continue;
+      sidebar.appendChild(sidebarStat(label, value));
+    }
+
+    const main = document.createElement('div');
+    main.className = 'browse-detail-main';
+    commonDetailSections(main, option);
+
+    body.appendChild(sidebar);
+    body.appendChild(main);
+  }
+
+  function renderAgentDetail(body, option) {
+    const sidebar = document.createElement('aside');
+    sidebar.className = 'browse-detail-sidebar';
+    const stats = [
+      ['Notes', option.notes],
+      ['Autonomy', option.autonomy],
+      ['Interface', option.interface],
+      ['Open Source', option.openSource],
+      ['Cost Model', option.cost],
+      ['Model Choice', option.modelChoice],
+      ['Guardrails', option.guardrails],
+    ];
+    for (const [label, value] of stats) {
+      if (!hasVal(value)) continue;
+      sidebar.appendChild(sidebarStat(label, value));
+    }
+
+    const main = document.createElement('div');
+    main.className = 'browse-detail-main';
+    commonDetailSections(main, option);
+
+    body.appendChild(sidebar);
+    body.appendChild(main);
+  }
+
   function buildSection(title, fill) {
     const sec = document.createElement('section');
     sec.className = 'detail-section';
@@ -783,6 +983,14 @@
 
     if (layerId === 'llm') {
       renderLlmDetail(body, option);
+    } else if (layerId === 'ide') {
+      renderIdeDetail(body, option);
+    } else if (layerId === 'integration') {
+      renderIntegrationDetail(body, option);
+    } else if (layerId === 'context') {
+      renderContextDetail(body, option);
+    } else if (layerId === 'agent') {
+      renderAgentDetail(body, option);
     }
 
     panel.appendChild(body);

@@ -34,4 +34,13 @@ const ATTRIBUTE_LABELS = {
   released: 'Released',
   docsUrl: 'Docs',
   websiteUrl: 'Website',
+  languages: 'Languages',
+  extensibility: 'Extensibility',
+  collaboration: 'Collaboration',
+  modelChoice: 'Model choice',
+  contextHandling: 'Context handling',
+  privacy: 'Privacy',
+  indexType: 'Index type',
+  updateMode: 'Update mode',
+  guardrails: 'Guardrails',
 };
