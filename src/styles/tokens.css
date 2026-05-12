@@ -9,3 +9,15 @@
   --chip-bg: #f1f1ee;
   --chip-text: #444440;
 }
+
+:root[data-theme="dark"] {
+  --bg: #1a1a19;
+  --surface: #2a2a29;
+  --border: #3a3a38;
+  --text: #e8e8e6;
+  --muted: #9a9a96;
+  --accent: #5a7fff;
+  --accent-soft: #1a3a8a;
+  --chip-bg: #3a3a38;
+  --chip-text: #b8b8b4;
+}

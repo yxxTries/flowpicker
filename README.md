@@ -67,11 +67,11 @@ flowpicker/
 
 ## Conventions
 
-- **No build**: all files are loaded via `<link>` / `<script>` tags. Order in `index.html` matters — tokens before base, data before features, all features before nothing (main.js bootstraps via `DOMContentLoaded` so it can come first or last).
-- **Globals via `App`**: features attach to `window.App.features.<name>` and share state through `App.state`. No ES modules (would require a server for `file://`).
+- **No build**: all files are loaded via `<link>` / `<script>` tags. Order in `index.html` matters — `sql-wasm.js` before `main.js`, `main.js` (declares `App`) before `db.js` (attaches to `App`), all features after.
+- **Globals via `App`**: features attach to `window.App.features.<name>` and share state through `App.state`. No ES modules.
 - **Shared DOM refs**: cached once in `App.refs` by `main.js`. Features read from there instead of re-querying.
 - **One feature per folder**: adding a feature means adding `src/features/<name>/<name>.js` + `<name>.css`, attaching to `App.features.<name>`, and wiring its script + stylesheet in `index.html`.
-- **Data is dumb**: `data/*.js` files declare `const` arrays/objects. No imports, no logic.
+- **Products from SQLite**: `src/db.js` loads `data/flowpicker.db` and materializes a synchronous `window.LAYERS` array. Features read `LAYERS` as before — the DB is just where the data lives now.
 
 ## Adding a feature
 

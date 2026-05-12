@@ -178,7 +178,7 @@ App.features.modal = (() => {
       if (next.length === 0) delete App.state.selections[layerId];
       else App.state.selections[layerId] = next;
     } else {
-      App.state.selections[layerId] = [...current, option];
+      App.state.selections[layerId] = [option];
     }
     close();
     refresh();

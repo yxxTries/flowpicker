@@ -60,6 +60,10 @@
   border-bottom: 1px solid var(--border);
 }
 
+:root[data-theme="dark"] .picker-table thead th {
+  background: #1f1f1e;
+}
+
 .col-layer      { width: 16%; }
 .col-selection  { width: 26%; }
 .col-cost       { width: 11%; }

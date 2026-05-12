@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     throw err;
   }
 
+  App.features.darkmode.init();
   App.features.warnings.init();
   App.features.filters.init();
   App.features.modal.init();
