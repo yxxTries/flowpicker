@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved – Flowpicker</title>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/features/auth/auth.css" />
+  <link rel="stylesheet" href="src/features/saved-flows/saved-flows.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="/" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Plan</a>
+        <a href="browse.html">Browse</a>
+        <a href="saved.html" class="active" aria-current="page">Saved</a>
+      </nav>
+      <div id="auth-header-slot"></div>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="tagline">Your saved stacks.</p>
+
+    <div id="saved-container"></div>
+  </main>
+
+  <div id="auth-modal" class="auth-modal" hidden>
+    <div class="auth-modal-backdrop"></div>
+    <div class="auth-modal-panel"></div>
+  </div>
+
+  <script>window.App = { features: {} };</script>
+  <script src="src/features/selections-store/selections-store.js"></script>
+  <script src="src/features/saved-flows/saved-flows.js"></script>
+  <script src="src/features/darkmode/darkmode.js"></script>
+  <script src="src/features/auth/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      App.features.darkmode.init();
+      renderSaved();
+    });
+
+    function renderSaved() {
+      const container = document.getElementById('saved-container');
+      const user = window.FlowpickerAuth && window.FlowpickerAuth.getUser();
+
+      if (!user) {
+        container.innerHTML = `
+          <div class="saved-empty">
+            <p>Sign in to see your saved stacks.</p>
+            <p><a href="#" id="saved-signin-link">Sign in or create an account</a></p>
+          </div>`;
+        document.getElementById('saved-signin-link').addEventListener('click', (e) => {
+          e.preventDefault();
+          window.FlowpickerAuth.openSignIn();
+        });
+        return;
+      }
+
+      const flows = window.SavedFlows.listFor(user.email);
+
+      if (flows.length === 0) {
+        container.innerHTML = `
+          <div class="saved-empty">
+            <p>No saved stacks yet.</p>
+            <p>Build one on the <a href="index.html">Plan</a> page, then click Save.</p>
+          </div>`;
+        return;
+      }
+
+      const fmt = (ts) => {
+        const d = new Date(ts);
+        return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+      };
+
+      container.innerHTML = `
+        <ul class="saved-list">
+          ${flows.map(f => `
+            <li class="saved-item" data-id="${f.id}">
+              <div class="saved-item-main">
+                <div class="saved-item-name">${escapeHtml(f.name)}</div>
+                <div class="saved-item-meta">Saved ${fmt(f.savedAt)}</div>
+              </div>
+              <div class="saved-item-actions">
+                <button type="button" class="saved-item-btn" data-action="open">Open</button>
+                <button type="button" class="saved-item-btn saved-item-btn--danger" data-action="delete" aria-label="Delete">Delete</button>
+              </div>
+            </li>
+          `).join('')}
+        </ul>`;
+
+      container.querySelectorAll('.saved-item').forEach(li => {
+        const id = li.dataset.id;
+        li.querySelector('[data-action="open"]').addEventListener('click', () => {
+          const flow = window.SavedFlows.get(user.email, id);
+          if (!flow) return;
+          window.SelectionsStore.save(flow.selections);
+          window.location.href = 'index.html';
+        });
+        li.querySelector('[data-action="delete"]').addEventListener('click', () => {
+          window.SavedFlows.remove(user.email, id);
+          renderSaved();
+        });
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[c]));
+    }
+  </script>
+</body>
+</html>

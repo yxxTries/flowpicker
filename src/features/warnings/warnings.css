@@ -67,3 +67,20 @@
 }
 
 .warning-list li + li { margin-top: 4px; }
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Compact warning banner with reduced inset list padding. */
+@media (max-width: 720px) {
+  .warning-summary {
+    padding: 10px 12px;
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .warning-toggle-hint { display: none; }
+
+  .warning-list {
+    padding: 4px 14px 12px 32px;
+    font-size: 13px;
+  }
+}

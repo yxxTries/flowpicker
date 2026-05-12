@@ -686,8 +686,132 @@
   }
 }
 
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Tighter filter panel, single-column results, and the detail
+   overlay drops the sidebar so the body fills the viewport. */
+@media (max-width: 720px) {
+  .browse-layout {
+    gap: 16px;
+  }
+
+  .browse-filters {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .browse-results .card-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .browse-detail-overlay {
+    padding: 12px;
+  }
+
+  .browse-detail-panel {
+    width: 100%;
+    height: calc(100vh - 24px);
+    max-height: none;
+    border-radius: 12px;
+  }
+
+  .browse-detail-header {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .browse-detail-title-wrap {
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .browse-detail-title {
+    font-size: 16px;
+  }
+
+  /* Stack sidebar above main body on phones — sidebar becomes a
+     compact summary strip. */
+  .browse-detail-body {
+    grid-template-columns: 1fr;
+  }
+
+  .browse-detail-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .browse-detail-main {
+    padding: 16px;
+    gap: 18px;
+  }
+
+  .detail-bench-row {
+    grid-template-columns: 80px 1fr 40px;
+    gap: 8px;
+    font-size: 12.5px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .browse-filters {
     animation: none;
   }
+}
+
+/* ── Pagination ─────────────────────────────────────────────────── */
+.browse-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 32px 0 16px;
+}
+
+.browse-pagination[hidden] { display: none; }
+
+.browse-pagination-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  min-width: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.browse-pagination-btn:hover:not(:disabled):not(.is-active) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.browse-pagination-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.browse-pagination-btn.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  cursor: default;
+}
+
+.browse-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.browse-pagination-dots {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 0 4px;
+  user-select: none;
 }

@@ -255,5 +255,40 @@
 }
 
 @media (max-width: 720px) {
-  .modal-body { grid-template-columns: 1fr; }
+  .modal {
+    padding: 12px;
+  }
+
+  .modal-panel {
+    height: calc(100vh - 24px);
+    max-height: none;
+    border-radius: 12px;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-header {
+    padding: 14px 16px;
+  }
+
+  .modal-header h2 {
+    font-size: 16px;
+  }
+
+  .card-grid {
+    padding: 16px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .option-card {
+    padding: 12px 14px;
+  }
+
+  .about-view,
+  .configure-view {
+    padding: 16px;
+  }
 }

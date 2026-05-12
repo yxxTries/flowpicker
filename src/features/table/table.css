@@ -12,7 +12,7 @@
 .reset-btn {
   background: none;
   border: 1px solid var(--border);
-  color: var(--muted);
+  color: var(--text);
   padding: 6px 14px;
   border-radius: 8px;
   font-size: 13px;
@@ -21,10 +21,12 @@
   transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
 }
 
-.reset-btn:hover {
-  background: #fff0ee;
-  border-color: #d97560;
-  color: #a3382c;
+.reset-btn:hover,
+.reset-btn:focus-visible {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
 }
 
 .reset-btn[hidden] { display: none; }
@@ -242,4 +244,75 @@
 
 .website-link:hover {
   text-decoration: underline;
+}
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   The 8-column table cannot fit on a phone. Allow the table to
+   scroll horizontally inside its own viewport without forcing the
+   whole page to scroll. Tightens cell padding so more is visible.   */
+@media (max-width: 720px) {
+  .picker-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    table-layout: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .picker-table thead,
+  .picker-table tbody,
+  .picker-table tr {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    table-layout: auto;
+  }
+
+  .picker-table thead th {
+    padding: 10px 12px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .picker-table td {
+    padding: 12px 12px;
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  /* Force a sensible minimum width per column so content isn't squished. */
+  .col-layer      { min-width: 140px; }
+  .col-selection  { min-width: 160px; }
+  .col-cost       { min-width: 110px; }
+  .col-source     { min-width: 100px; }
+  .col-complexity { min-width: 110px; }
+  .col-provider   { min-width: 100px; }
+  .col-keyspecs   { min-width: 140px; }
+  .col-website    { min-width: 110px; }
+
+  /* Hover-revealed add/remove affordances are unreliable on touch —
+     keep them visible at low opacity so they're tappable without hover. */
+  .selection-add {
+    opacity: 0.6;
+  }
+
+  .selection-name-wrap .selection-remove {
+    width: 22px;
+    margin-left: 6px;
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+
+  .table-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .picker-table thead th { padding: 8px 10px; }
+  .picker-table td { padding: 10px 10px; font-size: 12.5px; }
 }

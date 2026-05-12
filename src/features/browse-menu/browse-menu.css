@@ -110,3 +110,54 @@
     animation: none;
   }
 }
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Drop the floating pill into normal flow on its own row, otherwise
+   it absolutely-positions over the brand + auth controls. Allow
+   horizontal scrolling within the pill so all 5 layer chips remain
+   reachable without breaking onto multiple rows. */
+@media (max-width: 720px) {
+  .browse-menu:not(.browse-menu-preview) {
+    position: static;
+    transform: none;
+    order: 4;
+    width: 100%;
+    max-width: 100%;
+    margin: 4px 0 0;
+    padding: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    box-shadow: none;
+  }
+
+  .browse-menu-item {
+    padding: 6px 12px;
+    font-size: 13px;
+    flex: 0 0 auto;
+  }
+
+  /* The Plan-page preview pill animation looks fine collapsed but should
+     still be centered horizontally so it doesn't anchor on top of the
+     brand. Push it below the header by removing the vertical centering. */
+  .browse-menu-preview {
+    top: auto;
+    bottom: -8px;
+    transform: translate(-50%, 100%);
+  }
+
+  @keyframes browse-menu-pop {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, calc(100% - 8px)) scaleX(0.6);
+    }
+    60% {
+      opacity: 1;
+      transform: translate(-50%, 100%) scaleX(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, 100%) scaleX(1);
+    }
+  }
+}

@@ -368,7 +368,20 @@
 
   if (typeof App !== 'undefined') {
     App.features.auth = { init };
-  } else {
+  }
+
+  // Public API for other features (e.g. Save button) to gate on auth.
+  window.FlowpickerAuth = {
+    isSignedIn: () => !!currentUser,
+    getUser: () => currentUser,
+    openSignIn: () => openModal('signin'),
+  };
+
+  // Self-initialize regardless: index.html's main.js doesn't call auth.init(),
+  // and this way the same file works on every page.
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

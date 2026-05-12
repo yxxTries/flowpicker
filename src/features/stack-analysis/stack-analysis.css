@@ -138,3 +138,30 @@
 .dot.is-filled {
   background: var(--accent);
 }
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Tighter container padding and more compact cost summary. */
+@media (max-width: 720px) {
+  .stack-analysis {
+    margin: 24px 0 56px;
+    padding: 18px 16px;
+    border-radius: 10px;
+  }
+
+  .stack-cost-list {
+    column-gap: 12px;
+  }
+
+  .stack-cost-summary {
+    padding: 12px 14px;
+  }
+
+  .stack-cost-num {
+    font-size: 18px;
+  }
+
+  .stack-metric-row {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+}

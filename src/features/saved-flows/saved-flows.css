@@ -1,0 +1,124 @@
+.saved-empty {
+  margin-top: 48px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.saved-empty a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.saved-empty a:hover { text-decoration: underline; }
+
+.saved-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.saved-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.saved-item:hover {
+  border-color: var(--accent);
+}
+
+.saved-item-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.saved-item-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.saved-item-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.saved-item-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.saved-item-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.saved-item-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.saved-item-btn--danger:hover {
+  border-color: #e5484d;
+  background: color-mix(in srgb, #e5484d 10%, transparent);
+  color: #e5484d;
+}
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Stack the action buttons under the name when there isn't enough
+   width for them to sit side-by-side without crowding. */
+@media (max-width: 720px) {
+  .saved-list {
+    margin-top: 20px;
+  }
+
+  .saved-item {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .saved-item-main {
+    flex: 1 1 100%;
+  }
+
+  .saved-item-actions {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  .saved-empty {
+    margin-top: 24px;
+    padding: 28px 18px;
+  }
+}

@@ -1,3 +1,17 @@
+/* Push auth slot + dark-mode toggle to the right edge of the header.
+   The base stylesheet also sets margin-left: auto on .dark-mode-toggle —
+   override it so the auto-margin only fires on the auth slot, otherwise
+   the free space splits between the two items. */
+#auth-header-slot {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.site-header .dark-mode-toggle {
+  margin-left: 0;
+}
+
 /* ── Auth button in header ── */
 .auth-btn {
   background: none;
@@ -360,4 +374,43 @@
   font-size: 13px;
   color: var(--muted);
   line-height: 1.5;
+}
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Tighter padding inside the auth modal and dropdown sized so it
+   never overflows a phone viewport. */
+@media (max-width: 720px) {
+  .auth-modal {
+    padding: 12px;
+  }
+
+  .auth-modal-panel {
+    padding: 22px 18px;
+    gap: 16px;
+  }
+
+  .auth-modal-title {
+    font-size: 18px;
+  }
+
+  .auth-btn,
+  .auth-avatar-btn {
+    font-size: 12.5px;
+    padding: 5px 10px;
+  }
+
+  .auth-avatar-btn {
+    padding: 4px 8px 4px 5px;
+  }
+
+  .auth-avatar {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Constrain the dropdown so it never escapes the viewport on the right. */
+  .auth-dropdown {
+    min-width: 180px;
+    max-width: calc(100vw - 24px);
+  }
 }

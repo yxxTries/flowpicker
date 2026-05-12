@@ -133,3 +133,62 @@ html, body {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Phone layout: tighter page padding, header wraps to two rows,
+   nav links sit on their own row so the brand + auth + dark-mode
+   buttons stop overlapping.                                          */
+@media (max-width: 720px) {
+  .page {
+    padding: 16px 14px 64px;
+  }
+
+  .site-header {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding: 10px 0 12px;
+    margin-bottom: 12px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  /* Nav drops to a full-width second row so it never collides with
+     the brand or the auth/dark-mode controls. */
+  .site-nav {
+    order: 3;
+    width: 100%;
+    gap: 16px;
+    justify-content: flex-start;
+    padding-top: 4px;
+  }
+
+  /* Auth slot keeps its margin-left:auto so it stays on the brand row,
+     pushed to the right. The dark-mode toggle sits next to it. */
+  #auth-header-slot {
+    margin-left: auto;
+  }
+
+  .dark-mode-toggle {
+    margin-left: 0;
+    padding: 6px;
+    font-size: 18px;
+  }
+
+  .tagline {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 12px 10px 56px;
+  }
+
+  .site-nav {
+    gap: 12px;
+    font-size: 13px;
+  }
+}

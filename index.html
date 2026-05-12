@@ -36,6 +36,7 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html" class="active" aria-current="page">Plan</a>
         <a href="browse.html" id="browse-link">Browse</a>
+        <a href="saved.html">Saved</a>
       </nav>
       <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
         <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
@@ -76,6 +77,7 @@
           <span aria-hidden="true">🔗</span>
           <span>Share</span>
         </button>
+        <button type="button" id="save-btn" class="toolbar-btn" title="Save this stack to your account">Save</button>
         <button type="button" id="export-btn" class="toolbar-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="export-menu">
           <span>Export</span>
           <span class="toolbar-btn-caret" aria-hidden="true">▾</span>
@@ -159,5 +161,28 @@
   <script src="src/features/stack-analysis/stack-analysis.js"></script>
   <script src="src/features/list-id/list-id.js"></script>
   <script src="src/features/auth/auth.js"></script>
+  <script src="src/features/saved-flows/saved-flows.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('save-btn');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        if (!window.FlowpickerAuth || !window.FlowpickerAuth.isSignedIn()) {
+          window.FlowpickerAuth.openSignIn();
+          return;
+        }
+        const user = window.FlowpickerAuth.getUser();
+        const selections = (window.App && window.App.state && window.App.state.selections) || {};
+        const flow = {
+          id: `flow-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          name: window.SavedFlows.defaultName(selections),
+          selections,
+          savedAt: Date.now(),
+        };
+        window.SavedFlows.save(user.email, flow);
+        window.location.href = 'saved.html';
+      });
+    });
+  </script>
 </body>
 </html>

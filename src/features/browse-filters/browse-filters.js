@@ -311,6 +311,9 @@
   const selections = {};
   // { [layerId]: sortValue }
   const sortBy = {};
+  // { [layerId]: pageNumber } — 1-indexed
+  const currentPage = {};
+  const PAGE_SIZE = 24;
 
   function getActiveLayer() {
     const active = document.querySelector('.browse-menu-item.active');
@@ -394,11 +397,18 @@
     if (!layer) {
       container.innerHTML = '';
       if (status) status.textContent = '';
+      renderPagination(layerId, 0, 0);
       return;
     }
 
     const all = layer.options;
     const visible = sortOptions(layerId, filterOptions(layerId, all));
+
+    const totalPages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
+    const page = Math.min(Math.max(1, currentPage[layerId] || 1), totalPages);
+    currentPage[layerId] = page;
+    const start = (page - 1) * PAGE_SIZE;
+    const pageItems = visible.slice(start, start + PAGE_SIZE);
 
     container.innerHTML = '';
     if (visible.length === 0) {
@@ -407,17 +417,95 @@
       empty.textContent = 'No matches. Try clearing some filters.';
       container.appendChild(empty);
     } else {
-      for (const option of visible) {
+      for (const option of pageItems) {
         container.appendChild(buildCard(option, layerId));
       }
     }
 
     if (status) {
       const hidden = all.length - visible.length;
-      status.textContent = hidden > 0
-        ? `Showing ${visible.length} of ${all.length} (${hidden} filtered out)`
+      const rangeEnd = start + pageItems.length;
+      const base = visible.length > PAGE_SIZE
+        ? `Showing ${start + 1}–${rangeEnd} of ${visible.length}`
         : `Showing ${visible.length} of ${all.length}`;
+      status.textContent = hidden > 0 && visible.length <= PAGE_SIZE
+        ? `${base} (${hidden} filtered out)`
+        : base;
     }
+
+    renderPagination(layerId, page, totalPages);
+  }
+
+  function renderPagination(layerId, page, totalPages) {
+    let container = document.getElementById('browse-pagination');
+    if (!container) {
+      container = document.createElement('nav');
+      container.id = 'browse-pagination';
+      container.className = 'browse-pagination';
+      container.setAttribute('aria-label', 'Pagination');
+      const results = document.querySelector('.browse-results');
+      if (results) results.appendChild(container);
+    }
+
+    container.innerHTML = '';
+    if (totalPages <= 1) {
+      container.hidden = true;
+      return;
+    }
+    container.hidden = false;
+
+    const mkBtn = (label, targetPage, opts = {}) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'browse-pagination-btn';
+      if (opts.active) btn.classList.add('is-active');
+      if (opts.disabled) btn.disabled = true;
+      btn.textContent = label;
+      if (opts.ariaLabel) btn.setAttribute('aria-label', opts.ariaLabel);
+      if (!opts.disabled && !opts.active) {
+        btn.addEventListener('click', () => {
+          currentPage[layerId] = targetPage;
+          renderCards(layerId);
+          const results = document.querySelector('.browse-results');
+          if (results) results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+      return btn;
+    };
+
+    container.appendChild(mkBtn('‹ Prev', page - 1, { disabled: page === 1, ariaLabel: 'Previous page' }));
+
+    // Compact page numbers: show first, last, current ± 1, with ellipses
+    const pageNums = compactPageRange(page, totalPages);
+    for (const p of pageNums) {
+      if (p === '…') {
+        const dots = document.createElement('span');
+        dots.className = 'browse-pagination-dots';
+        dots.textContent = '…';
+        container.appendChild(dots);
+      } else {
+        container.appendChild(mkBtn(String(p), p, {
+          active: p === page,
+          ariaLabel: `Page ${p}`,
+        }));
+      }
+    }
+
+    container.appendChild(mkBtn('Next ›', page + 1, { disabled: page === totalPages, ariaLabel: 'Next page' }));
+  }
+
+  function compactPageRange(current, total) {
+    const result = [];
+    const window = 1; // pages on each side of current
+    const pages = new Set([1, total, current, current - window, current + window]);
+    const sorted = [...pages].filter(p => p >= 1 && p <= total).sort((a, b) => a - b);
+    let prev = 0;
+    for (const p of sorted) {
+      if (p - prev > 1) result.push('…');
+      result.push(p);
+      prev = p;
+    }
+    return result;
   }
 
   function buildCard(option, layerId) {
@@ -1118,6 +1206,7 @@
         cb.addEventListener('change', () => {
           if (cb.checked) groupSel.add(opt.value);
           else groupSel.delete(opt.value);
+          currentPage[layerId] = 1;
           renderCards(layerId);
         });
 
@@ -1162,6 +1251,7 @@
       rb.addEventListener('change', () => {
         if (rb.checked) {
           sortBy[layerId] = opt.value;
+          currentPage[layerId] = 1;
           renderCards(layerId);
         }
       });
@@ -1226,6 +1316,7 @@
       for (const item of menu.querySelectorAll('.browse-menu-item')) {
         item.classList.toggle('active', item === btn);
       }
+      currentPage[btn.dataset.layer] = 1;
       render(btn.dataset.layer);
     });
 

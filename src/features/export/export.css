@@ -128,3 +128,29 @@
 }
 
 .export-toast[hidden] { display: none; }
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Keep export menu inside the viewport and let the toolbar wrap. */
+@media (max-width: 720px) {
+  .export-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .export-menu {
+    left: auto;
+    right: 0;
+    min-width: 200px;
+    max-width: calc(100vw - 24px);
+  }
+
+  .export-toast {
+    left: 12px;
+    right: 12px;
+    transform: translateY(8px);
+    text-align: center;
+  }
+
+  .export-toast.is-visible {
+    transform: translateY(0);
+  }
+}

@@ -60,3 +60,20 @@
   color: var(--accent);
   border-color: var(--accent);
 }
+
+/* ── Mobile (≤ 720px) ─────────────────────────────────────────────
+   Allow the URL bar to take a full row above the export buttons,
+   and let the field shrink to fit. */
+@media (max-width: 720px) {
+  .list-url-bar {
+    flex: 1 1 100%;
+    margin-right: 0;
+    min-width: 0;
+  }
+
+  .list-url-field {
+    width: auto;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
