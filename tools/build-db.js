@@ -18,6 +18,7 @@ const LAYERS = [
         id: 'vscode', name: 'VS Code',
         notes: 'Largest extension ecosystem', os: 'macOS, Windows, Linux', pricing: 'Free',
         aiIntegration: 'AI via extension', interface: 'GUI',
+        openSource: 'Yes', setup: 'Zero',
         bestFor: 'Extension-rich general development across all languages',
         capabilities: 'Vim mode, Multi-cursor, Remote dev, SSH, WSL, Extensions, Live Share',
         languages: 'All major, via LSP',
@@ -31,6 +32,7 @@ const LAYERS = [
         id: 'cursor', name: 'Cursor',
         notes: 'Best built-in inline AI', os: 'macOS, Windows, Linux', pricing: 'Freemium',
         aiIntegration: 'AI-native', interface: 'GUI',
+        openSource: 'No', setup: 'Zero',
         bestFor: 'AI-first development with inline editing and chat',
         capabilities: 'Vim mode, Multi-cursor, AI inline edits, Chat, Agent mode, Tabs, Auto-context',
         languages: 'All major, via LSP',
@@ -44,6 +46,7 @@ const LAYERS = [
         id: 'zed', name: 'Zed',
         notes: 'Fastest, Rust-native', os: 'macOS, Linux', pricing: 'Free',
         aiIntegration: 'AI-native', interface: 'GUI',
+        openSource: 'Yes', setup: 'Zero',
         bestFor: 'Blazing-fast collaborative editing with built-in AI',
         capabilities: 'Vim mode, Multi-cursor, AI inline, CRDT collab, GPU rendering',
         languages: 'All major, via LSP',
@@ -57,6 +60,7 @@ const LAYERS = [
         id: 'neovim', name: 'Neovim',
         notes: 'Terminal-native, keyboard-first', os: 'macOS, Windows, Linux', pricing: 'Free',
         aiIntegration: 'AI via extension', interface: 'Terminal/TUI',
+        openSource: 'Yes', setup: 'Medium',
         bestFor: 'Terminal-native, keyboard-driven editing with deep extensibility',
         capabilities: 'Vim mode, Multi-cursor, Remote dev, Lua scripting, Treesitter, LSP',
         languages: 'All major, via LSP',
@@ -70,6 +74,7 @@ const LAYERS = [
         id: 'jetbrains', name: 'JetBrains',
         notes: 'Deep language tooling', os: 'macOS, Windows, Linux', pricing: 'Freemium',
         aiIntegration: 'AI via extension', interface: 'GUI',
+        openSource: 'No', setup: 'Low',
         bestFor: 'Deep language-aware tooling with refactoring and static analysis',
         capabilities: 'Vim mode, Multi-cursor, Remote dev, Deep refactoring, Profiling, DB tools, Extensions',
         languages: 'Java, Kotlin, Python, JS/TS, C#, Go, many more',
@@ -194,7 +199,7 @@ const LAYERS = [
       {
         id: 'copilot', name: 'GitHub Copilot',
         compatibility: 'VS Code, JetBrains, Neovim', pricing: 'Paid subscription',
-        openSource: 'No', interface: 'In-editor',
+        openSource: 'No', interface: 'In-editor', setup: 'Zero',
         bestFor: 'AI completions and chat across major IDEs from a trusted platform',
         capabilities: 'Inline completion, Chat, Multi-file edits, Agent mode, Code review',
         modelChoice: 'Multiple providers',
@@ -207,7 +212,7 @@ const LAYERS = [
       {
         id: 'continue', name: 'Continue.dev',
         compatibility: 'VS Code, JetBrains', pricing: 'Free',
-        openSource: 'Yes', interface: 'In-editor',
+        openSource: 'Yes', interface: 'In-editor', setup: 'Low',
         bestFor: 'Open-source AI extension with full model and provider flexibility',
         capabilities: 'Inline completion, Chat, Multi-file edits, Agent mode',
         modelChoice: 'BYO model',
@@ -220,7 +225,7 @@ const LAYERS = [
       {
         id: 'codeium', name: 'Codeium',
         compatibility: 'VS Code, JetBrains, Vim', pricing: 'Freemium',
-        openSource: 'No', interface: 'In-editor',
+        openSource: 'No', interface: 'In-editor', setup: 'Zero',
         bestFor: 'Free AI completions with broad IDE support',
         capabilities: 'Inline completion, Chat, Command palette, Multi-file edits',
         modelChoice: 'Fixed',
@@ -233,7 +238,7 @@ const LAYERS = [
       {
         id: 'cursor-built', name: 'Cursor built-in',
         compatibility: 'Cursor only', pricing: 'Paid subscription',
-        openSource: 'No', interface: 'In-editor',
+        openSource: 'No', interface: 'In-editor', setup: 'Zero',
         bestFor: 'Tightest IDE-AI integration with tab-to-apply and inline edits',
         capabilities: 'Inline completion, Chat, Multi-file edits, Agent mode, Tabs, Auto-context, Composer',
         modelChoice: 'Multiple providers',
@@ -246,7 +251,7 @@ const LAYERS = [
       {
         id: 'aider', name: 'Aider (terminal)',
         compatibility: 'Any editor (terminal)', pricing: 'BYO API key',
-        openSource: 'Yes', interface: 'Terminal/CLI',
+        openSource: 'Yes', interface: 'Terminal/CLI', setup: 'Low',
         bestFor: 'Git-aware AI pair programming from any terminal or editor',
         capabilities: 'Chat, Multi-file edits, Git integration, Map-reduce, Multi-model',
         modelChoice: 'BYO model',
@@ -259,7 +264,7 @@ const LAYERS = [
       {
         id: 'direct-api', name: 'Direct API / custom',
         compatibility: 'Anywhere you wire it', pricing: 'BYO API key',
-        openSource: 'No', interface: 'API/SDK',
+        openSource: 'No', interface: 'API/SDK', setup: 'High',
         bestFor: 'Maximum control for bespoke tooling and custom workflows',
         capabilities: '—',
         modelChoice: 'BYO model',
@@ -353,7 +358,7 @@ const LAYERS = [
       {
         id: 'none', name: 'None',
         notes: 'Autocomplete / chat only', autonomy: 'None',
-        interface: 'N/A', openSource: 'N/A', cost: 'N/A',
+        interface: 'N/A', openSource: 'N/A', cost: 'N/A', setup: 'Zero',
         bestFor: 'Projects that only need inline completions and chat',
         capabilities: 'None',
         modelChoice: '—',
@@ -365,7 +370,7 @@ const LAYERS = [
       {
         id: 'aider-arch', name: 'Aider (architect)',
         notes: 'Plan-then-edit loop', autonomy: 'Assist',
-        interface: 'Terminal/CLI', openSource: 'Yes', cost: 'BYO API key',
+        interface: 'Terminal/CLI', openSource: 'Yes', cost: 'BYO API key', setup: 'Low',
         bestFor: 'Plan-then-edit workflow with git safety net for complex changes',
         capabilities: 'Tool use, Multi-step planning, Git integration, Shell access, Multi-model',
         modelChoice: 'BYO model',
@@ -377,7 +382,7 @@ const LAYERS = [
       {
         id: 'swe-agent', name: 'SWE-agent',
         notes: 'Issue-resolution agent', autonomy: 'Autonomous',
-        interface: 'Terminal/CLI', openSource: 'Yes', cost: 'BYO API key',
+        interface: 'Terminal/CLI', openSource: 'Yes', cost: 'BYO API key', setup: 'Medium',
         bestFor: 'Autonomous issue resolution and PR generation from GitHub issues',
         capabilities: 'Tool use, Multi-step planning, Shell access, Browser, Git, File editing',
         modelChoice: 'BYO model',
@@ -389,7 +394,7 @@ const LAYERS = [
       {
         id: 'claude-code', name: 'Claude Code',
         notes: 'CLI agent, full repo access', autonomy: 'Semi-autonomous',
-        interface: 'Terminal/CLI', openSource: 'No', cost: 'Paid subscription',
+        interface: 'Terminal/CLI', openSource: 'No', cost: 'Paid subscription', setup: 'Zero',
         bestFor: 'Anthropic CLI agent with full repo awareness and terminal access',
         capabilities: 'Tool use, Multi-step planning, Shell access, Browser, MCP, Git, File editing',
         modelChoice: 'Fixed',
@@ -401,7 +406,7 @@ const LAYERS = [
       {
         id: 'langgraph', name: 'Custom LangGraph',
         notes: 'DIY pipelines', autonomy: 'Autonomous',
-        interface: 'Framework/SDK', openSource: 'Yes', cost: 'BYO API key',
+        interface: 'Framework/SDK', openSource: 'Yes', cost: 'BYO API key', setup: 'High',
         bestFor: 'Build custom multi-agent workflows with full control and state management',
         capabilities: 'Tool use, Multi-step planning, State graphs, Custom tools, Human-in-the-loop, Multi-agent',
         modelChoice: 'BYO model',

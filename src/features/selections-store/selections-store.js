@@ -29,5 +29,15 @@
     return state;
   }
 
-  window.SelectionsStore = { load, save, add, KEY };
+  function remove(layerId, optionId) {
+    const state = load();
+    const current = state[layerId] || [];
+    const next = current.filter(o => o.id !== optionId);
+    if (next.length === 0) delete state[layerId];
+    else state[layerId] = next;
+    save(state);
+    return state;
+  }
+
+  window.SelectionsStore = { load, save, add, remove, KEY };
 })();

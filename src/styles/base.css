@@ -11,7 +11,7 @@ html, body {
 }
 
 .page {
-  max-width: none;
+  max-width: 1680px;
   margin: 0 auto;
   padding: 32px 32px 96px;
 }
@@ -57,7 +57,7 @@ html, body {
 }
 
 .tagline {
-  margin: 0 0 32px;
+  margin: 0 0 16px;
   color: var(--muted);
   font-size: 15px;
 }

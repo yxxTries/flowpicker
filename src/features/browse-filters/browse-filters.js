@@ -317,6 +317,19 @@
     return active?.dataset.layer || 'ide';
   }
 
+  function shouldReturnToPlan() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('return') === 'plan';
+    } catch {
+      return false;
+    }
+  }
+
+  function returnToPlan() {
+    window.location.href = 'index.html';
+  }
+
   function optionMatches(option, group, selected) {
     if (selected.size === 0) return true;
     const raw = option[group.key];
@@ -414,7 +427,7 @@
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', `View details for ${option.name}`);
     card.addEventListener('click', (e) => {
-      if (e.target.closest('.browse-add, .browse-confirm')) return;
+      if (e.target.closest('.browse-add')) return;
       openDetail(option, layerId);
     });
     card.addEventListener('keydown', (e) => {
@@ -428,12 +441,36 @@
     const addBtn = document.createElement('button');
     addBtn.type = 'button';
     addBtn.className = 'browse-add';
-    addBtn.setAttribute('aria-label', `Add ${option.name} to Plan`);
-    addBtn.title = `Add ${option.name} to Plan`;
-    addBtn.textContent = '+';
+    const setState = (added) => {
+      if (added) {
+        addBtn.textContent = '✓';
+        addBtn.classList.add('is-added');
+        addBtn.setAttribute('aria-label', `Remove ${option.name} from Plan`);
+        addBtn.title = `Remove ${option.name} from Plan`;
+      } else {
+        addBtn.textContent = '+';
+        addBtn.classList.remove('is-added');
+        addBtn.setAttribute('aria-label', `Add ${option.name} to Plan`);
+        addBtn.title = `Add ${option.name} to Plan`;
+      }
+    };
+    const inPlan = (window.SelectionsStore?.load()?.[layerId] || []).some(o => o.id === option.id);
+    setState(inPlan);
     addBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      openConfirm(card, addBtn, option, layerId);
+      if (!window.SelectionsStore) return;
+      const nowIn = (window.SelectionsStore.load()?.[layerId] || []).some(o => o.id === option.id);
+      if (nowIn) {
+        window.SelectionsStore.remove(layerId, option.id);
+        setState(false);
+      } else {
+        window.SelectionsStore.add(layerId, option);
+        setState(true);
+        if (shouldReturnToPlan()) {
+          returnToPlan();
+          return;
+        }
+      }
     });
     card.appendChild(addBtn);
 
@@ -468,12 +505,6 @@
     context: ['hosting', 'staleness', 'setup', 'indexLimit'],
     agent: ['notes', 'autonomy', 'interface', 'cost'],
   };
-
-  function shortLayerName(layerId) {
-    const cfg = FILTERS_BY_LAYER[layerId];
-    if (!cfg) return layerId;
-    return cfg.label.split(/[/(]/)[0].trim();
-  }
 
   function hasVal(v) {
     return v != null && v !== '' && v !== '—';
@@ -968,13 +999,49 @@
     }
     header.appendChild(titleWrap);
 
+    const actions = document.createElement('div');
+    actions.className = 'browse-detail-actions';
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'browse-detail-add';
+    const setDetailState = (added) => {
+      if (added) {
+        addBtn.textContent = 'Remove from plan';
+        addBtn.classList.add('is-added');
+      } else {
+        addBtn.textContent = 'Add to plan';
+        addBtn.classList.remove('is-added');
+      }
+    };
+    const alreadyInPlan = (window.SelectionsStore?.load()?.[layerId] || []).some(o => o.id === option.id);
+    setDetailState(alreadyInPlan);
+    addBtn.addEventListener('click', () => {
+      if (!window.SelectionsStore) return;
+      const nowIn = (window.SelectionsStore.load()?.[layerId] || []).some(o => o.id === option.id);
+      if (nowIn) {
+        window.SelectionsStore.remove(layerId, option.id);
+        setDetailState(false);
+      } else {
+        window.SelectionsStore.add(layerId, option);
+        setDetailState(true);
+        if (shouldReturnToPlan()) {
+          returnToPlan();
+          return;
+        }
+      }
+    });
+    actions.appendChild(addBtn);
+
     const closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.className = 'browse-detail-close';
     closeBtn.setAttribute('aria-label', 'Close');
     closeBtn.textContent = '×';
     closeBtn.addEventListener('click', closeDetail);
-    header.appendChild(closeBtn);
+    actions.appendChild(closeBtn);
+
+    header.appendChild(actions);
 
     panel.appendChild(header);
 
@@ -1011,78 +1078,11 @@
     activeDetail = { overlay, onKey, prevOverflow };
   }
 
-  function openConfirm(card, addBtn, option, layerId) {
-    if (card.querySelector('.browse-confirm')) return;
-
-    const existing = window.SelectionsStore?.load() || {};
-    const already = (existing[layerId] || []).some(o => o.id === option.id);
-
-    const popover = document.createElement('div');
-    popover.className = 'browse-confirm';
-
-    const msg = document.createElement('p');
-    msg.className = 'browse-confirm-msg';
-    msg.textContent = already
-      ? `${option.name} is already in your Plan.`
-      : `Add ${option.name} to your ${shortLayerName(layerId)} pick?`;
-    popover.appendChild(msg);
-
-    const actions = document.createElement('div');
-    actions.className = 'browse-confirm-actions';
-
-    const cancel = document.createElement('button');
-    cancel.type = 'button';
-    cancel.className = 'browse-confirm-btn cancel';
-    cancel.textContent = already ? 'Close' : 'Cancel';
-    cancel.addEventListener('click', (e) => {
-      e.stopPropagation();
-      popover.remove();
-    });
-    actions.appendChild(cancel);
-
-    if (!already) {
-      const confirm = document.createElement('button');
-      confirm.type = 'button';
-      confirm.className = 'browse-confirm-btn confirm';
-      confirm.textContent = 'Add';
-      confirm.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (window.SelectionsStore) window.SelectionsStore.add(layerId, option);
-        popover.remove();
-        flashAdded(addBtn);
-      });
-      actions.appendChild(confirm);
-    }
-
-    popover.appendChild(actions);
-    card.appendChild(popover);
-
-    const onDocClick = (e) => {
-      if (!popover.contains(e.target) && e.target !== addBtn) {
-        popover.remove();
-        document.removeEventListener('click', onDocClick, true);
-      }
-    };
-    setTimeout(() => document.addEventListener('click', onDocClick, true), 0);
-  }
-
-  function flashAdded(addBtn) {
-    const original = addBtn.textContent;
-    addBtn.textContent = '✓';
-    addBtn.classList.add('is-added');
-    setTimeout(() => {
-      addBtn.textContent = original;
-      addBtn.classList.remove('is-added');
-    }, 1200);
-  }
-
   function renderFilters(layerId) {
-    const subtitle = document.getElementById('browse-filters-subtitle');
     const body = document.getElementById('browse-filters-body');
-    if (!subtitle || !body) return;
+    if (!body) return;
 
     const cfg = FILTERS_BY_LAYER[layerId];
-    subtitle.textContent = cfg?.label || '';
 
     body.innerHTML = '';
 

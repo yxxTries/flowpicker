@@ -1,0 +1,62 @@
+.list-url-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+}
+
+.list-url-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.list-url-field {
+  font-size: 13px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  width: 340px;
+  cursor: text;
+  outline: none;
+  transition: border-color 0.12s ease;
+}
+
+.list-url-field:focus {
+  border-color: var(--accent);
+}
+
+.list-url-copy {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 5px 7px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.list-url-copy:hover,
+.list-url-copy:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.list-url-copy.is-copied {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}

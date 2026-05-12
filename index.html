@@ -24,6 +24,10 @@
   <link rel="stylesheet" href="src/features/warnings/warnings.css" />
   <link rel="stylesheet" href="src/features/modal/modal.css" />
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="src/features/export/export.css" />
+  <link rel="stylesheet" href="src/features/list-id/list-id.css" />
+  <link rel="stylesheet" href="src/features/stack-analysis/stack-analysis.css" />
+  <link rel="stylesheet" href="src/features/auth/auth.css" />
 </head>
 <body>
   <main class="page">
@@ -40,9 +44,10 @@
         <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
         <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
       </nav>
+      <div id="auth-header-slot"></div>
       <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
     </header>
-    <p class="tagline">Assemble your AI coding stack, layer by layer.</p>
+    <p class="tagline">Pick an IDE, model, integrations, and more — get instant compatibility warnings, cost estimates, and a shareable stack.</p>
 
     <details id="warning-banner" class="warning-banner" hidden>
       <summary class="warning-summary">
@@ -54,8 +59,53 @@
     </details>
 
     <div class="table-toolbar">
+      <div class="list-url-bar">
+        <span class="list-url-label">List URL</span>
+        <input id="list-url-field" class="list-url-field" type="text" aria-label="Permanent link to this list" />
+        <button type="button" id="list-url-copy" class="list-url-copy" aria-label="Copy link" title="Copy link">
+          <svg id="list-copy-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <svg id="list-check-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+      <div id="export-toolbar" class="export-toolbar">
+        <button type="button" id="share-btn" class="toolbar-btn is-primary" title="Copy a link to this list">
+          <span aria-hidden="true">🔗</span>
+          <span>Share</span>
+        </button>
+        <button type="button" id="export-btn" class="toolbar-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="export-menu">
+          <span>Export</span>
+          <span class="toolbar-btn-caret" aria-hidden="true">▾</span>
+        </button>
+        <div id="export-menu" class="export-menu" role="menu" hidden>
+          <button type="button" class="export-menu-item" role="menuitem" data-format="markdown">
+            <span>Markdown</span>
+            <span class="export-menu-item-hint">Download .md — great for GitHub/Reddit</span>
+          </button>
+          <button type="button" class="export-menu-item" role="menuitem" data-format="copy-markdown">
+            <span>Copy as Markdown</span>
+            <span class="export-menu-item-hint">To clipboard</span>
+          </button>
+          <button type="button" class="export-menu-item" role="menuitem" data-format="csv">
+            <span>CSV</span>
+            <span class="export-menu-item-hint">Spreadsheet-friendly</span>
+          </button>
+          <button type="button" class="export-menu-item" role="menuitem" data-format="json">
+            <span>JSON</span>
+            <span class="export-menu-item-hint">Full attributes for re-import</span>
+          </button>
+          <button type="button" class="export-menu-item" role="menuitem" data-format="text">
+            <span>Plain text</span>
+            <span class="export-menu-item-hint">For Slack/email</span>
+          </button>
+        </div>
+      </div>
       <button type="button" id="reset-btn" class="reset-btn" hidden>Reset all</button>
     </div>
+    <div id="export-toast" class="export-toast" role="status" aria-live="polite" hidden></div>
 
     <table class="picker-table">
       <thead>
@@ -67,11 +117,19 @@
           <th class="col-complexity">Setup Complexity</th>
           <th class="col-provider">Provider</th>
           <th class="col-keyspecs">Key Specs</th>
+          <th class="col-website">Where</th>
         </tr>
       </thead>
       <tbody id="picker-body"></tbody>
     </table>
+
+    <section id="stack-analysis" class="stack-analysis" aria-label="Stack analysis" hidden></section>
   </main>
+
+  <div id="auth-modal" class="auth-modal" hidden>
+    <div class="auth-modal-backdrop"></div>
+    <div class="auth-modal-panel"></div>
+  </div>
 
   <div id="picker-modal" class="modal" hidden>
     <div class="modal-backdrop" data-close="true"></div>
@@ -97,5 +155,9 @@
   <script src="src/features/warnings/warnings.js"></script>
   <script src="src/features/table/table.js"></script>
   <script src="src/features/modal/modal.js"></script>
+  <script src="src/features/export/export.js"></script>
+  <script src="src/features/stack-analysis/stack-analysis.js"></script>
+  <script src="src/features/list-id/list-id.js"></script>
+  <script src="src/features/auth/auth.js"></script>
 </body>
 </html>

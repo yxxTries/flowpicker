@@ -257,69 +257,16 @@
 }
 
 .browse-add.is-added {
-  background: var(--text);
-  color: var(--surface);
-  border-color: var(--text);
-  transform: scale(1.05);
-}
-
-.browse-confirm {
-  position: absolute;
-  top: 40px;
-  right: 8px;
-  z-index: 10;
-  min-width: 200px;
-  padding: 12px;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
-  animation: browse-confirm-in 140ms ease-out both;
-}
-
-.browse-confirm-msg {
-  margin: 0 0 10px;
+  color: var(--muted);
+  border-color: var(--border);
   font-size: 13px;
-  line-height: 1.4;
+}
+
+.browse-add.is-added:hover,
+.browse-add.is-added:focus-visible {
   color: var(--text);
-}
-
-.browse-confirm-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.browse-confirm-btn {
-  font: inherit;
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: 5px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  background: var(--surface);
-  color: var(--text);
-  transition: border-color 0.12s ease, background 0.12s ease;
-}
-
-.browse-confirm-btn:hover {
   border-color: var(--text);
-}
-
-.browse-confirm-btn.confirm {
-  background: var(--text);
-  color: var(--surface);
-  border-color: var(--text);
-}
-
-.browse-confirm-btn.confirm:hover {
-  filter: brightness(1.1);
-}
-
-@keyframes browse-confirm-in {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 .browse-detail-overlay {
@@ -368,6 +315,45 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--text);
+}
+
+.browse-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.browse-detail-add {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: var(--surface);
+  cursor: pointer;
+  transition: filter 0.12s ease, opacity 0.12s ease;
+}
+
+.browse-detail-add:hover,
+.browse-detail-add:focus-visible {
+  filter: brightness(1.1);
+  outline: none;
+}
+
+.browse-detail-add.is-added {
+  background: var(--surface);
+  color: var(--muted);
+  border-color: var(--border);
+  filter: none;
+}
+
+.browse-detail-add.is-added:hover,
+.browse-detail-add.is-added:focus-visible {
+  color: var(--text);
+  border-color: var(--text);
+  filter: none;
 }
 
 .browse-detail-close {

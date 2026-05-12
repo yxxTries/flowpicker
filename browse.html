@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
   <link rel="stylesheet" href="src/features/browse-filters/browse-filters.css" />
   <link rel="stylesheet" href="src/features/modal/modal.css" />
+  <link rel="stylesheet" href="src/features/auth/auth.css" />
 </head>
 <body>
   <main class="page">
@@ -54,6 +55,7 @@
         <button type="button" class="browse-menu-item" data-layer="context" style="--i:3">Context / RAG</button>
         <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4">Agent / Orchestration</button>
       </nav>
+      <div id="auth-header-slot"></div>
       <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
     </header>
 
@@ -65,7 +67,7 @@
           <button type="button" class="browse-filters-tab active" id="browse-tab-filters" role="tab" aria-selected="true" data-tab="filters">Filters</button>
           <button type="button" class="browse-filters-tab" id="browse-tab-sort" role="tab" aria-selected="false" data-tab="sort">Sort</button>
         </div>
-        <p class="browse-filters-subtitle" id="browse-filters-subtitle">IDE / Editor</p>
+        <p class="browse-filters-subtitle" id="browse-filters-subtitle" hidden></p>
         <div class="browse-filters-body" id="browse-filters-body"></div>
         <div class="browse-filters-body browse-sort-body" id="browse-sort-body" hidden></div>
       </aside>
@@ -77,6 +79,11 @@
     </div>
   </main>
 
+  <div id="auth-modal" class="auth-modal" hidden>
+    <div class="auth-modal-backdrop"></div>
+    <div class="auth-modal-panel"></div>
+  </div>
+
   <script>window.App = { features: {} };</script>
   <script src="vendor/sql-wasm.js"></script>
   <script src="data/attribute-labels.js"></script>
@@ -84,5 +91,7 @@
   <script src="src/features/selections-store/selections-store.js"></script>
   <script src="src/features/darkmode/darkmode.js"></script>
   <script src="src/features/browse-filters/browse-filters.js"></script>
+  <script src="src/features/auth/auth.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => App.features.darkmode.init());</script>
 </body>
 </html>
