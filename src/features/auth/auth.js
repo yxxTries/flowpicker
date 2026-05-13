@@ -206,7 +206,7 @@
     modal.querySelector('.auth-modal-panel').innerHTML = `
       <button type="button" class="auth-modal-close" aria-label="Close">×</button>
       <div>
-        <h2 class="auth-modal-title">Reset password</h2>
+        <h2 class="auth-modal-title">Reset password (Feature currently unavailable)</h2>
         <p class="auth-modal-subtitle">Enter your email and we'll send a reset link</p>
       </div>
       <div class="auth-banner" role="alert"></div>
