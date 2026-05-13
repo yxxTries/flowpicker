@@ -17,7 +17,9 @@
 
   function loadTemplate(template) {
     if (window.SelectionsStore && template.selections) {
+      console.log('Loading template:', template.id, 'selections:', template.selections);
       window.SelectionsStore.save(template.selections);
+      console.log('Saved to localStorage:', localStorage.getItem('flowpicker-selections'));
       window.location.href = 'index.html';
     }
   }

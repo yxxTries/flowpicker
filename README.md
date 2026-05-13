@@ -1,6 +1,6 @@
 # Flowpicker
 
-PC Part Picker for AI coding workflows. Pick one tool per layer; the page warns about incompatibilities.
+PC Part Picker for AI workflows. Pick one tool per layer; the page warns about incompatibilities.
 
 ## Run
 

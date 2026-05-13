@@ -247,61 +247,161 @@
 }
 
 /* ── Mobile (≤ 720px) ─────────────────────────────────────────────
-   The 8-column table cannot fit on a phone. Allow the table to
-   scroll horizontally inside its own viewport without forcing the
-   whole page to scroll. Tightens cell padding so more is visible.   */
+   Flip the 8-column table into stacked layer cards. Each <tr> is a
+   card; the layer-name <td> is its header, selection-cell is the
+   prominent body, and the remaining cells become labeled key/value
+   rows below (label comes from each cell's col-* class via CSS).    */
 @media (max-width: 720px) {
-  .picker-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    table-layout: auto;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-  }
-
-  .picker-table thead,
+  .picker-table,
   .picker-table tbody,
-  .picker-table tr {
-    display: table;
-    width: max-content;
-    min-width: 100%;
+  .picker-table tr,
+  .picker-table td {
+    display: block;
+    width: auto;
+  }
+
+  .picker-table {
+    background: transparent;
     table-layout: auto;
   }
 
-  .picker-table thead th {
-    padding: 10px 12px;
-    font-size: 11px;
+  /* Header row only makes sense for the table layout — hide visually
+     in card mode but keep it accessible. */
+  .picker-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
+    border: 0;
+  }
+
+  .picker-table tr {
+    margin: 0 0 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   }
 
   .picker-table td {
-    padding: 12px 12px;
-    font-size: 13px;
-    vertical-align: top;
+    padding: 6px 0;
+    text-align: left;
+    border: 0;
+    vertical-align: middle;
   }
 
-  /* Force a sensible minimum width per column so content isn't squished. */
-  .col-layer      { min-width: 140px; }
-  .col-selection  { min-width: 160px; }
-  .col-cost       { min-width: 110px; }
-  .col-source     { min-width: 100px; }
-  .col-complexity { min-width: 110px; }
-  .col-provider   { min-width: 100px; }
-  .col-keyspecs   { min-width: 140px; }
-  .col-website    { min-width: 110px; }
+  /* Layer name = card header, on its own row at the top */
+  .picker-table td.col-layer {
+    white-space: normal;
+    padding: 0 0 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
 
-  /* Hover-revealed add/remove affordances are unreliable on touch —
-     keep them visible at low opacity so they're tappable without hover. */
+  .picker-table td.col-layer .layer-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .picker-table td.col-layer .layer-optional {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Selection cell is the prominent body (no label prefix). */
+  .picker-table td.col-selection {
+    padding: 4px 0 10px;
+    font-size: 15px;
+  }
+
+  .picker-table td.col-selection .choose-btn {
+    display: inline-flex;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  /* The remaining attribute cells: show a small label : value row.
+     Empty placeholder cells are hidden so cards stay compact. */
+  .picker-table td.col-cost,
+  .picker-table td.col-source,
+  .picker-table td.col-complexity,
+  .picker-table td.col-provider,
+  .picker-table td.col-keyspecs,
+  .picker-table td.col-website {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    font-size: 13px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  }
+
+  .picker-table td.placeholder-cell {
+    display: none;
+  }
+
+  .picker-table td.col-cost::before,
+  .picker-table td.col-source::before,
+  .picker-table td.col-complexity::before,
+  .picker-table td.col-provider::before,
+  .picker-table td.col-keyspecs::before,
+  .picker-table td.col-website::before {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .picker-table td.col-cost::before      { content: "Cost"; }
+  .picker-table td.col-source::before    { content: "Source"; }
+  .picker-table td.col-complexity::before{ content: "Setup"; }
+  .picker-table td.col-provider::before  { content: "Provider"; }
+  .picker-table td.col-keyspecs::before  { content: "Key specs"; }
+  .picker-table td.col-website::before   { content: "Where"; }
+
+  .picker-table td.col-website .website-link {
+    display: inline-block;
+    text-align: right;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  /* Selection list: stack pills, wrap freely, no hover-only reveal. */
+  .selection-cell {
+    gap: 8px;
+  }
+
+  .selection-list {
+    gap: 6px 10px;
+  }
+
   .selection-add {
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   .selection-name-wrap .selection-remove {
     width: 22px;
     margin-left: 6px;
-    opacity: 0.6;
+    opacity: 0.7;
     transform: translateX(0);
   }
 
@@ -310,9 +410,15 @@
     gap: 8px;
     justify-content: flex-start;
   }
+
+  /* Match Reset to the rest of the toolbar pills on mobile. */
+  .reset-btn {
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-  .picker-table thead th { padding: 8px 10px; }
-  .picker-table td { padding: 10px 10px; font-size: 12.5px; }
+  .picker-table tr { padding: 12px 14px; }
 }

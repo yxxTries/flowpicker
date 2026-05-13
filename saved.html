@@ -20,6 +20,7 @@
 
   <link rel="stylesheet" href="src/styles/tokens.css" />
   <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
   <link rel="stylesheet" href="src/features/auth/auth.css" />
   <link rel="stylesheet" href="src/features/saved-flows/saved-flows.css" />
 </head>
@@ -29,8 +30,16 @@
       <a href="/" class="brand">Flowpicker</a>
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html">Plan</a>
-        <a href="browse.html">Browse</a>
+        <a href="browse.html" id="browse-link">Browse</a>
+        <a href="templates.html">Templates</a>
         <a href="saved.html" class="active" aria-current="page">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
       </nav>
       <div id="auth-header-slot"></div>
       <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
@@ -50,6 +59,7 @@
   <script src="src/features/selections-store/selections-store.js"></script>
   <script src="src/features/saved-flows/saved-flows.js"></script>
   <script src="src/features/darkmode/darkmode.js"></script>
+  <script src="src/features/browse-menu/browse-menu-preview.js"></script>
   <script src="src/features/auth/auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {

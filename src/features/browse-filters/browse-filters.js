@@ -1208,6 +1208,7 @@
           else groupSel.delete(opt.value);
           currentPage[layerId] = 1;
           renderCards(layerId);
+          updateMobileFilterBadge(layerId);
         });
 
         const tick = document.createElement('span');
@@ -1288,6 +1289,81 @@
     if (sortBody) sortBody.hidden = tab !== 'sort';
   }
 
+  function countActiveFilters(layerId) {
+    const layerSel = selections[layerId];
+    if (!layerSel) return 0;
+    let n = 0;
+    for (const key of Object.keys(layerSel)) {
+      const set = layerSel[key];
+      if (set && set.size) n += set.size;
+    }
+    return n;
+  }
+
+  function updateMobileFilterBadge(layerId) {
+    const badge = document.getElementById('browse-mobile-filters-badge');
+    if (!badge) return;
+    const n = countActiveFilters(layerId);
+    if (n > 0) {
+      badge.textContent = String(n);
+      badge.hidden = false;
+    } else {
+      badge.hidden = true;
+    }
+  }
+
+  function openDrawer(tab) {
+    const panel = document.getElementById('browse-filters');
+    const backdrop = document.getElementById('browse-drawer-backdrop');
+    const footer = document.getElementById('browse-drawer-footer');
+    const close = document.getElementById('browse-drawer-close');
+    if (!panel) return;
+    if (tab) setActiveTab(tab);
+    panel.classList.add('is-open');
+    if (backdrop) {
+      backdrop.hidden = false;
+      requestAnimationFrame(() => backdrop.classList.add('is-open'));
+    }
+    if (footer) footer.hidden = false;
+    if (close) close.hidden = false;
+    document.body.classList.add('browse-drawer-open');
+    const filtersBtn = document.getElementById('browse-mobile-filters-btn');
+    const sortBtn = document.getElementById('browse-mobile-sort-btn');
+    if (filtersBtn) filtersBtn.setAttribute('aria-expanded', tab === 'filters' ? 'true' : 'false');
+    if (sortBtn) sortBtn.setAttribute('aria-expanded', tab === 'sort' ? 'true' : 'false');
+  }
+
+  function closeDrawer() {
+    const panel = document.getElementById('browse-filters');
+    const backdrop = document.getElementById('browse-drawer-backdrop');
+    if (!panel) return;
+    panel.classList.remove('is-open');
+    if (backdrop) {
+      backdrop.classList.remove('is-open');
+      setTimeout(() => { backdrop.hidden = true; }, 220);
+    }
+    document.body.classList.remove('browse-drawer-open');
+    const filtersBtn = document.getElementById('browse-mobile-filters-btn');
+    const sortBtn = document.getElementById('browse-mobile-sort-btn');
+    if (filtersBtn) filtersBtn.setAttribute('aria-expanded', 'false');
+    if (sortBtn) sortBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function clearActiveLayerFilters() {
+    const layerId = getActiveLayer();
+    const layerSel = selections[layerId];
+    if (layerSel) {
+      for (const key of Object.keys(layerSel)) {
+        const set = layerSel[key];
+        if (set && set.clear) set.clear();
+      }
+    }
+    sortBy[layerId] = 'default';
+    currentPage[layerId] = 1;
+    render(layerId);
+    updateMobileFilterBadge(layerId);
+  }
+
   function render(layerId) {
     renderFilters(layerId);
     renderSort(layerId);
@@ -1304,6 +1380,19 @@
     }
   }
 
+  function scrollActiveChipIntoView(menu, behavior = 'smooth') {
+    // Only meaningful when the pill is actually scrollable (mobile).
+    if (menu.scrollWidth <= menu.clientWidth + 1) return;
+    const active = menu.querySelector('.browse-menu-item.active');
+    if (!active) return;
+    const target = active.offsetLeft - (menu.clientWidth - active.offsetWidth) / 2;
+    const max = menu.scrollWidth - menu.clientWidth;
+    menu.scrollTo({
+      left: Math.max(0, Math.min(max, target)),
+      behavior,
+    });
+  }
+
   async function init() {
     const menu = document.querySelector('.browse-menu');
     if (!menu) return;
@@ -1318,12 +1407,20 @@
       }
       currentPage[btn.dataset.layer] = 1;
       render(btn.dataset.layer);
+      updateMobileFilterBadge(btn.dataset.layer);
+      scrollActiveChipIntoView(menu);
     });
 
     window.addEventListener('hashchange', () => {
       activateLayerFromHash(menu);
-      render(getActiveLayer());
+      const layerId = getActiveLayer();
+      render(layerId);
+      updateMobileFilterBadge(layerId);
+      scrollActiveChipIntoView(menu);
     });
+
+    // Land with the active chip already centered (no animation on first paint).
+    requestAnimationFrame(() => scrollActiveChipIntoView(menu, 'auto'));
 
     const tabs = document.querySelector('.browse-filters-tabs');
     if (tabs) {
@@ -1334,10 +1431,30 @@
       });
     }
 
+    const filtersBtn = document.getElementById('browse-mobile-filters-btn');
+    const sortBtn = document.getElementById('browse-mobile-sort-btn');
+    const closeBtn = document.getElementById('browse-drawer-close');
+    const backdrop = document.getElementById('browse-drawer-backdrop');
+    const clearBtn = document.getElementById('browse-drawer-clear');
+    const applyBtn = document.getElementById('browse-drawer-apply');
+    if (filtersBtn) filtersBtn.addEventListener('click', () => openDrawer('filters'));
+    if (sortBtn) sortBtn.addEventListener('click', () => openDrawer('sort'));
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    if (clearBtn) clearBtn.addEventListener('click', clearActiveLayerFilters);
+    if (applyBtn) applyBtn.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const panel = document.getElementById('browse-filters');
+        if (panel && panel.classList.contains('is-open')) closeDrawer();
+      }
+    });
+
     // Render filter UI immediately so the sidebar isn't blank while DB loads.
     const initialLayer = getActiveLayer();
     renderFilters(initialLayer);
     renderSort(initialLayer);
+    updateMobileFilterBadge(initialLayer);
 
     if (window.App?.db?.load) {
       try {

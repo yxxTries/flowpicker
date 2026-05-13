@@ -71,13 +71,14 @@ App.features.table = (() => {
       const tr = document.createElement('tr');
 
       const layerCell = document.createElement('td');
+      layerCell.className = 'col-layer';
       layerCell.innerHTML =
         `<span class="layer-name">${layer.name}</span>` +
         (layer.optional ? '<span class="layer-optional">(optional)</span>' : '');
       tr.appendChild(layerCell);
 
       const selCell = document.createElement('td');
-      selCell.className = 'selection-cell';
+      selCell.className = 'selection-cell col-selection';
       selCell.appendChild(renderSelection(layer));
       tr.appendChild(selCell);
 

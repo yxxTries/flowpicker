@@ -686,24 +686,271 @@
   }
 }
 
+/* ── Mobile toolbar (sticky filter/sort buttons) ─────────────────
+   Hidden on desktop; revealed at ≤ 720px below. PCPartPicker-style
+   bar that lives just below the layer pill and lets users open the
+   filters drawer without scrolling past a giant filter block. */
+.browse-mobile-toolbar {
+  display: none;
+}
+
+.browse-mobile-btn {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.browse-mobile-btn:hover,
+.browse-mobile-btn:focus-visible {
+  border-color: var(--text);
+  outline: none;
+}
+
+.browse-mobile-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.browse-mobile-badge[hidden] { display: none; }
+
+.browse-drawer-backdrop {
+  display: none;
+}
+
+.browse-drawer-close {
+  display: none;
+}
+
+.browse-drawer-footer {
+  display: none;
+}
+
 /* ── Mobile (≤ 720px) ─────────────────────────────────────────────
-   Tighter filter panel, single-column results, and the detail
-   overlay drops the sidebar so the body fills the viewport. */
+   PCPartPicker-style layout: sticky filter/sort toolbar; filters
+   panel slides up as a bottom-sheet drawer; results render as
+   compact one-tap rows instead of full attribute cards. */
 @media (max-width: 720px) {
+  .browse-mobile-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    gap: 8px;
+    margin: 0 -14px 12px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
   .browse-layout {
-    gap: 16px;
+    gap: 0;
   }
 
+  /* Filters panel becomes a bottom-sheet drawer. Hidden by default;
+     a `.is-open` class on the <aside> reveals it. */
   .browse-filters {
-    padding: 14px;
-    border-radius: 12px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    width: auto;
+    max-height: 80vh;
+    margin: 0;
+    padding: 16px 16px 0;
+    border: 1px solid var(--border);
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.18);
+    transform: translateY(100%);
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    animation: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
+  .browse-filters.is-open {
+    transform: translateY(0);
+  }
+
+  .browse-filters-tabs {
+    position: relative;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+
+  .browse-drawer-close {
+    display: inline-flex;
+    position: absolute;
+    right: -4px;
+    top: -6px;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  .browse-drawer-close:hover {
+    color: var(--text);
+    background: var(--accent-soft);
+  }
+
+  .browse-filters-body,
+  .browse-sort-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  .browse-drawer-footer {
+    display: flex;
+    gap: 10px;
+    padding: 12px 0 16px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .browse-drawer-clear,
+  .browse-drawer-apply {
+    flex: 1 1 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: filter 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .browse-drawer-clear {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .browse-drawer-clear:hover {
+    border-color: var(--text);
+  }
+
+  .browse-drawer-apply {
+    background: var(--text);
+    border: 1px solid var(--text);
+    color: var(--surface);
+  }
+
+  .browse-drawer-apply:hover {
+    filter: brightness(1.1);
+  }
+
+  .browse-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(15, 15, 14, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  .browse-drawer-backdrop.is-open {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Compact PCPP-style result rows: single column, horizontal layout,
+     name + chip strip + add button. The full dl is hidden and replaced
+     by a chip row built from the same data. */
   .browse-results .card-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 8px;
+    padding: 0;
   }
 
+  .browse-results .browse-card {
+    padding: 12px 48px 12px 14px;
+    border-radius: 10px;
+  }
+
+  .browse-results .browse-card h3 {
+    margin: 0 0 6px;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  /* Replace the stacked dl with a flat chip strip on mobile. */
+  .browse-results .browse-card dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    font-size: 11.5px;
+  }
+
+  .browse-results .browse-card dt {
+    display: none;
+  }
+
+  .browse-results .browse-card dd {
+    margin: 0;
+    padding: 2px 8px;
+    background: var(--accent-soft);
+    color: var(--text);
+    border-radius: 999px;
+    line-height: 1.4;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .browse-add {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .browse-results-status {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  /* Detail overlay tweaks (unchanged from before) */
   .browse-detail-overlay {
     padding: 12px;
   }
@@ -729,8 +976,6 @@
     font-size: 16px;
   }
 
-  /* Stack sidebar above main body on phones — sidebar becomes a
-     compact summary strip. */
   .browse-detail-body {
     grid-template-columns: 1fr;
   }
@@ -751,6 +996,11 @@
     grid-template-columns: 80px 1fr 40px;
     gap: 8px;
     font-size: 12.5px;
+  }
+
+  /* Lock scroll on body while drawer is open. */
+  body.browse-drawer-open {
+    overflow: hidden;
   }
 }
 

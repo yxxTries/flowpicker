@@ -47,6 +47,7 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="index.html">Plan</a>
         <a href="browse.html" class="active" aria-current="page">Browse</a>
+        <a href="templates.html">Templates</a>
         <a href="saved.html">Saved</a>
       </nav>
       <nav class="browse-menu" aria-label="Layers">
@@ -62,16 +63,34 @@
 
     <p class="tagline">Explore all available tools and options.</p>
 
+    <div class="browse-mobile-toolbar" id="browse-mobile-toolbar">
+      <button type="button" class="browse-mobile-btn" id="browse-mobile-filters-btn" aria-haspopup="dialog" aria-expanded="false">
+        <span aria-hidden="true">⚙</span>
+        <span>Filters</span>
+        <span class="browse-mobile-badge" id="browse-mobile-filters-badge" hidden>0</span>
+      </button>
+      <button type="button" class="browse-mobile-btn" id="browse-mobile-sort-btn" aria-haspopup="dialog" aria-expanded="false">
+        <span aria-hidden="true">↕</span>
+        <span>Sort</span>
+      </button>
+    </div>
+
     <div class="browse-layout">
-      <aside class="browse-filters" aria-label="Filters">
+      <aside class="browse-filters" id="browse-filters" aria-label="Filters">
         <div class="browse-filters-tabs" role="tablist">
           <button type="button" class="browse-filters-tab active" id="browse-tab-filters" role="tab" aria-selected="true" data-tab="filters">Filters</button>
           <button type="button" class="browse-filters-tab" id="browse-tab-sort" role="tab" aria-selected="false" data-tab="sort">Sort</button>
+          <button type="button" class="browse-drawer-close" id="browse-drawer-close" aria-label="Close" hidden>×</button>
         </div>
         <p class="browse-filters-subtitle" id="browse-filters-subtitle" hidden></p>
         <div class="browse-filters-body" id="browse-filters-body"></div>
         <div class="browse-filters-body browse-sort-body" id="browse-sort-body" hidden></div>
+        <div class="browse-drawer-footer" id="browse-drawer-footer" hidden>
+          <button type="button" class="browse-drawer-clear" id="browse-drawer-clear">Clear all</button>
+          <button type="button" class="browse-drawer-apply" id="browse-drawer-apply">Show results</button>
+        </div>
       </aside>
+      <div class="browse-drawer-backdrop" id="browse-drawer-backdrop" hidden></div>
 
       <section class="browse-results" aria-label="Results">
         <p class="browse-results-status" id="browse-results-status"></p>

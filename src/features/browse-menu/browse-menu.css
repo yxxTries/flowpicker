@@ -112,29 +112,90 @@
 }
 
 /* ── Mobile (≤ 720px) ─────────────────────────────────────────────
-   Drop the floating pill into normal flow on its own row, otherwise
-   it absolutely-positions over the brand + auth controls. Allow
-   horizontal scrolling within the pill so all 5 layer chips remain
-   reachable without breaking onto multiple rows. */
+   The pill drops into normal flow on its own row, becomes a
+   horizontally snap-scrolling chip strip with edge fades that hint
+   there's more, and the scrollbar is hidden so it feels native.
+   Auto-scroll of the active chip into view is handled in JS.        */
 @media (max-width: 720px) {
+  /* Wrap the menu in a fade-edge mask so the leading/trailing chips
+     softly fade where the scroll continues. Using a transparent
+     mask-image rather than overlay siblings keeps the markup intact. */
+  /* Kill the Plan→Browse handoff "pop" animation on mobile — its
+     keyframes apply the desktop `translate(-50%, -50%)` transform,
+     which drags the static mobile pill off-screen after navigation. */
+  .browse-menu-handoff-ready .browse-menu:not(.browse-menu-preview),
+  .browse-menu-handoff-ready .browse-menu:not(.browse-menu-preview) .browse-menu-item {
+    animation: none !important;
+  }
+
   .browse-menu:not(.browse-menu-preview) {
     position: static;
     transform: none;
+    animation: none;
     order: 4;
+    flex: 1 1 100%;
     width: 100%;
     max-width: 100%;
-    margin: 4px 0 0;
-    padding: 4px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
+    /* Flex items default to min-width:auto, which refuses to shrink
+       below their content's intrinsic width. That makes a row of chips
+       wider than the screen burst out of the header. Force shrink. */
+    min-width: 0;
+    margin: 6px 0 0;
+    padding: 6px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     box-shadow: none;
+    box-sizing: border-box;
+
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+    justify-content: flex-start;
+
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 16px,
+      #000 calc(100% - 16px),
+      transparent 100%
+    );
+            mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 16px,
+      #000 calc(100% - 16px),
+      transparent 100%
+    );
   }
 
-  .browse-menu-item {
-    padding: 6px 12px;
-    font-size: 13px;
+  .browse-menu:not(.browse-menu-preview)::-webkit-scrollbar {
+    display: none;
+  }
+
+  .browse-menu:not(.browse-menu-preview) .browse-menu-item {
     flex: 0 0 auto;
+    padding: 8px 16px;
+    font-size: 13.5px;
+    min-height: 36px;
+    border-radius: 999px;
+    scroll-snap-align: center;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease;
+  }
+
+  .browse-menu:not(.browse-menu-preview) .browse-menu-item:not(.active) {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  .browse-menu:not(.browse-menu-preview) .browse-menu-item.active {
+    transform: scale(1.02);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 
   /* The Plan-page preview pill animation looks fine collapsed but should
