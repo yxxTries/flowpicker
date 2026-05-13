@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="src/styles/base.css" />
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
   <link rel="stylesheet" href="src/features/browse-filters/browse-filters.css" />
+  <link rel="stylesheet" href="src/features/browse-search/browse-search.css" />
   <link rel="stylesheet" href="src/features/modal/modal.css" />
   <link rel="stylesheet" href="src/features/auth/auth.css" />
 </head>
@@ -93,7 +94,12 @@
       <div class="browse-drawer-backdrop" id="browse-drawer-backdrop" hidden></div>
 
       <section class="browse-results" aria-label="Results">
-        <p class="browse-results-status" id="browse-results-status"></p>
+        <div class="browse-results-header">
+          <div class="browse-search-bar">
+            <input type="text" id="browse-search-input" class="browse-search-input" placeholder="Search..." aria-label="Search tools" />
+          </div>
+          <p class="browse-results-status" id="browse-results-status"></p>
+        </div>
         <div class="card-grid" id="browse-cards"></div>
       </section>
     </div>

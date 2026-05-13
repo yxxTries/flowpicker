@@ -315,6 +315,11 @@
   const currentPage = {};
   const PAGE_SIZE = 24;
 
+  // Expose to window for search functionality
+  window.FILTERS_BY_LAYER = FILTERS_BY_LAYER;
+  window.selections = selections;
+  window.currentPage = currentPage;
+
   function getActiveLayer() {
     const active = document.querySelector('.browse-menu-item.active');
     return active?.dataset.layer || 'ide';
@@ -388,6 +393,20 @@
     return arr;
   }
 
+  function applySearchFilter(options) {
+    const searchInput = document.getElementById('browse-search-input');
+    const query = searchInput?.value || '';
+    if (!query.trim()) return options;
+    const q = query.toLowerCase().trim();
+    return options.filter(opt => {
+      if (String(opt.name).toLowerCase().includes(q)) return true;
+      if (String(opt.provider || '').toLowerCase().includes(q)) return true;
+      if (String(opt.bestFor || '').toLowerCase().includes(q)) return true;
+      if (String(opt.capabilities || '').toLowerCase().includes(q)) return true;
+      return false;
+    });
+  }
+
   function renderCards(layerId) {
     const container = document.getElementById('browse-cards');
     const status = document.getElementById('browse-results-status');
@@ -402,7 +421,9 @@
     }
 
     const all = layer.options;
-    const visible = sortOptions(layerId, filterOptions(layerId, all));
+    let filtered = filterOptions(layerId, all);
+    filtered = applySearchFilter(filtered);
+    const visible = sortOptions(layerId, filtered);
 
     const totalPages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
     const page = Math.min(Math.max(1, currentPage[layerId] || 1), totalPages);
@@ -414,7 +435,9 @@
     if (visible.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'card-grid-empty';
-      empty.textContent = 'No matches. Try clearing some filters.';
+      const searchInput = document.getElementById('browse-search-input');
+      const hasSearch = searchInput?.value?.trim();
+      empty.textContent = hasSearch ? 'No matches. Try adjusting your search.' : 'No matches. Try clearing some filters.';
       container.appendChild(empty);
     } else {
       for (const option of pageItems) {
@@ -1428,6 +1451,14 @@
         const btn = e.target.closest('.browse-filters-tab');
         if (!btn) return;
         setActiveTab(btn.dataset.tab);
+      });
+    }
+
+    const searchInput = document.getElementById('browse-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        currentPage[getActiveLayer()] = 1;
+        renderCards(getActiveLayer());
       });
     }
 
