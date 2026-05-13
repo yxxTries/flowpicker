@@ -1,0 +1,26 @@
+{
+  "name": "flowpicker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "PC Part Picker for AI coding workflows.",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install",
+    "test:all": "vitest run && playwright test",
+    "serve": "http-server -p 8000 -c-1 .",
+    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm run serve\""
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.2.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@playwright/test": "^1.49.0",
+    "http-server": "^14.1.1",
+    "jsdom": "^25.0.1",
+    "vitest": "^2.1.8"
+  }
+}

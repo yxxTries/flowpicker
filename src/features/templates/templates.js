@@ -1,43 +1,126 @@
 (() => {
-  const VOTES_KEY = 'flowpicker-template-votes';
-  const TEMPLATES_KEY = 'flowpicker-user-templates';
+  const API_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : '';
   const SORT_KEY = 'flowpicker-template-sort';
-
-  function readVotes() {
-    try { return JSON.parse(localStorage.getItem(VOTES_KEY)) || {}; } catch { return {}; }
-  }
-
-  function writeVotes(votes) {
-    localStorage.setItem(VOTES_KEY, JSON.stringify(votes));
-  }
+  const USE_DB = !!API_URL; // Use DB API if backend is available
 
   function readUserTemplates() {
-    try { return JSON.parse(localStorage.getItem(TEMPLATES_KEY)) || []; } catch { return []; }
+    try { return JSON.parse(localStorage.getItem('flowpicker-user-templates')) || []; } catch { return []; }
   }
 
   function writeUserTemplates(templates) {
-    localStorage.setItem(TEMPLATES_KEY, JSON.stringify(templates));
+    localStorage.setItem('flowpicker-user-templates', JSON.stringify(templates));
   }
 
-  function getVotes(templateId) {
-    const votes = readVotes();
-    return votes[templateId] || { upvotes: 0, downvotes: 0 };
+  async function upvote(templateId, email) {
+    if (!USE_DB || !email) {
+      console.warn('Database voting requires email and backend');
+      return;
+    }
+    try {
+      const resp = await fetch(`${API_URL}/api/templates/${templateId}/upvote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      return await resp.json();
+    } catch (e) {
+      console.error('Failed to upvote:', e);
+    }
   }
 
-  function setVotes(templateId, upvotes, downvotes) {
-    const votes = readVotes();
-    votes[templateId] = { upvotes, downvotes };
-    writeVotes(votes);
+  async function downvote(templateId, email) {
+    if (!USE_DB || !email) {
+      console.warn('Database voting requires email and backend');
+      return;
+    }
+    try {
+      const resp = await fetch(`${API_URL}/api/templates/${templateId}/downvote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      return await resp.json();
+    } catch (e) {
+      console.error('Failed to downvote:', e);
+    }
   }
 
-  function upvote(templateId) {
-    const v = getVotes(templateId);
-    setVotes(templateId, v.upvotes + 1, v.downvotes);
+  async function addUserTemplate(name, description, selections, author = 'Anonymous', email) {
+    if (USE_DB && email) {
+      try {
+        const resp = await fetch(`${API_URL}/api/templates`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, description, selections, author, email })
+        });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        return await resp.json();
+      } catch (e) {
+        console.error('Failed to create template:', e);
+        return null;
+      }
+    } else {
+      // Fallback to localStorage
+      const userTemplates = readUserTemplates();
+      const id = `user-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const template = {
+        id,
+        name,
+        description,
+        author,
+        selections,
+        upvotes: 0,
+        downvotes: 0,
+        createdAt: Date.now(),
+        isUserTemplate: true,
+      };
+      userTemplates.unshift(template);
+      writeUserTemplates(userTemplates);
+      return template;
+    }
   }
 
-  function downvote(templateId) {
-    const v = getVotes(templateId);
-    setVotes(templateId, v.upvotes, v.downvotes + 1);
+  async function deleteUserTemplate(templateId, email) {
+    if (USE_DB && email) {
+      try {
+        const resp = await fetch(`${API_URL}/api/templates/${templateId}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        return true;
+      } catch (e) {
+        console.error('Failed to delete template:', e);
+        return false;
+      }
+    } else {
+      // Fallback to localStorage
+      const userTemplates = readUserTemplates();
+      const filtered = userTemplates.filter(t => t.id !== templateId);
+      writeUserTemplates(filtered);
+      return true;
+    }
+  }
+
+  async function fetchAllTemplates() {
+    if (USE_DB) {
+      try {
+        const resp = await fetch(`${API_URL}/api/templates`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        return await resp.json();
+      } catch (e) {
+        console.warn('Failed to fetch from database, using local templates:', e);
+        // Fall back to local templates
+        return window.TEMPLATES || [];
+      }
+    } else {
+      return [...(window.TEMPLATES || []), ...readUserTemplates()];
+    }
   }
 
   function loadTemplate(template) {
@@ -45,31 +128,6 @@
       window.SelectionsStore.save(template.selections);
       window.location.href = 'index.html';
     }
-  }
-
-  function addUserTemplate(name, description, selections, author = 'Anonymous') {
-    const userTemplates = readUserTemplates();
-    const id = `user-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
-    const template = {
-      id,
-      name,
-      description,
-      author,
-      selections,
-      upvotes: 0,
-      downvotes: 0,
-      createdAt: Date.now(),
-      isUserTemplate: true,
-    };
-    userTemplates.unshift(template);
-    writeUserTemplates(userTemplates);
-    return template;
-  }
-
-  function deleteUserTemplate(templateId) {
-    const userTemplates = readUserTemplates();
-    const filtered = userTemplates.filter(t => t.id !== templateId);
-    writeUserTemplates(filtered);
   }
 
   function getSortMode() {
@@ -85,33 +143,29 @@
     switch (mode) {
       case 'upvotes-high':
         sorted.sort((a, b) => {
-          const aVotes = getVotes(a.id);
-          const bVotes = getVotes(b.id);
-          const aTotal = (a.upvotes || 0) + aVotes.upvotes;
-          const bTotal = (b.upvotes || 0) + bVotes.upvotes;
+          const aTotal = a.upvotes || 0;
+          const bTotal = b.upvotes || 0;
           return bTotal - aTotal;
         });
         break;
       case 'upvotes-low':
         sorted.sort((a, b) => {
-          const aVotes = getVotes(a.id);
-          const bVotes = getVotes(b.id);
-          const aTotal = (a.upvotes || 0) + aVotes.upvotes;
-          const bTotal = (b.upvotes || 0) + bVotes.upvotes;
+          const aTotal = a.upvotes || 0;
+          const bTotal = b.upvotes || 0;
           return aTotal - bTotal;
         });
         break;
       case 'newest':
-        sorted.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        sorted.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
         break;
       case 'oldest':
-        sorted.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+        sorted.sort((a, b) => (a.created_at || 0) - (b.created_at || 0));
         break;
     }
     return sorted;
   }
 
-  function renderTemplates(allTemplates, onSortChange) {
+  async function renderTemplates(allTemplates, userEmail) {
     const container = document.getElementById('templates-container');
     if (!container) return;
 
@@ -135,10 +189,9 @@
       </div>
       <div class="templates-grid">
         ${sorted.map(t => {
-          const votes = getVotes(t.id);
-          const upvoteCount = (t.upvotes || 0) + (votes.upvotes || 0);
-          const downvoteCount = (t.downvotes || 0) + (votes.downvotes || 0);
-          const isUserTemplate = t.isUserTemplate;
+          const upvoteCount = t.upvotes || 0;
+          const downvoteCount = t.downvotes || 0;
+          const isUserTemplate = t.is_user_template || t.isUserTemplate;
           return `
             <div class="template-card" data-id="${t.id}">
               <div class="template-card-header">
@@ -148,11 +201,11 @@
               <p class="template-description">${escapeHtml(t.description)}</p>
               <div class="template-stack">
                 ${Object.entries(t.selections || {})
-                  .filter(([_, items]) => items.length > 0)
+                  .filter(([_, items]) => items && items.length > 0)
                   .map(([layer, items]) => `
                     <div class="template-layer">
                       <span class="layer-label">${escapeHtml(layer)}:</span>
-                      <span class="layer-items">${items.map(i => escapeHtml(i.name)).join(', ')}</span>
+                      <span class="layer-items">${items.map(i => escapeHtml(i.name || i.id)).join(', ')}</span>
                     </div>
                   `).join('')}
               </div>
@@ -187,14 +240,14 @@
       sortSelect.value = sortMode;
       sortSelect.addEventListener('change', (e) => {
         setSortMode(e.target.value);
-        renderTemplates(allTemplates, onSortChange);
+        renderTemplates(allTemplates, userEmail);
       });
     }
 
     const newTemplateBtn = document.getElementById('new-template-btn');
     if (newTemplateBtn) {
       newTemplateBtn.addEventListener('click', () => {
-        openNewTemplateModal(allTemplates, onSortChange);
+        openNewTemplateModal(allTemplates, userEmail);
       });
     }
 
@@ -207,30 +260,32 @@
         loadTemplate(template);
       });
 
-      card.querySelector('[data-action="upvote"]').addEventListener('click', () => {
-        upvote(templateId);
-        renderTemplates(allTemplates, onSortChange);
+      card.querySelector('[data-action="upvote"]').addEventListener('click', async () => {
+        await upvote(templateId, userEmail);
+        const updated = await fetchAllTemplates();
+        await renderTemplates(updated, userEmail);
       });
 
-      card.querySelector('[data-action="downvote"]').addEventListener('click', () => {
-        downvote(templateId);
-        renderTemplates(allTemplates, onSortChange);
+      card.querySelector('[data-action="downvote"]').addEventListener('click', async () => {
+        await downvote(templateId, userEmail);
+        const updated = await fetchAllTemplates();
+        await renderTemplates(updated, userEmail);
       });
 
       const deleteBtn = card.querySelector('[data-action="delete"]');
       if (deleteBtn) {
-        deleteBtn.addEventListener('click', () => {
+        deleteBtn.addEventListener('click', async () => {
           if (confirm('Delete this template?')) {
-            deleteUserTemplate(templateId);
-            const updated = [...window.TEMPLATES, ...readUserTemplates()];
-            renderTemplates(updated, onSortChange);
+            await deleteUserTemplate(templateId, userEmail);
+            const updated = await fetchAllTemplates();
+            await renderTemplates(updated, userEmail);
           }
         });
       }
     });
   }
 
-  function openNewTemplateModal(allTemplates, onSortChange) {
+  async function openNewTemplateModal(allTemplates, userEmail) {
     const modal = document.createElement('div');
     modal.className = 'new-template-modal';
     modal.innerHTML = `
@@ -284,7 +339,7 @@
     });
 
     const form = modal.querySelector('#new-template-form');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('template-name').value.trim();
       const description = document.getElementById('template-description').value.trim();
@@ -296,15 +351,24 @@
         return;
       }
 
+      if (!userEmail) {
+        alert('You must be logged in to create a template');
+        return;
+      }
+
       const selections = useCurrent && window.App && window.App.state && window.App.state.selections
         ? window.App.state.selections
         : { ide: [], llm: [], integration: [], context: [], agent: [] };
 
-      const newTemplate = addUserTemplate(name, description, selections, author);
+      const newTemplate = await addUserTemplate(name, description, selections, author, userEmail);
       modal.remove();
 
-      const updated = [...(window.TEMPLATES || []), ...readUserTemplates()];
-      renderTemplates(updated, onSortChange);
+      if (newTemplate) {
+        const updated = await fetchAllTemplates();
+        await renderTemplates(updated, userEmail);
+      } else {
+        alert('Failed to create template');
+      }
     });
   }
 
@@ -325,5 +389,6 @@
     setSortMode,
     sortTemplates,
     readUserTemplates,
+    fetchAllTemplates,
   };
 })();
