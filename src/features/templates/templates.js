@@ -1,4 +1,25 @@
 (() => {
+  function extractMonthlyPrice(costString) {
+    if (!costString) return 0;
+    const match = costString.match(/\$(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  }
+
+  function getPriceTier(templates, template) {
+    const prices = templates.map(t => extractMonthlyPrice(t.cost)).filter(p => p > 0).sort((a, b) => a - b);
+    if (prices.length === 0) return 'Free';
+
+    const templatePrice = extractMonthlyPrice(template.cost);
+    if (templatePrice === 0) return 'Free';
+
+    const q33 = prices[Math.floor(prices.length / 3)];
+    const q66 = prices[Math.floor(prices.length * 2 / 3)];
+
+    if (templatePrice <= q33) return 'Budget';
+    if (templatePrice <= q66) return 'Mid-Range';
+    return 'Premium';
+  }
+
   function sortTemplates(templates, mode) {
     const sorted = [...templates];
     switch (mode) {
@@ -51,7 +72,7 @@
             <div class="template-card-header">
               <h3 class="template-name">${escapeHtml(t.name)}</h3>
               <div class="template-author">by ${escapeHtml(t.author)}</div>
-              ${t.cost ? `<div class="template-cost">${escapeHtml(t.cost)}</div>` : ''}
+              ${t.cost ? `<div class="template-cost">${escapeHtml(getPriceTier(templates, t))}</div>` : ''}
             </div>
             <p class="template-description">${escapeHtml(t.description)}</p>
             <div class="template-stack">

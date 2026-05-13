@@ -153,8 +153,12 @@ App.features.table = (() => {
     name.type = 'button';
     name.className = 'selection-name';
     name.textContent = option.name;
-    name.title = `About ${option.name}`;
-    name.addEventListener('click', () => App.features.modal.openAboutFor(layer.id, option));
+    name.title = `View details for ${option.name}`;
+    name.addEventListener('click', () => {
+      if (App.features.browseFilters?.openDetail) {
+        App.features.browseFilters.openDetail(option, layer.id);
+      }
+    });
     nameWrap.appendChild(name);
 
     const remove = document.createElement('button');

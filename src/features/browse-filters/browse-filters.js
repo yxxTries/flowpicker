@@ -1469,4 +1469,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', init);
+
+  // Export openDetail so it can be called from the plan page (index.html) when
+  // a user clicks on a selected product to view its full details.
+  if (!window.App) window.App = {};
+  if (!window.App.features) window.App.features = {};
+  window.App.features.browseFilters = { openDetail };
 })();

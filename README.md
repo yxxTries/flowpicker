@@ -61,8 +61,10 @@ flowpicker/
 │     ├── warnings/               Retractable compatibility-issue banner
 │     ├── modal/                  "Pick a layer" modal with option cards
 │     └── filters/                Sidebar inside the modal (compat-only filter)
-└── docs/
-   └── PLAN.md                    Original implementation plan
+├── tests/
+│  └── unit/                      Unit tests for features and utilities
+└── scripts/
+   └── seed-templates.js          Template seeding script
 ```
 
 ## Conventions
