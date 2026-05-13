@@ -26,7 +26,6 @@
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
   <link rel="stylesheet" href="src/features/browse-filters/browse-filters.css" />
   <link rel="stylesheet" href="src/features/export/export.css" />
-  <link rel="stylesheet" href="src/features/list-id/list-id.css" />
   <link rel="stylesheet" href="src/features/stack-analysis/stack-analysis.css" />
   <link rel="stylesheet" href="src/features/auth/auth.css" />
 </head>
@@ -62,18 +61,6 @@
     </details>
 
     <div class="table-toolbar">
-      <div class="list-url-bar">
-        <span class="list-url-label">List URL</span>
-        <input id="list-url-field" class="list-url-field" type="text" aria-label="Permanent link to this list" />
-        <button type="button" id="list-url-copy" class="list-url-copy" aria-label="Copy link" title="Copy link">
-          <svg id="list-copy-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-          </svg>
-          <svg id="list-check-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-        </button>
-      </div>
       <div id="export-toolbar" class="export-toolbar">
         <button type="button" id="share-btn" class="toolbar-btn is-primary" title="Copy a link to this list">
           <span aria-hidden="true">🔗</span>
@@ -162,7 +149,6 @@
   <script src="src/features/browse-filters/browse-filters.js"></script>
   <script src="src/features/export/export.js"></script>
   <script src="src/features/stack-analysis/stack-analysis.js"></script>
-  <script src="src/features/list-id/list-id.js"></script>
   <script src="src/features/auth/auth.js"></script>
   <script src="src/features/saved-flows/saved-flows.js"></script>
   <script>

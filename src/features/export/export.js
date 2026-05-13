@@ -51,7 +51,10 @@ App.features.export = (() => {
       parts.push(`${encodeURIComponent(layer.id)}:${ids}`);
     }
     if (parts.length === 0) return null;
-    const base = location.href.split('#')[0];
+    // Always use index.html as the base so shared links point to the plan page
+    // regardless of which page the user was on when they created the share link.
+    const origin = location.origin + location.pathname.split('/').slice(0, -1).join('/') + '/';
+    const base = origin + 'index.html';
     return `${base}#${HASH_KEY}=${parts.join(';')}`;
   }
 

@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   App.features.table.init();
   App.features.export.init();
   App.features.stackAnalysis.init();
-  App.features.listId.init();
 
   App.refs.resetBtn.addEventListener('click', reset);
 
