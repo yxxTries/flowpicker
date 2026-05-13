@@ -46,6 +46,45 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (window.SelectionsStore) {
     App.state.selections = window.SelectionsStore.load();
     console.log('Loaded selections from store:', App.state.selections);
+
+    // Enrich template selections with full product details from LAYERS
+    // Templates only include {id, name}, but we need full product objects with all attributes
+    App.state.selections = enrichSelectionsWithProductDetails(App.state.selections);
+    console.log('Enriched selections with product details:', App.state.selections);
+  }
+
+  function enrichSelectionsWithProductDetails(selections) {
+    if (!window.LAYERS || window.LAYERS.length === 0) {
+      console.log('LAYERS not available yet, returning selections as-is');
+      return selections;
+    }
+
+    const enriched = {};
+
+    for (const layerId of Object.keys(selections)) {
+      const layer = window.LAYERS.find(l => l.id === layerId);
+      if (!layer) {
+        console.warn(`Layer ${layerId} not found in LAYERS, skipping`);
+        continue;
+      }
+
+      enriched[layerId] = [];
+      for (const selection of (selections[layerId] || [])) {
+        // Find the full product object in this layer's options
+        const fullProduct = layer.options?.find(opt => opt.id === selection.id);
+        if (fullProduct) {
+          // Use the full product object which has all attributes
+          enriched[layerId].push(fullProduct);
+          console.log(`Enriched ${layerId}/${selection.id} with full product details`);
+        } else {
+          // Fallback to original selection if product not found
+          console.warn(`Product ${selection.id} not found in layer ${layerId}, using original selection`);
+          enriched[layerId].push(selection);
+        }
+      }
+    }
+
+    return enriched;
   }
 
   // Shared-link import overrides whatever was in localStorage.

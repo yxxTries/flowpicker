@@ -17,64 +17,25 @@
 
   function loadTemplate(template) {
     if (!window.SelectionsStore) {
-      console.error('SelectionsStore not available');
+      console.error('[Templates] SelectionsStore not available');
       return;
     }
     if (!template || !template.selections) {
-      console.error('Template or selections missing');
+      console.error('[Templates] Template or selections missing');
       return;
     }
 
     console.log('[Templates] Loading template:', template.id);
-    console.log('[Templates] Selections structure:', template.selections);
+    console.log('[Templates] Selections to save:', template.selections);
 
-    // Enrich template selections with full product details from LAYERS
-    const enrichedSelections = enrichSelectionsWithProductDetails(template.selections);
-
-    // Fallback to template selections if enrichment didn't work
-    const selectionsToSave = Object.keys(enrichedSelections).length > 0 ? enrichedSelections : template.selections;
-
-    console.log('[Templates] Enriched selections:', selectionsToSave);
-    window.SelectionsStore.save(selectionsToSave);
+    // Save template selections to localStorage
+    // They will be enriched with full product details on the Plan page
+    window.SelectionsStore.save(template.selections);
     const saved = localStorage.getItem('flowpicker-selections');
     console.log('[Templates] Saved to localStorage, length:', saved?.length);
 
     console.log('[Templates] Navigating to index.html');
     window.location.href = 'index.html';
-  }
-
-  function enrichSelectionsWithProductDetails(templateSelections) {
-    if (!window.LAYERS || window.LAYERS.length === 0) {
-      console.warn('[Templates] LAYERS not available for enrichment, using template selections as-is');
-      return {};
-    }
-
-    const enriched = {};
-
-    for (const layerId of Object.keys(templateSelections)) {
-      const layer = window.LAYERS.find(l => l.id === layerId);
-      if (!layer) {
-        console.warn(`[Templates] Layer ${layerId} not found in LAYERS`);
-        continue;
-      }
-
-      enriched[layerId] = [];
-      for (const templateItem of (templateSelections[layerId] || [])) {
-        // Find the full product object in this layer's options
-        const fullProduct = layer.options?.find(opt => opt.id === templateItem.id);
-        if (fullProduct) {
-          // Use the full product object which has all attributes
-          enriched[layerId].push(fullProduct);
-          console.log(`[Templates] Enriched ${layerId}/${templateItem.id} with full product details`);
-        } else {
-          // Fallback to template selection if product not found
-          console.warn(`[Templates] Product ${templateItem.id} not found in layer ${layerId}, using template selection`);
-          enriched[layerId].push(templateItem);
-        }
-      }
-    }
-
-    return enriched;
   }
 
   function renderTemplates(templates) {
