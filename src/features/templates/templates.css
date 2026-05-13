@@ -59,6 +59,17 @@
   color: #a1a1a0;
 }
 
+.template-cost {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent-color, #3b82f6);
+  margin-top: 0.25rem;
+}
+
+[data-theme='dark'] .template-cost {
+  color: #60a5fa;
+}
+
 .template-description {
   margin: 0;
   font-size: 0.9375rem;

@@ -35,6 +35,7 @@
             <div class="template-card-header">
               <h3 class="template-name">${escapeHtml(t.name)}</h3>
               <div class="template-author">by ${escapeHtml(t.author)}</div>
+              ${t.cost ? `<div class="template-cost">${escapeHtml(t.cost)}</div>` : ''}
             </div>
             <p class="template-description">${escapeHtml(t.description)}</p>
             <div class="template-stack">

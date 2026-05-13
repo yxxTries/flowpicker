@@ -4,6 +4,7 @@ window.TEMPLATES = [
     name: 'Cursor Power User',
     description: 'IDE-integrated AI with real-time codebase context. Best for daily productivity.',
     author: 'Dev',
+    cost: '$20/month (Cursor Pro)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -19,6 +20,7 @@ window.TEMPLATES = [
     name: 'Claude Code Terminal Workflow',
     description: 'Autonomous agent in your terminal. Best for heavy refactors and multi-file work.',
     author: 'Dev',
+    cost: '$15/month (Claude API)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -34,6 +36,7 @@ window.TEMPLATES = [
     name: 'GitHub Copilot Classic',
     description: 'The most-installed AI extension. Best for inline completions and chat.',
     author: 'Dev',
+    cost: '$10/month (GitHub Copilot)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -49,6 +52,7 @@ window.TEMPLATES = [
     name: 'Windsurf All-In',
     description: 'Single vendor solution. IDE + integration + agent + context in one editor.',
     author: 'Dev',
+    cost: '$30/month (Windsurf)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -64,6 +68,7 @@ window.TEMPLATES = [
     name: 'Open-Source / Privacy-First',
     description: 'Code never leaves your machine. Local LLM + local indexing + BYO integration.',
     author: 'Dev',
+    cost: 'Free (self-hosted)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -79,6 +84,7 @@ window.TEMPLATES = [
     name: 'Budget / Hobbyist',
     description: 'Cheap and cheerful. DeepSeek V4 Flash + Continue = $5/month coding.',
     author: 'Dev',
+    cost: '$5/month (DeepSeek API)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -94,6 +100,7 @@ window.TEMPLATES = [
     name: 'JetBrains Enterprise',
     description: 'Deep IDE integration for Java, Kotlin, Go teams with Sourcegraph context.',
     author: 'Dev',
+    cost: '$20/month (JetBrains + Claude API)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -109,6 +116,7 @@ window.TEMPLATES = [
     name: 'Aider Pair-Programming',
     description: 'Git-aware, conversational edits. Best for OSS contributions and surgical changes.',
     author: 'Dev',
+    cost: '$10/month (Claude API)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -124,6 +132,7 @@ window.TEMPLATES = [
     name: 'Cline Autonomous',
     description: 'Free autonomous agent inside VS Code with real-time repo context.',
     author: 'Dev',
+    cost: '$25/month (Claude API + Greptile)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -139,6 +148,7 @@ window.TEMPLATES = [
     name: 'Devin Delegation',
     description: 'Cloud-hosted autonomous agent. Assign tickets, it ships PRs. Maximum delegation.',
     author: 'Dev',
+    cost: '$500+/month (Devin)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -154,6 +164,7 @@ window.TEMPLATES = [
     name: 'Long-Context Refactor',
     description: 'Gemini 1M+ context for entire-repo refactors. Continue for BYO model flexibility.',
     author: 'Dev',
+    cost: '$20/month (Gemini API)',
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -169,6 +180,7 @@ window.TEMPLATES = [
     name: 'Mobile / Apple Native',
     description: 'iOS and macOS development with native Xcode AI integration.',
     author: 'Dev',
+    cost: '$10/month (Claude API)',
     upvotes: 0,
     downvotes: 0,
     selections: {
