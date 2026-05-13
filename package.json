@@ -13,9 +13,7 @@
     "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run serve\""
   },
-  "dependencies": {
-    "better-sqlite3": "^9.2.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "concurrently": "^8.2.2",
     "@playwright/test": "^1.49.0",

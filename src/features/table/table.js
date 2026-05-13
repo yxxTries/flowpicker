@@ -67,6 +67,7 @@ App.features.table = (() => {
   function render() {
     const { tbody } = App.refs;
     tbody.innerHTML = '';
+    console.log('[Table] Rendering with selections:', App.state.selections);
     for (const layer of LAYERS) {
       const tr = document.createElement('tr');
 

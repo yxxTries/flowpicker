@@ -16,12 +16,42 @@
   }
 
   function loadTemplate(template) {
-    if (window.SelectionsStore && template.selections) {
-      console.log('Loading template:', template.id, 'selections:', template.selections);
-      window.SelectionsStore.save(template.selections);
-      console.log('Saved to localStorage:', localStorage.getItem('flowpicker-selections'));
-      window.location.href = 'index.html';
+    if (!window.SelectionsStore) {
+      console.error('SelectionsStore not available');
+      return;
     }
+    if (!template || !template.selections) {
+      console.error('Template or selections missing');
+      return;
+    }
+
+    console.log('[Templates] Loading template:', template.id);
+    console.log('[Templates] Selections structure:', template.selections);
+
+    // Validate that selections match expected format
+    const selections = template.selections;
+    const layerIds = ['ide', 'llm', 'integration', 'context', 'agent'];
+    for (const layerId of layerIds) {
+      if (selections[layerId]) {
+        if (!Array.isArray(selections[layerId])) {
+          console.error(`[Templates] ${layerId} is not an array:`, selections[layerId]);
+        } else {
+          for (const item of selections[layerId]) {
+            if (!item.id || !item.name) {
+              console.error(`[Templates] ${layerId} item missing id or name:`, item);
+            }
+          }
+        }
+      }
+    }
+
+    window.SelectionsStore.save(selections);
+    const saved = localStorage.getItem('flowpicker-selections');
+    console.log('[Templates] Saved to localStorage, length:', saved?.length);
+    console.log('[Templates] Parsed back:', JSON.parse(saved || '{}'));
+
+    console.log('[Templates] Navigating to index.html');
+    window.location.href = 'index.html';
   }
 
   function renderTemplates(templates) {

@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Pick up any selections added from the Browse page (or prior Plan session).
   if (window.SelectionsStore) {
     App.state.selections = window.SelectionsStore.load();
+    console.log('Loaded selections from store:', App.state.selections);
   }
 
   // Shared-link import overrides whatever was in localStorage.
