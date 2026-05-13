@@ -6,6 +6,13 @@
     const menu = document.querySelector('.browse-menu-preview');
     if (!link || !menu) return;
 
+    // Touch devices synthesize a hover on the first tap, which made the
+    // preview pill appear instead of navigating — requiring a second tap.
+    // On coarse pointers, skip the hover preview entirely and let the
+    // anchor's native click navigate immediately.
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (isTouch) return;
+
     let hideTimer = null;
     let shownAt = 0;
 

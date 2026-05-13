@@ -191,13 +191,41 @@ html, body {
   }
 
   /* Nav drops to a full-width second row so it never collides with
-     the brand or the auth/dark-mode controls. */
+     the brand or the auth/dark-mode controls. Links become chip-style
+     tap targets so they're easier to hit on a phone and the active
+     page reads clearly at a glance. */
   .site-nav {
     order: 3;
     width: 100%;
-    gap: 16px;
-    justify-content: flex-start;
-    padding-top: 4px;
+    gap: 6px;
+    justify-content: space-between;
+    padding-top: 6px;
+    margin-top: 2px;
+    border-top: 1px solid var(--border);
+  }
+
+  .site-nav a {
+    flex: 1 1 0;
+    text-align: center;
+    padding: 9px 10px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 13.5px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .site-nav a:active {
+    background: var(--accent-soft);
+  }
+
+  .site-nav a.active {
+    background: var(--accent-soft);
+    color: var(--text);
+    font-weight: 600;
   }
 
   /* Auth slot keeps its margin-left:auto so it stays on the brand row,
