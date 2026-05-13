@@ -45,7 +45,7 @@
       <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
     </header>
 
-    <p class="tagline">Popular AI coding stack templates. Pick one and customize, or build your own on the Plan page.</p>
+    <p class="tagline">Popular AI coding stack templates. Click to load and customize on the Plan page.</p>
 
     <div id="templates-container"></div>
   </main>
@@ -63,20 +63,10 @@
   <script src="src/features/templates/templates.js"></script>
   <script src="data/templates.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
       App.features.darkmode.init();
-
-      if (window.TemplatesFeature) {
-        // Get user email from auth system if available
-        const userEmail = window.FlowpickerAuth && window.FlowpickerAuth.getUser()
-          ? window.FlowpickerAuth.getUser().email
-          : null;
-
-        // Fetch templates from database or local storage
-        const allTemplates = await window.TemplatesFeature.fetchAllTemplates();
-
-        // Render templates with user email
-        await window.TemplatesFeature.renderTemplates(allTemplates, userEmail);
+      if (window.TEMPLATES && window.TemplatesFeature) {
+        window.TemplatesFeature.renderTemplates(window.TEMPLATES);
       }
     });
   </script>
