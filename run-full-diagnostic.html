@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Full Diagnostic Report</title>
+  <style>
+    body { font-family: monospace; margin: 2rem; white-space: pre-wrap; word-wrap: break-word; }
+    .section { border-top: 2px solid #333; padding: 2rem 0; }
+    .pass { color: green; }
+    .fail { color: red; }
+    button { padding: 1rem; font-size: 1rem; margin: 1rem 0; width: 100%; cursor: pointer; }
+  </style>
+</head>
+<body>
+<h1>Template Flow Full Diagnostic</h1>
+
+<div class="section">
+<h2>Instructions</h2>
+1. Click "Generate Full Report" below
+2. Copy all the output
+3. Paste it in our conversation
+</div>
+
+<button onclick="runDiagnostic()">Generate Full Report</button>
+
+<div id="output" style="margin-top: 3rem; padding: 1rem; border: 1px solid #999; background: #f9f9f9;"></div>
+
+<script src="src/features/selections-store/selections-store.js"></script>
+<script>
+async function runDiagnostic() {
+  const output = document.getElementById('output');
+  let report = '';
+
+  function log(msg) {
+    report += msg + '\n';
+    console.log(msg);
+  }
+
+  function logObj(name, obj) {
+    log(`\n${name}:`);
+    log(JSON.stringify(obj, null, 2));
+  }
+
+  try {
+    log('='.repeat(60));
+    log('TEMPLATE FLOW DIAGNOSTIC REPORT');
+    log('='.repeat(60));
+
+    log('\n1. ENVIRONMENT CHECK');
+    log(`  Browser: ${navigator.userAgent.substring(0, 50)}...`);
+    log(`  localStorage available: ${typeof localStorage !== 'undefined' ? 'YES' : 'NO'}`);
+    log(`  SelectionsStore available: ${typeof window.SelectionsStore !== 'undefined' ? 'YES' : 'NO'}`);
+
+    log('\n2. CURRENT PAGE STATE');
+    log(`  Current URL: ${window.location.href}`);
+    log(`  Page title: ${document.title}`);
+    log(`  App object: ${typeof window.App !== 'undefined' ? 'YES' : 'NO'}`);
+
+    log('\n3. localStorage CONTENT');
+    log(`  Available keys: ${Object.keys(localStorage).join(', ')}`);
+    const selections = localStorage.getItem('flowpicker-selections');
+    if (selections) {
+      logObj('  flowpicker-selections', JSON.parse(selections));
+    } else {
+      log('  flowpicker-selections: NOT SET');
+    }
+
+    log('\n4. TEMPLATES DATA');
+    if (typeof window.TEMPLATES !== 'undefined') {
+      log(`  Total templates: ${window.TEMPLATES.length}`);
+      if (window.TEMPLATES.length > 0) {
+        const first = window.TEMPLATES[0];
+        log(`  First template: ${first.name}`);
+        logObj('  First template selections', first.selections);
+      }
+    } else {
+      log('  window.TEMPLATES: NOT FOUND');
+    }
+
+    log('\n5. SELECTIONS STORE FUNCTIONALITY');
+    const testData = {
+      ide: [{ id: 'test-ide', name: 'Test IDE' }],
+      llm: [{ id: 'test-llm', name: 'Test LLM' }]
+    };
+    if (typeof window.SelectionsStore !== 'undefined') {
+      window.SelectionsStore.save(testData);
+      const loaded = window.SelectionsStore.load();
+      const match = JSON.stringify(testData) === JSON.stringify(loaded);
+      log(`  Save/Load test: ${match ? 'PASS' : 'FAIL'}`);
+      if (!match) {
+        logObj('  Expected', testData);
+        logObj('  Got', loaded);
+      }
+      window.SelectionsStore.save({}); // Clear
+    } else {
+      log('  SelectionsStore: NOT AVAILABLE');
+    }
+
+    log('\n6. APP STATE');
+    if (typeof window.App !== 'undefined' && window.App.state) {
+      logObj('  App.state', window.App.state);
+      log(`  App.features keys: ${Object.keys(window.App.features || {}).join(', ')}`);
+    } else {
+      log('  App.state: NOT FOUND');
+    }
+
+    log('\n7. LAYERS GLOBAL');
+    if (typeof window.LAYERS !== 'undefined') {
+      log(`  LAYERS count: ${window.LAYERS.length}`);
+      const ids = window.LAYERS.map(l => l.id);
+      log(`  Layer IDs: ${ids.join(', ')}`);
+    } else {
+      log('  window.LAYERS: NOT FOUND');
+    }
+
+    log('\n8. TABLE RENDERING');
+    if (typeof window.App !== 'undefined' && window.App.features && window.App.features.table) {
+      log('  Table feature available: YES');
+      log('  Attempting to render with empty selections...');
+      window.App.state.selections = {};
+      window.App.features.table.render();
+      log('  Render completed without error');
+    } else {
+      log('  Table feature: NOT AVAILABLE');
+    }
+
+    log('\n9. SIMULATE TEMPLATE LOAD');
+    if (typeof window.TEMPLATES !== 'undefined' && window.TEMPLATES.length > 0) {
+      const template = window.TEMPLATES[0];
+      log(`  Loading template: ${template.name}`);
+      if (typeof window.SelectionsStore !== 'undefined') {
+        window.SelectionsStore.save(template.selections);
+        const loaded = window.SelectionsStore.load();
+        log(`  Saved selections layers: ${Object.keys(template.selections).join(', ')}`);
+        log(`  Loaded selections layers: ${Object.keys(loaded).join(', ')}`);
+        const match = JSON.stringify(template.selections) === JSON.stringify(loaded);
+        log(`  Match: ${match ? 'YES' : 'NO'}`);
+      }
+    }
+
+    log('\n10. READY TO TEST');
+    log('  ✓ Diagnostic complete!');
+    log('\nNext steps:');
+    log('  1. Go to /templates.html');
+    log('  2. Open this page in a new tab');
+    log('  3. Click a "Use Template" button in the templates tab');
+    log('  4. Return to this tab and click "Generate Full Report" again');
+    log('  5. Compare the before/after reports');
+
+    log('\n' + '='.repeat(60));
+
+  } catch (err) {
+    log(`\n❌ ERROR: ${err.message}`);
+    log(err.stack);
+  }
+
+  output.textContent = report;
+}
+
+// Auto-run on page load
+window.addEventListener('load', () => {
+  // Pre-fill with initial diagnostic
+  const output = document.getElementById('output');
+  output.textContent = 'Loading diagnostic on page load...\n\n(Click "Generate Full Report" button to run full diagnostic)';
+});
+</script>
+</body>
+</html>
