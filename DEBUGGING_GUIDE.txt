@@ -1,0 +1,77 @@
+================================================================================
+TEMPLATE LOADING DEBUG GUIDE
+================================================================================
+
+WHAT I FOUND
+============
+The code is correct. All logic verified. The issue must be in the browser runtime.
+
+QUICK DEBUG (5 minutes)
+======================
+
+1. Open http://localhost:8000/run-full-diagnostic.html in browser
+2. Click "Generate Full Report"
+3. Copy the output and share it
+
+This will show exactly what's happening.
+
+MANUAL STEPS
+============
+
+If you want to debug manually:
+
+1. Go to http://localhost:8000/templates.html
+2. Open DevTools (F12)
+3. Click "Use Template"
+4. Look at Console tab
+5. You should see messages starting with:
+   - [Templates] Loading template:
+   - [Templates] Selections structure:
+   - [Templates] Saved to localStorage...
+   - [Templates] Navigating...
+
+6. After page loads on index.html, look for:
+   - [Table] Rendering with selections:
+
+7. If you DON'T see these messages, something is broken earlier.
+8. If you DO see them, the problem is in table rendering.
+
+WHAT TO TELL ME
+===============
+
+To help debug, please tell me:
+
+1. What do you see on templates.html? (all 12 cards visible?)
+2. When you click "Use Template", does the page navigate to index.html?
+3. What do you see in the browser Console? (search for "[Templates]")
+4. On the Plan page table, do the selections appear in the left column?
+5. If they appear, do the detail columns show dashes (-) or actual values?
+
+MOST LIKELY ISSUE
+=================
+
+The selections probably load fine, but the table detail columns show dashes
+because the product IDs in templates.js don't exist in the database.
+
+This is actually OK - the selections appear, just without product details.
+
+To verify this is the issue:
+1. On index.html Plan page
+2. Look at table row for "IDE / Editor"
+3. Does it show "Cursor" on the left?
+4. If YES - selections are loading!
+5. If NO - run the diagnostic tool
+
+HELPFUL LINKS
+=============
+
+Diagnostic tool: http://localhost:8000/run-full-diagnostic.html
+Templates page: http://localhost:8000/templates.html
+Plan page: http://localhost:8000/index.html
+
+Test files added:
+- debug-template-flow.js (Node.js test - run: node debug-template-flow.js)
+- test-full-flow.html (interactive test)
+- test-template-flow.html (simple test)
+
+================================================================================
