@@ -60,13 +60,16 @@
   <script src="src/features/darkmode/darkmode.js"></script>
   <script src="src/features/browse-menu/browse-menu-preview.js"></script>
   <script src="src/features/auth/auth.js"></script>
-  <script src="src/features/templates/templates.js"></script>
   <script src="data/templates.js"></script>
+  <script src="src/features/templates/templates.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       App.features.darkmode.init();
       if (window.TEMPLATES && window.TemplatesFeature) {
         window.TemplatesFeature.renderTemplates(window.TEMPLATES);
+      } else {
+        console.log('Debug: TEMPLATES =', window.TEMPLATES ? 'found' : 'missing');
+        console.log('Debug: TemplatesFeature =', window.TemplatesFeature ? 'found' : 'missing');
       }
     });
   </script>

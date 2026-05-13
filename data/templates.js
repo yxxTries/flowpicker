@@ -1,4 +1,4 @@
-const TEMPLATES = [
+window.TEMPLATES = [
   {
     id: 'cursor-power-user',
     name: 'Cursor Power User',
