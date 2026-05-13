@@ -273,7 +273,22 @@
     { value: 'default', label: 'Default' },
     { value: 'name-asc',  label: 'Name (A → Z)' },
     { value: 'name-desc', label: 'Name (Z → A)' },
+    { value: 'released:desc', label: 'Release date (newest first)' },
+    { value: 'released:asc',  label: 'Release date (oldest first)' },
   ];
+
+  const MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  function releasedKey(value) {
+    if (value == null) return null;
+    const s = String(value).trim();
+    if (!s || s === '—') return null;
+    const yearMatch = s.match(/(19|20)\d{2}/);
+    if (!yearMatch) return null;
+    const year = parseInt(yearMatch[0], 10);
+    const monthMatch = s.toLowerCase().match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/);
+    const month = monthMatch ? MONTHS.indexOf(monthMatch[1]) : 0;
+    return year * 12 + month;
+  }
 
   const SORTS_BY_LAYER = {
     ide: [
@@ -374,6 +389,13 @@
     return i === -1 ? Number.MAX_SAFE_INTEGER : i;
   }
 
+  // Parse a price string like '$15' or '$0.27' into a number; returns -1 for free/unknown.
+  function parsePriceValue(str) {
+    if (!str || typeof str !== 'string') return -1;
+    const m = str.match(/\$([\d.]+)/);
+    return m ? parseFloat(m[1]) : -1;
+  }
+
   function sortOptions(layerId, options) {
     const mode = sortBy[layerId] || 'default';
     if (mode === 'default') return options;
@@ -382,11 +404,35 @@
       arr.sort((a, b) => String(a.name).localeCompare(String(b.name)));
     } else if (mode === 'name-desc') {
       arr.sort((a, b) => String(b.name).localeCompare(String(a.name)));
+    } else if (mode.startsWith('released:')) {
+      const dir = mode.split(':')[1];
+      arr.sort((a, b) => {
+        const ka = releasedKey(a.released);
+        const kb = releasedKey(b.released);
+        if (ka == null && kb == null) return String(a.name).localeCompare(String(b.name));
+        if (ka == null) return 1;
+        if (kb == null) return -1;
+        const diff = ka - kb;
+        if (diff !== 0) return dir === 'desc' ? -diff : diff;
+        return String(a.name).localeCompare(String(b.name));
+      });
     } else if (mode.startsWith('tier:')) {
       const [, key, dir] = mode.split(':');
       arr.sort((a, b) => {
-        const diff = tierIndex(key, a[key]) - tierIndex(key, b[key]);
+        const aIdx = tierIndex(key, a[key]);
+        const bIdx = tierIndex(key, b[key]);
+        // Items with no tier always sort last regardless of direction.
+        const aUnknown = aIdx === Number.MAX_SAFE_INTEGER;
+        const bUnknown = bIdx === Number.MAX_SAFE_INTEGER;
+        if (aUnknown !== bUnknown) return aUnknown ? 1 : -1;
+        const diff = aIdx - bIdx;
         if (diff !== 0) return dir === 'desc' ? -diff : diff;
+        // Within the same tier, break ties by actual output price (most expensive first for desc).
+        if (key === 'priceTier') {
+          const aPrice = parsePriceValue(a.priceOutput);
+          const bPrice = parsePriceValue(b.priceOutput);
+          if (aPrice !== bPrice) return dir === 'desc' ? bPrice - aPrice : aPrice - bPrice;
+        }
         return String(a.name).localeCompare(String(b.name));
       });
     }
@@ -1131,8 +1177,12 @@
       if (!window.SelectionsStore) return;
       const nowIn = (window.SelectionsStore.load()?.[layerId] || []).some(o => o.id === option.id);
       if (nowIn) {
-        window.SelectionsStore.remove(layerId, option.id);
+        const updated = window.SelectionsStore.remove(layerId, option.id);
         setDetailState(false);
+        if (typeof App !== 'undefined' && App.state) {
+          App.state.selections = updated;
+          if (typeof window.refresh === 'function') window.refresh();
+        }
       } else {
         window.SelectionsStore.add(layerId, option);
         setDetailState(true);

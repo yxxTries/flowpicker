@@ -138,6 +138,7 @@
         <h2 class="auth-modal-title">Welcome back</h2>
         <p class="auth-modal-subtitle">Sign in to your Flowpicker account</p>
       </div>
+      <p class="auth-local-note">Flowpicker has no backend — your account and saved stacks live only in this browser. Clearing site data will remove them.</p>
       <div class="auth-banner" role="alert"></div>
       <form class="auth-form" id="auth-signin-form" novalidate>
         <div class="auth-field">
@@ -169,6 +170,7 @@
         <h2 class="auth-modal-title">Create account</h2>
         <p class="auth-modal-subtitle">Join Flowpicker to save and share stacks</p>
       </div>
+      <p class="auth-local-note">Flowpicker has no backend — your account and saved stacks live only in this browser. Clearing site data will remove them.</p>
       <div class="auth-banner" role="alert"></div>
       <form class="auth-form" id="auth-register-form" novalidate>
         <div class="auth-field">

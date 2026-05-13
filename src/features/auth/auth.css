@@ -376,6 +376,19 @@
   line-height: 1.5;
 }
 
+/* Disclosure shown inside sign-in and register modals so users understand
+   that no account data leaves the browser. */
+.auth-local-note {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
 /* ── Mobile (≤ 720px) ─────────────────────────────────────────────
    Tighter padding inside the auth modal and dropdown sized so it
    never overflows a phone viewport. */

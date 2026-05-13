@@ -1,39 +1,42 @@
-// Per-user saved flows. Each flow is a snapshot of selections + a name + savedAt.
-// Storage shape: { [userEmail]: [ { id, name, selections, savedAt } ] }
+// Local saved flows. Each flow is a snapshot of selections + a name + savedAt.
+// Storage shape: [ { id, name, selections, savedAt } ]
 (() => {
   const KEY = 'flowpicker-saved-flows';
 
   function readAll() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
+    try {
+      const val = JSON.parse(localStorage.getItem(KEY));
+      // Migrate old email-keyed format if needed
+      if (val && !Array.isArray(val)) {
+        const merged = Object.values(val).flat();
+        writeAll(merged);
+        return merged;
+      }
+      return val || [];
+    } catch { return []; }
   }
 
-  function writeAll(all) {
-    localStorage.setItem(KEY, JSON.stringify(all));
+  function writeAll(list) {
+    localStorage.setItem(KEY, JSON.stringify(list));
   }
 
-  function listFor(email) {
-    if (!email) return [];
-    return readAll()[email] || [];
+  function listFor() {
+    return readAll();
   }
 
-  function save(email, flow) {
-    if (!email) return;
-    const all = readAll();
-    const list = all[email] || [];
+  function save(_ignored, flow) {
+    const list = readAll();
     list.unshift(flow);
-    all[email] = list;
-    writeAll(all);
+    writeAll(list);
   }
 
-  function remove(email, id) {
-    const all = readAll();
-    const list = (all[email] || []).filter(f => f.id !== id);
-    all[email] = list;
-    writeAll(all);
+  function remove(_ignored, id) {
+    const list = readAll().filter(f => f.id !== id);
+    writeAll(list);
   }
 
-  function get(email, id) {
-    return (readAll()[email] || []).find(f => f.id === id) || null;
+  function get(_ignored, id) {
+    return readAll().find(f => f.id === id) || null;
   }
 
   function defaultName(selections) {

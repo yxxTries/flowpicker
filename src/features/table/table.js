@@ -62,7 +62,121 @@ App.features.table = (() => {
     return (v == null || v === '' || v === '—') ? null : v;
   }
 
-  function init() {}
+  // Content shown when the info (i) icon next to a layer name is clicked.
+  // Fill these in with the copy you want — title + HTML body per layer.
+  const LAYER_INFO = {
+    ide: {
+      title: 'IDE / Editor',
+      body: 'Where you actually write and edit code. This is the surface that hosts the AI, including autocomplete, inline chat, and refactors. Pick one that fits how you already work, since everything else in the stack plugs into it.',
+    },
+    llm: {
+      title: 'LLM Provider / Model',
+      body: 'The model that generates code, answers questions, and powers the AI features in your editor. Your choice drives quality, speed, context window, and cost. If anything in your stack feels smart, this is the layer doing the thinking.',
+    },
+    integration: {
+      title: 'Integration',
+      body: 'The bridge that connects your IDE to the model, such as extensions, CLIs, or chat interfaces. Some IDEs have AI built in and skip this layer. Otherwise you need an integration to send prompts and stream results back into your editor.',
+    },
+    context: {
+      title: 'Context / RAG',
+      body: 'How the AI sees your code beyond the file you have open. It indexes your repo, docs, or external knowledge so answers are grounded in your project. Without it, the model only knows what you paste in.',
+    },
+    agent: {
+      title: 'Agent / Orchestration',
+      body: 'Lets the AI take multi step actions on its own, including running commands, editing multiple files, calling tools, and iterating until a task is done. Use it when you want the AI to execute work, not just suggest it.',
+    },
+  };
+
+  let activeLayerInfo = null;
+
+  function closeLayerInfo() {
+    if (!activeLayerInfo) return;
+    const { overlay, onKey, prevOverflow, triggerBtn } = activeLayerInfo;
+    document.removeEventListener('keydown', onKey, true);
+    document.body.style.overflow = prevOverflow;
+    overlay.remove();
+    if (triggerBtn) {
+      triggerBtn.setAttribute('aria-expanded', 'false');
+      triggerBtn.focus();
+    }
+    activeLayerInfo = null;
+  }
+
+  function openLayerInfo(btn) {
+    closeLayerInfo();
+    const layerId = btn.dataset.layer;
+    const info = LAYER_INFO[layerId] || { title: layerId, body: '' };
+
+    const overlay = document.createElement('div');
+    overlay.className = 'browse-detail-overlay';
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'browse-detail-backdrop';
+    backdrop.addEventListener('click', closeLayerInfo);
+    overlay.appendChild(backdrop);
+
+    const panel = document.createElement('div');
+    panel.className = 'browse-detail-panel layer-info-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-label', `About ${info.title}`);
+
+    const header = document.createElement('header');
+    header.className = 'browse-detail-header';
+
+    const titleWrap = document.createElement('div');
+    titleWrap.className = 'browse-detail-title-wrap';
+    const title = document.createElement('h2');
+    title.className = 'browse-detail-title';
+    title.textContent = info.title;
+    titleWrap.appendChild(title);
+    header.appendChild(titleWrap);
+
+    const actions = document.createElement('div');
+    actions.className = 'browse-detail-actions';
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'browse-detail-close';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.textContent = '×';
+    closeBtn.addEventListener('click', closeLayerInfo);
+    actions.appendChild(closeBtn);
+    header.appendChild(actions);
+    panel.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'browse-detail-body layer-info-body-panel';
+    const p = document.createElement('p');
+    p.className = 'layer-info-text';
+    p.textContent = info.body;
+    body.appendChild(p);
+    panel.appendChild(body);
+
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKey = (e) => { if (e.key === 'Escape') closeLayerInfo(); };
+    document.addEventListener('keydown', onKey, true);
+
+    btn.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+
+    activeLayerInfo = { overlay, onKey, prevOverflow, triggerBtn: btn };
+  }
+
+  function init() {
+    const { tbody } = App.refs;
+    if (!tbody) return;
+    tbody.addEventListener('click', (e) => {
+      const btn = e.target.closest('.layer-info-btn');
+      if (!btn) return;
+      e.stopPropagation();
+      openLayerInfo(btn);
+    });
+  }
 
   function render() {
     const { tbody } = App.refs;
@@ -75,6 +189,7 @@ App.features.table = (() => {
       layerCell.className = 'col-layer';
       layerCell.innerHTML =
         `<span class="layer-name">${layer.name}</span>` +
+        `<button type="button" class="layer-info-btn" data-layer="${layer.id}" aria-label="About ${layer.name}" aria-expanded="false">i</button>` +
         (layer.optional ? '<span class="layer-optional">(optional)</span>' : '');
       tr.appendChild(layerCell);
 

@@ -46,6 +46,7 @@
     </header>
 
     <p class="tagline">Your saved stacks.</p>
+    <p class="tagline-note">Saved stacks live in this browser only — Flowpicker has no backend.</p>
 
     <div id="saved-container"></div>
   </main>
@@ -69,22 +70,7 @@
 
     function renderSaved() {
       const container = document.getElementById('saved-container');
-      const user = window.FlowpickerAuth && window.FlowpickerAuth.getUser();
-
-      if (!user) {
-        container.innerHTML = `
-          <div class="saved-empty">
-            <p>Sign in to see your saved stacks.</p>
-            <p><a href="#" id="saved-signin-link">Sign in or create an account</a></p>
-          </div>`;
-        document.getElementById('saved-signin-link').addEventListener('click', (e) => {
-          e.preventDefault();
-          window.FlowpickerAuth.openSignIn();
-        });
-        return;
-      }
-
-      const flows = window.SavedFlows.listFor(user.email);
+      const flows = window.SavedFlows.listFor();
 
       if (flows.length === 0) {
         container.innerHTML = `
@@ -119,13 +105,13 @@
       container.querySelectorAll('.saved-item').forEach(li => {
         const id = li.dataset.id;
         li.querySelector('[data-action="open"]').addEventListener('click', () => {
-          const flow = window.SavedFlows.get(user.email, id);
+          const flow = window.SavedFlows.get(null, id);
           if (!flow) return;
           window.SelectionsStore.save(flow.selections);
           window.location.href = 'index.html';
         });
         li.querySelector('[data-action="delete"]').addEventListener('click', () => {
-          window.SavedFlows.remove(user.email, id);
+          window.SavedFlows.remove(null, id);
           renderSaved();
         });
       });

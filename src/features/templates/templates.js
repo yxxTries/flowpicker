@@ -26,6 +26,12 @@
       case 'name':
         sorted.sort((a, b) => a.name.localeCompare(b.name));
         break;
+      case 'price-asc':
+        sorted.sort((a, b) => extractMonthlyPrice(a.cost) - extractMonthlyPrice(b.cost));
+        break;
+      case 'price-desc':
+        sorted.sort((a, b) => extractMonthlyPrice(b.cost) - extractMonthlyPrice(a.cost));
+        break;
       case 'newest':
         sorted.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         break;
@@ -59,11 +65,23 @@
     window.location.href = 'index.html';
   }
 
+  let currentSort = 'name';
+
   function renderTemplates(templates) {
     const container = document.getElementById('templates-container');
     if (!container) return;
 
-    const sorted = sortTemplates(templates, 'name');
+    const select = document.getElementById('templates-sort-select');
+    if (select && !select.dataset.bound) {
+      select.value = currentSort;
+      select.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        renderTemplates(templates);
+      });
+      select.dataset.bound = 'true';
+    }
+
+    const sorted = sortTemplates(templates, currentSort);
 
     container.innerHTML = `
       <div class="templates-grid">
