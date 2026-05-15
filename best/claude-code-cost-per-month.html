@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Code Cost Per Month (2026) — Pro vs Max vs API Math</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="What does Claude Code actually cost per month in 2026? Claude Pro $20, Max $100/$200, and pay-per-token API rates compared with real usage scenarios." />
+  <link rel="canonical" href="https://flowpicker.xyz/best/claude-code-cost-per-month.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/best/claude-code-cost-per-month.html" />
+  <meta property="og:title" content="Claude Code Cost Per Month (2026)" />
+  <meta property="og:description" content="Pro vs Max vs API — what Claude Code actually costs at real usage levels." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Claude Code Cost Per Month (2026)" />
+  <meta name="twitter:description" content="Pro vs Max vs API — the real monthly math for Claude Code." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Claude Code Cost Per Month — Pro, Max, and API Compared",
+  "description": "Detailed breakdown of Claude Code pricing across Claude Pro, Max 5x, Max 20x, and pay-per-token API plans.",
+  "author": { "@type": "Person", "name": "Amil" },
+  "publisher": { "@type": "Organization", "name": "Flowpicker", "url": "https://flowpicker.xyz/" },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://flowpicker.xyz/best/claude-code-cost-per-month.html"
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › Claude Code cost per month</p>
+
+    <section class="seo-hero">
+      <h1>Claude Code cost per month</h1>
+      <p>Short answer: $20/month covers a casual user, $100/month covers a serious user, $200/month covers a heavy user, and pay-per-token only makes sense if you're under $20 of usage or over $400. Here's how to figure out which bucket you're in.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>The three ways to pay</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th>Plan</th><th>Price/month</th><th>What you get</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude Pro</td><td>$20</td><td>Claude Code included with the same usage limits as the Claude.ai chat (~45 messages every 5 hours of Sonnet, less for Opus)</td></tr>
+          <tr><td>Claude Max 5x</td><td>$100</td><td>~5× the Pro limits — covers a full workday of heavy Claude Code</td></tr>
+          <tr><td>Claude Max 20x</td><td>$200</td><td>~20× the Pro limits — for people running Claude Code continuously</td></tr>
+          <tr><td>API pay-per-token</td><td>Variable</td><td>Sonnet 4.6: $3/M input, $15/M output. Opus 4.7: $15/M input, $75/M output. Haiku 4.5: $1/M input, $5/M output</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What real usage looks like</h2>
+
+      <h3>Casual user — $20/month is plenty</h3>
+      <p>You use Claude Code a few times a day. "Fix this bug." "Add a test for this function." "Explain this error." A handful of multi-turn conversations per day, each maybe 5–15 turns.</p>
+      <p><strong>Verdict:</strong> Pro at $20/mo. You'll occasionally hit the 5-hour rate limit but recover within minutes.</p>
+
+      <h3>Daily driver — $100/month makes sense</h3>
+      <p>Claude Code is part of your loop most of the working day. You're delegating real tasks: "investigate this flake," "migrate this module to TypeScript," "rewrite this endpoint." Several long-running sessions per day. You hit Pro's limits frequently.</p>
+      <p><strong>Verdict:</strong> Max 5x at $100/mo. Pays for itself by not blocking you when you're in flow.</p>
+
+      <h3>Heavy user — $200/month is the right answer</h3>
+      <p>You leave Claude Code running for hours. Multiple parallel sessions across repos. Background agents. Code review automation. You hit Max 5x limits in the afternoon.</p>
+      <p><strong>Verdict:</strong> Max 20x at $200/mo. At this level the API would be $400–800/mo, so Max is genuinely cheaper.</p>
+
+      <h3>Bursty / occasional — API pay-per-token</h3>
+      <p>You don't use Claude Code daily but when you do, you use it heavily. Some months $50, some months $5. A subscription wastes money in the slow months.</p>
+      <p><strong>Verdict:</strong> API key. Wire it into Claude Code via <code>ANTHROPIC_API_KEY</code> and pay only when you use it.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>How to estimate your API cost</h2>
+      <p>A real Claude Code conversation burns more tokens than you'd guess because it re-reads files on every tool call. Rough rules of thumb (Sonnet 4.6):</p>
+      <ul>
+        <li><strong>Quick fix</strong> (5–10 turns, small repo): ~$0.10–0.30</li>
+        <li><strong>Multi-file feature</strong> (20–40 turns, mid-size repo): ~$1–4</li>
+        <li><strong>Investigation / refactor</strong> (60+ turns, large repo): ~$5–15</li>
+        <li><strong>"Just go fix the failing tests"</strong> (long-running, many tool calls): ~$10–30</li>
+      </ul>
+      <p>20 quick fixes per day × 22 days = ~$66–130/month. Two big tasks per day × 22 days = ~$176/month and up.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Hidden costs and gotchas</h2>
+
+      <h3>Opus is 5× more expensive than Sonnet</h3>
+      <p>Opus 4.7 input is $15/M, Sonnet 4.6 input is $3/M. Output is $75/M vs $15/M. Default to Sonnet. Switch to Opus only when Sonnet fails.</p>
+
+      <h3>Tool calls multiply token count</h3>
+      <p>Every <code>Read</code>, <code>Bash</code>, and <code>Grep</code> the agent runs gets re-sent in the next turn's context. A "small" task with 30 tool calls can cost more than a "big" task with 5.</p>
+
+      <h3>Prompt caching cuts cost ~50%</h3>
+      <p>Claude Code uses prompt caching automatically. Cached input tokens cost $0.30/M instead of $3/M. Long sessions on the same files benefit most.</p>
+
+      <h3>Max plans don't include the full API limit</h3>
+      <p>Max 20x is "20× Pro," not "unlimited." You can still hit limits during sustained continuous use. Anthropic has been clear that heavy abuse triggers throttling.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Trying it out:</strong> Claude Pro $20/mo. Or BYO API key with a $20 monthly cap.</p>
+      <p><strong>Daily working dev:</strong> Claude Max 5x $100/mo. This is the sweet spot for most pros.</p>
+      <p><strong>Power user:</strong> Claude Max 20x $200/mo. If you'd be over $300 on the API, Max is cheaper.</p>
+      <p><strong>Bursty use:</strong> API pay-per-token. Set a hard budget cap.</p>
+      <p>Cost is only one variable. See <a href="../compare/cursor-vs-claude-code.html">Cursor vs Claude Code</a> for whether Claude Code is even the right tool for your workflow.</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">See the all-in monthly cost of Claude Code + your IDE + your context layer in one place.</p>
+      <a class="seo-cta-link" href="../index.html">Estimate your full stack cost →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

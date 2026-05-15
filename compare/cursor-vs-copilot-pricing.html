@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor vs Copilot Pricing (2026) — Every Plan, Real Monthly Math</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="Cursor vs GitHub Copilot pricing in 2026. Every plan, per-seat cost, what each plan unlocks, and which is actually cheaper for solo devs, teams, and enterprises." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare/cursor-vs-copilot-pricing.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare/cursor-vs-copilot-pricing.html" />
+  <meta property="og:title" content="Cursor vs Copilot Pricing (2026)" />
+  <meta property="og:description" content="Every plan, per-seat cost, what's unlocked at each tier — the real monthly math." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cursor vs Copilot Pricing (2026)" />
+  <meta name="twitter:description" content="Every plan and per-seat cost compared. Real monthly math." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cursor vs Copilot Pricing — Every Plan Compared",
+  "description": "Detailed pricing comparison of Cursor and GitHub Copilot across solo, team, and enterprise tiers.",
+  "author": { "@type": "Person", "name": "Amil" },
+  "publisher": { "@type": "Organization", "name": "Flowpicker", "url": "https://flowpicker.xyz/" },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://flowpicker.xyz/compare/cursor-vs-copilot-pricing.html"
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › Cursor vs Copilot pricing</p>
+
+    <section class="seo-hero">
+      <h1>Cursor vs Copilot pricing</h1>
+      <p>Top-line: Copilot starts cheaper, Cursor scales cheaper. The simple "$10 vs $20" comparison misses three things — request limits, model access, and what your team actually uses. Here's every plan, what it includes, and which one wins for each kind of buyer.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Side-by-side tiers</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th>Plan tier</th><th>Cursor</th><th>GitHub Copilot</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Free</td><td>Hobby — limited completions, slow Premium model calls</td><td>Free — limited completions; full for students &amp; OSS maintainers</td></tr>
+          <tr><td>Pro / Individual</td><td>$20/mo · 500 fast Premium requests, unlimited slow</td><td>$10/mo · effectively unlimited completions, 300 Premium requests</td></tr>
+          <tr><td>Power user</td><td>Ultra $40/mo · 2,500 Premium requests</td><td>Copilot Pro+ $39/mo · 1,500 Premium requests + Claude/Gemini access</td></tr>
+          <tr><td>Team</td><td>Business $40/user/mo · SSO, admin, privacy mode default</td><td>Business $19/user/mo · org policies, audit logs, IP indemnity</td></tr>
+          <tr><td>Enterprise</td><td>Custom · SOC 2, SAML, on-prem option</td><td>Enterprise $39/user/mo · SSO, Knowledge Bases, fine-tune</td></tr>
+          <tr><td>Usage / pay-as-you-go</td><td>Yes — top-up beyond Premium quota</td><td>Yes — Premium request overage at $0.04/request</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What "Premium request" actually means</h2>
+      <p>Both companies meter the expensive stuff — Claude Sonnet, Opus, GPT-5, Gemini 2.5 Pro, o3 — as <strong>Premium requests</strong>. Tab completions and the cheaper models are unlimited.</p>
+      <ul>
+        <li><strong>Cursor Pro:</strong> 500 Premium requests/month. A heavy day of Composer use can burn 30+. Power users hit the ceiling around day 15.</li>
+        <li><strong>Copilot Pro:</strong> 300 Premium requests/month, but most Copilot usage stays on the included GPT-4o-class model so the quota matters less day-to-day.</li>
+        <li><strong>Cursor Ultra ($40):</strong> 2,500 Premium requests. Equivalent to ~80/day. Most pros don't hit this.</li>
+        <li><strong>Copilot Pro+ ($39):</strong> 1,500 Premium requests + Claude &amp; Gemini access. Slightly fewer than Ultra but unlocks the same model breadth.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>Which is cheaper — by buyer type</h2>
+
+      <h3>Solo dev, light use</h3>
+      <p><strong>Copilot $10</strong> wins. If your AI use is "complete this function, write a regex, explain this error" — Copilot's quota covers it and Cursor's $20 buys features you won't use.</p>
+
+      <h3>Solo dev, heavy multi-file work</h3>
+      <p><strong>Cursor $20</strong> wins. Composer is worth the extra $10 alone. You'll burn through Copilot Pro's Premium quota in two weeks.</p>
+
+      <h3>Solo dev, model A/B testing</h3>
+      <p><strong>Cursor $20</strong> wins. Cursor exposes Claude, GPT, Gemini, Grok, and o3 from day one. Copilot Pro only unlocks Claude/Gemini at the Pro+ tier ($39).</p>
+
+      <h3>Team of 10, mixed use</h3>
+      <p><strong>Copilot Business $19/seat</strong> ($190/mo) vs <strong>Cursor Business $40/seat</strong> ($400/mo). Copilot is half the cost, and you keep VS Code and JetBrains — no editor migration. Cursor wins only if the team will use Composer heavily.</p>
+
+      <h3>Team of 50, enterprise compliance</h3>
+      <p><strong>Copilot Enterprise $39/seat</strong> matches Cursor Business on price but adds Knowledge Bases, audit logs, and IP indemnity that procurement teams care about. Cursor Enterprise is custom-priced; sales call required. For most large orgs, Copilot is the easier procurement.</p>
+
+      <h3>JetBrains shop</h3>
+      <p><strong>Copilot wins by default</strong> — Cursor doesn't run there. Don't even compare prices, just buy Copilot.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Hidden costs</h2>
+      <h3>Cursor's overage rates are real</h3>
+      <p>Once you blow past the Premium quota, Cursor charges API-equivalent rates on overage. A power user with Composer can hit $30–60 of overage in a heavy month on Pro. Bump to Ultra at $40 instead.</p>
+
+      <h3>Copilot's Premium overage is $0.04/request</h3>
+      <p>Sounds tiny. Adds up. 100 Premium requests = $4. 500 = $20. If you'd hit that, Pro+ at $39 is already cheaper than Pro + overage.</p>
+
+      <h3>Both bill annual upfront for the cheap rate</h3>
+      <p>Monthly billing is ~25% more expensive at most tiers. Worth knowing before you sign up.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Cheapest entry:</strong> Copilot $10/mo or free for students/OSS.</p>
+      <p><strong>Best $20 in AI coding:</strong> Cursor Pro.</p>
+      <p><strong>Cheapest at scale (teams):</strong> Copilot Business at $19/seat.</p>
+      <p><strong>Most model breadth per dollar:</strong> Cursor Pro ($20) beats Copilot Pro+ ($39) on raw model variety.</p>
+      <p>Cost is only one axis. See <a href="cursor-vs-copilot.html">Cursor vs Copilot — full comparison</a> for features, codebase context, and agent quality.</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Pricing is one piece of the stack — see total cost when you add a model, agent, and context layer.</p>
+      <a class="seo-cta-link" href="../index.html">Estimate your full stack cost →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

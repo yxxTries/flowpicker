@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor vs Claude Code — Which AI Coder Should You Pick? (2026)</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="Cursor vs Claude Code — honest 2026 comparison. IDE vs CLI agent, pricing, autonomy, model choice, and when to pick each one for real coding work." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare/cursor-vs-claude-code.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare/cursor-vs-claude-code.html" />
+  <meta property="og:title" content="Cursor vs Claude Code (2026)" />
+  <meta property="og:description" content="IDE vs CLI agent, pricing, autonomy, model choice — the honest breakdown." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cursor vs Claude Code (2026)" />
+  <meta name="twitter:description" content="Honest breakdown — IDE vs CLI agent, pricing, autonomy, model choice." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cursor vs Claude Code — Which AI Coder Should You Pick?",
+  "description": "Side-by-side comparison of Cursor (IDE) and Claude Code (CLI agent) covering pricing, autonomy, codebase context, and ideal use cases.",
+  "author": { "@type": "Person", "name": "Amil" },
+  "publisher": { "@type": "Organization", "name": "Flowpicker", "url": "https://flowpicker.xyz/" },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://flowpicker.xyz/compare/cursor-vs-claude-code.html"
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › Cursor vs Claude Code</p>
+
+    <section class="seo-hero">
+      <h1>Cursor vs Claude Code</h1>
+      <p>This isn't apples-to-apples. Cursor is an editor with an AI panel. Claude Code is a terminal agent that drives your filesystem. Most people end up using both — but if you're picking one, the question is whether you want to <em>steer</em> the AI or <em>delegate</em> to it.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th></th><th>Cursor</th><th>Claude Code</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>What it is</td><td>VS Code fork with AI built in</td><td>CLI agent from Anthropic</td></tr>
+          <tr><td>Where it runs</td><td>Desktop GUI app</td><td>Terminal / SSH session</td></tr>
+          <tr><td>Pricing</td><td>$20/month Pro · $40 Ultra</td><td>$20/mo Pro · $100–200/mo Max · or pay-per-token via API</td></tr>
+          <tr><td>Free tier</td><td>Hobby plan (limited)</td><td>No free tier — Pro min</td></tr>
+          <tr><td>Model choice</td><td>Claude, GPT, Gemini, Grok, o3</td><td>Claude only (Sonnet 4.6, Opus 4.7, Haiku 4.5)</td></tr>
+          <tr><td>Autonomy</td><td>You drive — AI assists</td><td>AI drives — you approve</td></tr>
+          <tr><td>Codebase context</td><td>@codebase — automatic</td><td>Reads files on demand via tools</td></tr>
+          <tr><td>Shell access</td><td>Through Composer / Agent only</td><td>First-class — full bash</td></tr>
+          <tr><td>Multi-file edits</td><td>Composer (good)</td><td>Native (excellent)</td></tr>
+          <tr><td>Best at</td><td>Inline edits, refactors with diffs</td><td>Long-running tasks, "fix this build"</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>When to pick Cursor</h2>
+      <ul>
+        <li><strong>You want to see every change before it lands.</strong> Cursor shows inline diffs and lets you accept/reject hunks. Claude Code commits to disk and asks forgiveness later.</li>
+        <li><strong>You want to A/B different models.</strong> Cursor lets you swap between Claude Sonnet, GPT-4o, Gemini, and o3 mid-conversation. Claude Code is Anthropic-only.</li>
+        <li><strong>You're working in a GUI workflow.</strong> Debugger tabs, source control panel, extensions — Cursor inherits all of VS Code.</li>
+        <li><strong>You don't trust autonomous agents yet.</strong> Cursor leans assistive. Claude Code leans agentic. If "the AI ran ten shell commands while I wasn't looking" is a horror story to you, start with Cursor.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>When to pick Claude Code</h2>
+      <ul>
+        <li><strong>You want to delegate, not steer.</strong> "Find why the build is broken and fix it." Cursor needs you to keep prompting. Claude Code keeps going until the task is done or it gets stuck.</li>
+        <li><strong>You're SSH'd into a server.</strong> Claude Code runs in any terminal. Cursor needs a desktop.</li>
+        <li><strong>You're already paying for Claude Pro or Max.</strong> Claude Code is bundled — you don't need a second subscription.</li>
+        <li><strong>You want a tool that writes its own tests and runs them.</strong> Claude Code can iterate on real outputs. Cursor can do this in Agent mode but is less mature here.</li>
+        <li><strong>You're on Linux with no GUI.</strong> Or in a remote container, or a sandboxed VM. Claude Code doesn't care.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>What people miss</h2>
+      <h3>They're not mutually exclusive — most pros use both</h3>
+      <p>Cursor for the keystroke-level work (renaming, completing functions, inline edits). Claude Code for the "go investigate this bug and don't come back until it's fixed" tasks. The $20 + $20 of Cursor Pro + Claude Pro is a normal monthly bill for senior devs in 2026.</p>
+
+      <h3>Claude Code's $200/mo Max plan changes the math</h3>
+      <p>If you're hitting API rate limits or burning $300+ on direct API calls, the $200 Max plan with bundled high-limit Claude Code usage is cheaper than pay-per-token. People who scoff at "$200 for a CLI" usually haven't seen their API bill from a heavy week.</p>
+
+      <h3>Cursor's @codebase is faster — but Claude Code's tool use is deeper</h3>
+      <p>Cursor indexes your repo and pulls relevant files automatically. Fast. Claude Code reads files on demand with its tools — slower for big context but more precise, because it grep's first and reads only what matters. Different philosophies.</p>
+
+      <h3>Claude Code can break things you didn't ask it to</h3>
+      <p>It has shell access. It can run migrations, delete files, force-push. By default it asks before destructive actions, but if you give it broad permissions ("just go fix it"), it will. Use git, use branches, don't run it on uncommitted work.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Pricing — the honest math</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th>Plan</th><th>Cursor</th><th>Claude Code</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Entry</td><td>$20/mo (Pro)</td><td>$20/mo (Claude Pro — includes Claude Code)</td></tr>
+          <tr><td>Heavy use</td><td>$40/mo (Ultra) or usage-based</td><td>$100–200/mo (Max 5x or Max 20x)</td></tr>
+          <tr><td>API-only</td><td>n/a — included</td><td>$3/M input · $15/M output (Sonnet 4.6)</td></tr>
+          <tr><td>Free tier</td><td>Hobby (gated)</td><td>None — Pro minimum</td></tr>
+        </tbody>
+      </table>
+      <p>For a working dev: Cursor Pro covers anything short of heavy agent loops. Claude Pro covers light Claude Code use. If you push Claude Code hard, Max pays for itself in week one.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Pick Cursor</strong> if you want a daily-driver editor with AI built in, and you want to drive every change. This is the right starter pick for most devs.</p>
+      <p><strong>Pick Claude Code</strong> if you want to delegate whole tasks to an AI that has shell, file, and tool access — and you're comfortable letting it work for 30+ minutes without micromanaging.</p>
+      <p><strong>Pick both</strong> if your monthly tool budget already crosses $50. They're complementary, not redundant.</p>
+      <p>Build your full stack — IDE + LLM + agent + context — in the <a href="../index.html">Flowpicker planner</a>. It'll flag combos that conflict (e.g. Claude Code with a non-Claude model isn't supported).</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Cursor + Claude Code is one of the most common 2026 stacks — Flowpicker shows compatibility before you commit.</p>
+      <a class="seo-cta-link" href="../index.html">Open the stack planner →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>
