@@ -38,6 +38,9 @@
       case 'oldest':
         sorted.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
         break;
+      case 'popularity':
+        sorted.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+        break;
     }
     return sorted;
   }
@@ -65,7 +68,7 @@
     window.location.href = 'index.html';
   }
 
-  let currentSort = 'name';
+  let currentSort = 'popularity';
 
   function renderTemplates(templates) {
     const container = document.getElementById('templates-container');

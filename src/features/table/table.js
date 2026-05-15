@@ -10,6 +10,7 @@ App.features.table = (() => {
       integration: o => withUnit(o.pricing),
       context:     o => null,
       agent:       o => withUnit(o.cost),
+      others:      o => withUnit(o.pricing),
     },
     complexity: {
       llm:         () => 'API call',
@@ -17,6 +18,7 @@ App.features.table = (() => {
       integration: o => o.setup,
       context:     o => o.setup,
       agent:       o => o.setup,
+      others:      o => o.setup,
     },
     source: {
       llm:         o => o.hosting,
@@ -24,6 +26,7 @@ App.features.table = (() => {
       integration: o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
       context:     o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
       agent:       o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
+      others:      o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
     },
     provider: {
       llm:         o => o.provider,
@@ -31,6 +34,7 @@ App.features.table = (() => {
       integration: o => (o.name || '').split(' ')[0] || null,
       context:     o => (o.name || '').split(' ')[0] || null,
       agent:       o => (o.name || '').split(' ')[0] || null,
+      others:      o => (o.name || '').split(' ')[0] || null,
     },
     keyspecs: {
       llm:         o => [o.contextWindow, o.speedTier].filter(Boolean).join(' · '),
@@ -38,6 +42,7 @@ App.features.table = (() => {
       integration: o => [o.interface, o.compatibility].filter(Boolean).join(' · '),
       context:     o => [o.hosting, o.staleness].filter(Boolean).join(' · '),
       agent:       o => [o.autonomy, o.interface].filter(Boolean).join(' · '),
+      others:      o => [o.category, o.interface].filter(Boolean).join(' · '),
     },
     website: {
       llm:         o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
@@ -45,6 +50,7 @@ App.features.table = (() => {
       integration: o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
       context:     o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
       agent:       o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
+      others:      o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
     },
   };
 
@@ -84,6 +90,10 @@ App.features.table = (() => {
     agent: {
       title: 'Agent / Orchestration',
       body: 'Lets the AI take multi step actions on its own, including running commands, editing multiple files, calling tools, and iterating until a task is done. Use it when you want the AI to execute work, not just suggest it.',
+    },
+    others: {
+      title: 'Others',
+      body: 'Anything else in your stack that does not fit the layers above — version control, deploy, monitoring, testing, and similar tools. This layer is optional; add what is relevant to how you actually ship.',
     },
   };
 
