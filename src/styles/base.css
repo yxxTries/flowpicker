@@ -11,15 +11,15 @@ html, body {
 }
 
 .page {
-  max-width: 1680px;
+  max-width: none;
   margin: 0 auto;
-  padding: 32px 32px 96px;
+  padding: 32px 48px 96px;
 }
 
 .site-footer {
-  max-width: 1680px;
+  max-width: none;
   margin: 0 auto;
-  padding: 20px 32px 32px;
+  padding: 20px 48px 32px;
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -86,9 +86,24 @@ html, body {
 }
 
 .tagline {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h1.tagline {
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.tagline-sub {
   margin: 0 0 16px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 760px;
 }
 
 .tagline-note {
@@ -241,7 +256,16 @@ html, body {
   }
 
   .tagline {
-    font-size: 14px;
+    font-size: 19px;
+    margin-bottom: 6px;
+  }
+
+  h1.tagline {
+    font-size: 22px;
+  }
+
+  .tagline-sub {
+    font-size: 13.5px;
     margin-bottom: 12px;
   }
 
@@ -262,5 +286,18 @@ html, body {
   .site-nav {
     gap: 12px;
     font-size: 13px;
+  }
+
+  /* Hide decorative emoji glyphs on phones. Toolbar buttons already
+     carry an adjacent text label (Share, Filters, Sort), so the glyph
+     is simply hidden. The dark-mode 🌙 is kept as-is. */
+  .toolbar-btn > span[aria-hidden="true"],
+  .browse-mobile-btn > span[aria-hidden="true"] {
+    display: none;
+  }
+  /* Keep the dropdown caret visible — it's a structural affordance,
+     not a decorative emoji. */
+  .toolbar-btn > span.toolbar-btn-caret[aria-hidden="true"] {
+    display: inline;
   }
 }

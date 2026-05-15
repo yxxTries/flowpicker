@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Copilot vs Continue.dev — Paid First-Party vs Open Source BYO Model</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="GitHub Copilot vs Continue.dev — which AI coding assistant should you use? Pricing, model choice, IDE support, privacy, and the trade-offs explained." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare/copilot-vs-continue.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare/copilot-vs-continue.html" />
+  <meta property="og:title" content="GitHub Copilot vs Continue.dev" />
+  <meta property="og:description" content="Paid first-party vs open-source BYO model. Which AI coding assistant wins for your workflow?" />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GitHub Copilot vs Continue.dev" />
+  <meta name="twitter:description" content="Paid first-party vs open-source BYO model." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "GitHub Copilot vs Continue.dev",
+  "author": { "@type": "Person", "name": "Amil" },
+  "publisher": { "@type": "Organization", "name": "Flowpicker", "url": "https://flowpicker.xyz/" },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://flowpicker.xyz/compare/copilot-vs-continue.html"
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › Copilot vs Continue</p>
+
+    <section class="seo-hero">
+      <h1>GitHub Copilot vs Continue.dev</h1>
+      <p>Copilot is the polished, paid default. Continue.dev is the open-source extension that turns your editor into a BYO-model AI assistant. The right choice depends on whether you want zero-setup or full control.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th></th><th>GitHub Copilot</th><th>Continue.dev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost</td><td>$10/month Pro</td><td>Free (BYO API key)</td></tr>
+          <tr><td>License</td><td>Proprietary</td><td>Apache 2.0, open source</td></tr>
+          <tr><td>Editors</td><td>VS Code, JetBrains, Neovim, Visual Studio, Xcode</td><td>VS Code, JetBrains</td></tr>
+          <tr><td>Model choice</td><td>Claude, GPT, Gemini (Pro+ tiers)</td><td>Any: Claude, GPT, Gemini, DeepSeek, Ollama, local</td></tr>
+          <tr><td>Inline completions</td><td>Best-in-class</td><td>Good, depends on model</td></tr>
+          <tr><td>Chat</td><td>Polished UI</td><td>Polished UI</td></tr>
+          <tr><td>Codebase indexing</td><td>Workspace context</td><td>Configurable @-context providers</td></tr>
+          <tr><td>Privacy</td><td>No retention on Business+</td><td>Whatever model provider you choose</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>When to pick GitHub Copilot</h2>
+      <ul>
+        <li><strong>You want zero setup.</strong> Install, sign in, done. No API keys, no model choice, no fiddling.</li>
+        <li><strong>You're on a corporate plan.</strong> If your employer pays for Copilot, you already have it. Don't add complexity.</li>
+        <li><strong>You want the strongest completions.</strong> Copilot's inline ghost-text is still the smoothest in the industry.</li>
+        <li><strong>Editor breadth.</strong> Copilot in Xcode for iOS work is unmatched.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>When to pick Continue.dev</h2>
+      <ul>
+        <li><strong>You want to use local models.</strong> Continue's first-class Ollama support means you can run Qwen 3 Coder or Llama 4 Maverick fully offline.</li>
+        <li><strong>You want the cheapest setup.</strong> Pair Continue with DeepSeek V4 Flash and you're at ~$5/month for the same workflow.</li>
+        <li><strong>You want privacy without paying enterprise rates.</strong> Continue + a self-hosted model = no code ever leaves your machine.</li>
+        <li><strong>You like to tinker.</strong> Custom context providers, custom slash commands, custom model routing.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Pick Copilot</strong> if your time is worth more than $10/month and you don't want to think about it. This is most professional devs.</p>
+      <p><strong>Pick Continue.dev</strong> if you care about privacy, want local models, or want the cheapest setup. The "Open-Source / Privacy-First" and "Budget / Hobbyist" <a href="../templates.html">templates in Flowpicker</a> both use Continue.</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Continue.dev's flexibility means the rest of your stack matters more. Flowpicker shows the trade-offs.</p>
+      <a class="seo-cta-link" href="../index.html">Build your stack →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

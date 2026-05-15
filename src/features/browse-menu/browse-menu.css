@@ -222,3 +222,65 @@
     }
   }
 }
+
+/* Native <select> layer picker is desktop-hidden; the pill nav handles
+   layer switching above 720px. */
+.browse-layer-select-wrap {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  /* Swap the scroll-chip strip for a native <select> on phones. The
+     pill nav stays in the DOM so existing JS that toggles its .active
+     state keeps working — we just hide it visually. */
+  .browse-menu:not(.browse-menu-preview) {
+    display: none;
+  }
+
+  .browse-layer-select-wrap {
+    display: block;
+    order: 4;
+    flex: 1 1 100%;
+    width: 100%;
+    margin: 6px 0 0;
+  }
+
+  .browse-layer-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 36px 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    background-color: var(--surface);
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                      linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    min-height: 40px;
+  }
+
+  .browse-layer-select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}

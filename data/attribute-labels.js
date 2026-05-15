@@ -45,3 +45,38 @@ const ATTRIBUTE_LABELS = {
   guardrails: 'Guardrails',
   category: 'Category',
 };
+
+// Ordered groups for the dynamic compare table. Rows render in this order,
+// skipping any key where no selected product has a value.
+const ATTRIBUTE_GROUPS = [
+  {
+    id: 'overview',
+    label: 'Overview',
+    keys: ['provider', 'category', 'bestFor', 'modality', 'released', 'knowledgeCutoff'],
+  },
+  {
+    id: 'pricing',
+    label: 'Pricing',
+    keys: ['pricing', 'priceTier', 'cost', 'priceInput', 'priceOutput', 'priceCache'],
+  },
+  {
+    id: 'performance',
+    label: 'Performance',
+    keys: ['contextWindow', 'contextTier', 'maxOutput', 'speedTier', 'latency', 'sweBench', 'humanEval', 'mmlu', 'benchmark'],
+  },
+  {
+    id: 'capabilities',
+    label: 'Capabilities & Fit',
+    keys: ['capabilities', 'autonomy', 'aiIntegration', 'interface', 'extensibility', 'collaboration', 'modelChoice', 'contextHandling', 'guardrails'],
+  },
+  {
+    id: 'platform',
+    label: 'Platform & Setup',
+    keys: ['os', 'hosting', 'compatibility', 'languages', 'setup', 'indexType', 'indexLimit', 'updateMode', 'staleness', 'privacy', 'openSource', 'modelId'],
+  },
+  {
+    id: 'meta',
+    label: 'More',
+    keys: ['notes', 'docsUrl', 'websiteUrl'],
+  },
+];

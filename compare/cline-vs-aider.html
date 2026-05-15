@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cline vs Aider — Free Autonomous AI Coding Agents Compared</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="Cline vs Aider — VS Code GUI agent vs terminal pair-programmer. Pricing, model choice, autonomy, git workflow, and which open-source agent fits your style." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare/cline-vs-aider.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare/cline-vs-aider.html" />
+  <meta property="og:title" content="Cline vs Aider — Free AI Coding Agents" />
+  <meta property="og:description" content="VS Code GUI agent vs terminal pair-programmer. Which open-source AI agent should you use?" />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cline vs Aider" />
+  <meta name="twitter:description" content="Free, open-source autonomous AI coding agents compared." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cline vs Aider — Free Autonomous AI Coding Agents Compared",
+  "author": { "@type": "Person", "name": "Amil" },
+  "publisher": { "@type": "Organization", "name": "Flowpicker", "url": "https://flowpicker.xyz/" },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://flowpicker.xyz/compare/cline-vs-aider.html"
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › Cline vs Aider</p>
+
+    <section class="seo-hero">
+      <h1>Cline vs Aider</h1>
+      <p>Both are free, open-source autonomous coding agents. Both can edit multiple files, run commands, and iterate without you holding their hand. The difference is where they live — Cline is a VS Code extension, Aider runs in your terminal — and that changes everything about the workflow.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th></th><th>Cline</th><th>Aider</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost</td><td>Free (BYO API key)</td><td>Free (BYO API key)</td></tr>
+          <tr><td>Interface</td><td>VS Code side panel</td><td>Terminal REPL</td></tr>
+          <tr><td>Model choice</td><td>Any: Claude, GPT, Gemini, DeepSeek, local</td><td>Any: Claude, GPT, Gemini, DeepSeek, local</td></tr>
+          <tr><td>Git integration</td><td>Manual</td><td>Auto-commits every change</td></tr>
+          <tr><td>Architect mode</td><td>Plan/Act toggle</td><td>Architect + Editor split</td></tr>
+          <tr><td>Best with</td><td>Claude Sonnet 4.6 + repo context</td><td>Claude Opus 4.7 or DeepSeek V4</td></tr>
+          <tr><td>Setup effort</td><td>Install extension, paste API key</td><td>pip install aider-chat, paste API key</td></tr>
+          <tr><td>Codebase awareness</td><td>Real-time repo context</td><td>Repo map (you choose what's in scope)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>When to pick Cline</h2>
+      <ul>
+        <li><strong>You live in VS Code already.</strong> Cline opens as a side panel and edits files in the editor you're staring at.</li>
+        <li><strong>You want visual diffs.</strong> Every proposed change shows up as a VS Code diff before being applied.</li>
+        <li><strong>You want a free Cursor-alternative.</strong> Cline + Claude Sonnet + a real codebase indexer is the closest free path to the Cursor experience.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>When to pick Aider</h2>
+      <ul>
+        <li><strong>You live in the terminal.</strong> If your editor is Neovim, Helix, or just <code>nano</code>, Aider is the natural fit.</li>
+        <li><strong>You want every change committed.</strong> Aider auto-creates a git commit after each turn. Trivial to revert, easy to review with <code>git log</code>.</li>
+        <li><strong>You're doing surgical changes.</strong> Aider's REPL workflow shines when you know exactly which 2-3 files you want to touch.</li>
+        <li><strong>You want OSS pair-programming ergonomics.</strong> The "/add file.py" syntax is unmatched for telling the agent exactly what's in scope.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>What people miss</h2>
+      <h3>Both will burn through your API budget</h3>
+      <p>Autonomous agents are token-hungry. A single multi-file refactor with Claude Sonnet can cost $0.50–$2. Plan accordingly, or pair them with cheaper models like DeepSeek V4 for routine work.</p>
+
+      <h3>Cline benefits more from a real RAG layer</h3>
+      <p>Aider's repo map is lightweight by design — it works fine in small repos but degrades on large monorepos. Cline pairs naturally with Greptile or a proper codebase indexer.</p>
+
+      <h3>Aider's auto-commit is a feature, not a bug</h3>
+      <p>The first time the agent makes a wrong call, you'll thank yourself for the <code>git reset</code> safety net.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Pick Cline</strong> if you're a VS Code user who wants a free, model-agnostic agent. It's the spiritual successor to "free Cursor."</p>
+      <p><strong>Pick Aider</strong> if you live in the terminal, value git history, and want surgical, conversational edits.</p>
+      <p>If you're not sure which, run both — they cost $0 to try. Then check the <a href="../templates.html">"Cline Autonomous" and "Aider Pair-Programming"</a> templates for the full stack each implies.</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Pair either agent with the right model and integration — Flowpicker shows compatibility.</p>
+      <a class="seo-cta-link" href="../index.html">Build your stack →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

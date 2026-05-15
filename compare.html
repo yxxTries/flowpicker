@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare AI Coding Tools — Flowpicker</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="description" content="Build your own side-by-side comparison of AI coding tools — pick any IDEs, LLMs, integrations, or agents and see pricing, context windows, benchmarks, and capabilities in one table." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare.html" />
+  <meta property="og:title" content="Compare AI Coding Tools — Flowpicker" />
+  <meta property="og:description" content="Pick any AI coding tools and compare them side by side: pricing, context, benchmarks, capabilities." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Compare AI Coding Tools — Flowpicker" />
+  <meta name="twitter:description" content="Pick any AI coding tools and compare them side by side." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="src/features/seo-pages/seo-pages.css" />
+  <link rel="stylesheet" href="src/features/compare/compare.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="/" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Plan</a>
+        <a href="browse.html" id="browse-link">Browse</a>
+        <a href="templates.html">Templates</a>
+        <a href="compare.html" class="active" aria-current="page">Compare</a>
+        <a href="saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <section class="seo-hero">
+      <h1>Compare AI Coding Tools</h1>
+      <p>Pick any tools — IDEs, LLMs, integrations, agents — and stack them up side by side. Pricing, context windows, benchmarks, and capabilities, all from the same database that powers Flowpicker's stack builder.</p>
+    </section>
+
+    <section class="cmp-app" id="cmp-app" aria-label="Build a comparison">
+      <div class="cmp-toolbar">
+        <div class="cmp-toolbar-meta">
+          <span class="cmp-count" id="cmp-count">0 / 4 picked</span>
+          <label class="cmp-toggle">
+            <input type="checkbox" id="cmp-toggle-identical" />
+            Hide identical rows
+          </label>
+        </div>
+      </div>
+
+      <div class="cmp-picker" id="cmp-picker">
+        <div class="cmp-picker-row">
+          <input type="text" id="cmp-search" class="cmp-search" placeholder="Search products by name, provider, or capability…" aria-label="Search products" />
+          <select id="cmp-layer-filter" class="cmp-layer-filter" aria-label="Filter by layer"></select>
+        </div>
+        <div class="cmp-chips" id="cmp-chips" aria-label="Picked products"></div>
+        <div class="cmp-results" id="cmp-results" role="list" aria-label="Search results"></div>
+      </div>
+
+      <div class="cmp-empty" id="cmp-empty">
+        <p class="cmp-empty-title">Pick at least 2 products to start comparing.</p>
+        <p class="cmp-empty-sub">Try a preset below, or search above for any tool in the Flowpicker database.</p>
+      </div>
+
+      <div class="cmp-table-wrap">
+        <table class="cmp-table" id="cmp-table" hidden></table>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Featured comparisons</h2>
+      <div class="seo-card-grid">
+        <a class="seo-card" href="compare/cursor-vs-copilot.html" data-cmp-preset="ide:cursor,integration:copilot">
+          <p class="seo-card-title">Cursor vs GitHub Copilot</p>
+          <p class="seo-card-desc">The two most-installed AI coding tools. Pricing, context, and cost.</p>
+        </a>
+        <a class="seo-card" href="compare/cursor-vs-windsurf.html" data-cmp-preset="ide:cursor,ide:windsurf">
+          <p class="seo-card-title">Cursor vs Windsurf</p>
+          <p class="seo-card-desc">Forked-VS-Code showdown. Cascade agent vs Cursor Composer.</p>
+        </a>
+        <a class="seo-card" href="compare/cline-vs-aider.html" data-cmp-preset="integration:cline,integration:aider">
+          <p class="seo-card-title">Cline vs Aider</p>
+          <p class="seo-card-desc">Free autonomous agents — VS Code GUI vs terminal pair-programmer.</p>
+        </a>
+        <a class="seo-card" href="compare/copilot-vs-continue.html" data-cmp-preset="integration:copilot,integration:continue">
+          <p class="seo-card-title">Copilot vs Continue.dev</p>
+          <p class="seo-card-desc">Paid first-party vs open-source BYO-model.</p>
+        </a>
+        <a class="seo-card" href="compare/claude-vs-gpt-coding.html" data-cmp-preset="llm:claude-sonnet,llm:openai-gpt4-1,llm:openai-o3">
+          <p class="seo-card-title">Claude vs GPT for coding</p>
+          <p class="seo-card-desc">Sonnet 4.6 vs GPT-4.1 vs o3. Benchmarks, pricing, and fit.</p>
+        </a>
+        <a class="seo-card" href="compare/claude-vs-gemini-coding.html" data-cmp-preset="llm:claude-sonnet,llm:gemini-2-5-pro">
+          <p class="seo-card-title">Claude vs Gemini for coding</p>
+          <p class="seo-card-desc">Anthropic's reasoning vs Google's 1M+ context window.</p>
+        </a>
+        <a class="seo-card" href="compare/deepseek-vs-claude.html" data-cmp-preset="llm:deepseek,llm:claude-sonnet">
+          <p class="seo-card-title">DeepSeek vs Claude</p>
+          <p class="seo-card-desc">Cheap open-weight vs premium closed — the cost-per-quality trade-off.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Best-of guides</h2>
+      <div class="seo-card-grid">
+        <a class="seo-card" href="best/best-llm-for-coding.html">
+          <p class="seo-card-title">Best LLM for coding (2026)</p>
+          <p class="seo-card-desc">Ranked picks across reasoning, speed, and cost — with real benchmarks.</p>
+        </a>
+        <a class="seo-card" href="best/best-ai-coding-ide.html">
+          <p class="seo-card-title">Best AI coding IDE</p>
+          <p class="seo-card-desc">Cursor, Windsurf, VS Code, JetBrains, Zed — the right pick for each workflow.</p>
+        </a>
+        <a class="seo-card" href="best/best-free-ai-coding-tools.html">
+          <p class="seo-card-title">Best free AI coding tools</p>
+          <p class="seo-card-desc">Zero-cost stacks that still feel premium. Local LLMs, open-source agents.</p>
+        </a>
+      </div>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Want to build a custom stack and see what breaks? Flowpicker shows compatibility warnings and monthly cost as you pick.</p>
+      <a class="seo-cta-link" href="index.html">Build your stack →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="vendor/sql-wasm.js"></script>
+  <script src="data/attribute-labels.js"></script>
+  <script src="src/db.js"></script>
+  <script src="src/features/selections-store/selections-store.js"></script>
+  <script src="src/features/darkmode/darkmode.js"></script>
+  <script src="src/features/browse-menu/browse-menu-preview.js"></script>
+  <script src="src/features/compare/compare.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+      if (window.App && App.features.compare) App.features.compare.init();
+    });
+  </script>
+</body>
+</html>

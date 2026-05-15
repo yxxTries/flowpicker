@@ -1,0 +1,13 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #1a1a19; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 72px; font-weight: 700; fill: #ffffff; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 32px; fill: #d4d4d0; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="630"/>
+  <text class="title" x="60" y="200">Flowpicker</text>
+  <text class="subtitle" x="60" y="280">AI Coding Stack Builder</text>
+  <text class="subtitle" x="60" y="340" font-size="24" fill="#a89f99">Compare IDEs, LLMs, Integrations, RAG, Agents</text>
+</svg>

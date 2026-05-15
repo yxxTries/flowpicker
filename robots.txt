@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /saved.html
+
+Sitemap: https://flowpicker.xyz/sitemap.xml

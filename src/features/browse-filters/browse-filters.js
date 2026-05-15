@@ -1545,7 +1545,10 @@
     const menu = document.querySelector('.browse-menu');
     if (!menu) return;
 
+    const layerSelect = document.getElementById('browse-layer-select');
+
     activateLayerFromHash(menu);
+    if (layerSelect) layerSelect.value = getActiveLayer();
 
     menu.addEventListener('click', (e) => {
       const btn = e.target.closest('.browse-menu-item');
@@ -1557,7 +1560,20 @@
       render(btn.dataset.layer);
       updateMobileFilterBadge(btn.dataset.layer);
       scrollActiveChipIntoView(menu);
+      if (layerSelect) layerSelect.value = btn.dataset.layer;
     });
+
+    if (layerSelect) {
+      layerSelect.addEventListener('change', () => {
+        const layerId = layerSelect.value;
+        for (const item of menu.querySelectorAll('.browse-menu-item')) {
+          item.classList.toggle('active', item.dataset.layer === layerId);
+        }
+        currentPage[layerId] = 1;
+        render(layerId);
+        updateMobileFilterBadge(layerId);
+      });
+    }
 
     window.addEventListener('hashchange', () => {
       activateLayerFromHash(menu);
@@ -1565,6 +1581,7 @@
       render(layerId);
       updateMobileFilterBadge(layerId);
       scrollActiveChipIntoView(menu);
+      if (layerSelect) layerSelect.value = layerId;
     });
 
     // Land with the active chip already centered (no animation on first paint).

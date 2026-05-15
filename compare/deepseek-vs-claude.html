@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeepSeek vs Claude for Coding — Cheap Open Weight vs Premium Closed Model</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="DeepSeek vs Claude for coding. V4 Pro and V4 Flash vs Sonnet 4.6 — price-per-quality breakdown, where DeepSeek punches above its weight, and where Claude pulls ahead." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare/deepseek-vs-claude.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare/deepseek-vs-claude.html" />
+  <meta property="og:title" content="DeepSeek vs Claude for Coding" />
+  <meta property="og:description" content="Cheap open-weight DeepSeek vs premium Claude. The price-per-quality breakdown." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DeepSeek vs Claude for Coding" />
+  <meta name="twitter:description" content="The cost-per-quality trade-off, explained." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "DeepSeek vs Claude for Coding",
+  "author": { "@type": "Person", "name": "Amil" },
+  "publisher": { "@type": "Organization", "name": "Flowpicker", "url": "https://flowpicker.xyz/" },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://flowpicker.xyz/compare/deepseek-vs-claude.html"
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › DeepSeek vs Claude</p>
+
+    <section class="seo-hero">
+      <h1>DeepSeek vs Claude</h1>
+      <p>DeepSeek's V4 Pro is the headline cost-disruption of 2026 — frontier-adjacent coding performance at a tenth of the price. Claude Sonnet 4.6 is the established consensus model. The question isn't which is "better" — it's which trade-off fits your work.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th>Model</th><th>Price (in / out per 1M)</th><th>Context</th><th>Open weight</th><th>SWE-bench</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DeepSeek V4 Pro</td><td>$0.44 / $0.87</td><td>128K</td><td>Yes</td><td>~55%</td></tr>
+          <tr><td>DeepSeek V4 Flash</td><td>$0.14 / $0.28</td><td>64K</td><td>Yes</td><td>~46%</td></tr>
+          <tr><td>Claude Sonnet 4.6</td><td>$3 / $15</td><td>200K</td><td>No</td><td>~62%</td></tr>
+          <tr><td>Claude Haiku 4.5</td><td>$1 / $5</td><td>200K</td><td>No</td><td>~50%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>Where DeepSeek wins</h2>
+      <ul>
+        <li><strong>Cost.</strong> V4 Pro is ~7x cheaper input, ~17x cheaper output than Sonnet. For high-volume coding, the bill genuinely matters.</li>
+        <li><strong>Self-hosting.</strong> Open weights mean you can run it on your own H100 (or a rented one). Your code never leaves your infrastructure.</li>
+        <li><strong>Cheap autocomplete.</strong> Pair V4 Flash with Continue.dev and you have a Copilot-class autocomplete for ~$5/month of API spend.</li>
+        <li><strong>Compliance.</strong> If you have to keep model weights inside a specific jurisdiction, DeepSeek is one of the few frontier-class options that's legal to deploy.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>Where Claude wins</h2>
+      <ul>
+        <li><strong>Agent reliability.</strong> Sonnet 4.6 stays on-task across long tool-call chains. DeepSeek occasionally drifts.</li>
+        <li><strong>Code quality at default settings.</strong> Fewer hallucinated APIs, fewer "almost right" patches.</li>
+        <li><strong>Tool ecosystem.</strong> Every major editor and agent has first-class Sonnet support. DeepSeek is supported but often as a second-class option.</li>
+        <li><strong>Long-context recall.</strong> 200K window with strong retrieval. DeepSeek's 128K is fine but degrades faster.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Mix them.</strong> Use DeepSeek V4 Flash for autocomplete and routine boilerplate. Switch to Sonnet 4.6 (or Opus 4.7) for hard refactors and agent runs. Most modern tools let you do this with a hotkey.</p>
+      <p>The <a href="../templates.html">"Budget / Hobbyist" template</a> in Flowpicker is built around DeepSeek + Continue.dev for ~$5/month. The "Cursor Power User" template uses Sonnet. Try both and see which feels right.</p>
+      <p>If you can only pick one and budget isn't a constraint: <strong>Claude Sonnet 4.6</strong>. If budget matters: <strong>DeepSeek V4 Pro</strong>, knowing you'll need to nudge it more.</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Not every IDE handles model switching gracefully. Flowpicker shows the gotchas.</p>
+      <a class="seo-cta-link" href="../index.html">Build your stack →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

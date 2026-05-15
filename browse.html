@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Browse – Flowpicker</title>
+  <title>Browse AI Coding Tools — Flowpicker</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="description" content="Browse all AI coding tools by category — IDEs, LLM providers, code integrations, RAG/context systems, and agent frameworks. Filter by cost, complexity, and compatibility." />
+  <link rel="canonical" href="https://flowpicker.xyz/browse.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://flowpicker.xyz/browse.html" />
+  <meta property="og:title" content="Browse AI Coding Tools — Flowpicker" />
+  <meta property="og:description" content="Browse all AI coding tools by category — IDEs, LLM providers, integrations, RAG/context systems, and agent frameworks. Filter by cost, complexity, and compatibility." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Browse AI Coding Tools — Flowpicker" />
+  <meta name="twitter:description" content="Browse all AI coding tools by category — IDEs, LLM providers, integrations, RAG/context systems, and agent frameworks." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Browse AI Coding Tools",
+  "url": "https://flowpicker.xyz/browse.html",
+  "description": "Complete directory of AI coding tools including IDEs, LLM providers, integrations, RAG systems, and agent frameworks.",
+  "isPartOf": { "@type": "WebSite", "name": "Flowpicker", "url": "https://flowpicker.xyz/" }
+}
+  </script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
   <script>
@@ -57,6 +80,7 @@
         <a href="index.html">Plan</a>
         <a href="browse.html" class="active" aria-current="page">Browse</a>
         <a href="templates.html">Templates</a>
+        <a href="compare.html">Compare</a>
         <a href="saved.html">Saved</a>
       </nav>
       <nav class="browse-menu" aria-label="Layers">
@@ -67,11 +91,23 @@
         <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4">Agent / Orchestration</button>
         <button type="button" class="browse-menu-item" data-layer="others" style="--i:5">Others</button>
       </nav>
+      <label class="browse-layer-select-wrap" for="browse-layer-select">
+        <span class="visually-hidden">Layer</span>
+        <select id="browse-layer-select" class="browse-layer-select" aria-label="Layer">
+          <option value="ide">IDE / Editor</option>
+          <option value="llm">LLM Provider / Model</option>
+          <option value="integration">Integration</option>
+          <option value="context">Context / RAG</option>
+          <option value="agent">Agent / Orchestration</option>
+          <option value="others">Others</option>
+        </select>
+      </label>
       <div id="auth-header-slot"></div>
       <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
     </header>
 
-    <p class="tagline">Explore all available tools and options.</p>
+    <h1 class="tagline">Browse AI coding tools</h1>
+    <p class="tagline-sub">Filter by layer, cost, setup complexity, and compatibility. Covers IDEs, LLM providers, integrations, RAG systems, and agents.</p>
 
     <div class="browse-mobile-toolbar" id="browse-mobile-toolbar">
       <button type="button" class="browse-mobile-btn" id="browse-mobile-filters-btn" aria-haspopup="dialog" aria-expanded="false">
@@ -115,7 +151,7 @@
   </main>
 
   <footer class="site-footer">
-    <span>Built by Amil</span>
+    <span>Flowpicker — AI coding stack builder. Built by Amil.</span>
     <div class="site-footer-links">
       <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="mailto:amil.shahul777@gmail.com">Email</a>
