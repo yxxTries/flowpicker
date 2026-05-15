@@ -1120,6 +1120,32 @@
     body.appendChild(main);
   }
 
+  function renderOthersDetail(body, option) {
+    const sidebar = document.createElement('aside');
+    sidebar.className = 'browse-detail-sidebar';
+    const stats = [
+      ['Category', option.category],
+      ['Pricing', option.pricing],
+      ['Hosting', option.hosting],
+      ['Open Source', option.openSource],
+      ['Setup', option.setup],
+      ['Interface', option.interface],
+      ['Languages', option.languages],
+      ['Released', option.released],
+    ];
+    for (const [label, value] of stats) {
+      if (!hasVal(value)) continue;
+      sidebar.appendChild(sidebarStat(label, value));
+    }
+
+    const main = document.createElement('div');
+    main.className = 'browse-detail-main';
+    commonDetailSections(main, option);
+
+    body.appendChild(sidebar);
+    body.appendChild(main);
+  }
+
   function renderAgentDetail(body, option) {
     const sidebar = document.createElement('aside');
     sidebar.className = 'browse-detail-sidebar';
@@ -1266,6 +1292,8 @@
       renderContextDetail(body, option);
     } else if (layerId === 'agent') {
       renderAgentDetail(body, option);
+    } else if (layerId === 'others') {
+      renderOthersDetail(body, option);
     }
 
     panel.appendChild(body);
