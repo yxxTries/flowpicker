@@ -256,6 +256,52 @@
         },
       ],
     },
+    others: {
+      label: 'Others',
+      groups: [
+        {
+          key: 'category',
+          label: 'Category',
+          match: 'equals',
+          options: [
+            { value: 'Version control',   label: 'Version control' },
+            { value: 'Containerization',  label: 'Containerization' },
+            { value: 'Error tracking',    label: 'Error tracking' },
+            { value: 'Monitoring / APM',  label: 'Monitoring / APM' },
+            { value: 'Security scanning', label: 'Security scanning' },
+          ],
+        },
+        {
+          key: 'pricing',
+          label: 'Pricing',
+          match: 'equals',
+          options: [
+            { value: 'Free',              label: 'Free' },
+            { value: 'Freemium',          label: 'Freemium' },
+            { value: 'Paid subscription', label: 'Paid subscription' },
+          ],
+        },
+        {
+          key: 'openSource',
+          label: 'Open source',
+          match: 'equals',
+          options: [
+            { value: 'Yes', label: 'Yes' },
+            { value: 'No',  label: 'No' },
+          ],
+        },
+        {
+          key: 'hosting',
+          label: 'Hosting',
+          match: 'equals',
+          options: [
+            { value: 'Cloud',      label: 'Cloud' },
+            { value: 'Self-hosted', label: 'Self-hosted' },
+            { value: 'Both',       label: 'Both' },
+          ],
+        },
+      ],
+    },
   };
 
   // Ordered tiers used by sort options. Values not in the list sort last.
@@ -661,6 +707,7 @@
     integration: ['compatibility', 'pricing', 'openSource', 'interface'],
     context: ['hosting', 'staleness', 'setup', 'indexLimit'],
     agent: ['notes', 'autonomy', 'interface', 'cost'],
+    others: ['category', 'pricing', 'hosting', 'openSource'],
   };
 
   function hasVal(v) {

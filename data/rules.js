@@ -153,4 +153,14 @@ const COMPATIBILITY_RULES = [
     when: s => s.ide?.id === 'replit' && s.integration && !['direct-api'].includes(s.integration.id),
     message: s => `Replit has its own built-in AI Agent — external integrations like ${s.integration.name} cannot run inside the Replit web IDE.`,
   },
+  {
+    id: 'cri-o-needs-kubernetes',
+    when: s => s.others?.id === 'cri-o',
+    message: s => `${s.others.name} is a Kubernetes-only container runtime — make sure you're running on Kubernetes / OpenShift, not standalone Docker workflows.`,
+  },
+  {
+    id: 'prometheus-setup-effort',
+    when: s => s.others?.id === 'prometheus',
+    message: s => `Heads up: ${s.others.name} has high setup effort — plan for Alertmanager, exporters, and a dashboarding tool (Grafana) to get full value.`,
+  },
 ];

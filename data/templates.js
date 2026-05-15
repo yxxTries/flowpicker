@@ -5,6 +5,7 @@ window.TEMPLATES = [
     description: 'IDE-integrated AI with real-time codebase context. Best for daily productivity.',
     author: 'Dev',
     cost: '$20/month (Cursor Pro)',
+    popularity: 100,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -13,6 +14,11 @@ window.TEMPLATES = [
       integration: [{ id: 'cursor-built', name: 'Cursor built-in' }],
       context: [{ id: 'cursor-cb', name: '@codebase (Cursor)' }],
       agent: [{ id: 'cursor-agent', name: 'Cursor Agent Mode' }],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'docker', name: 'Docker' },
+        { id: 'sentry', name: 'Sentry' },
+      ],
     },
   },
   {
@@ -21,6 +27,7 @@ window.TEMPLATES = [
     description: 'Autonomous agent in your terminal. Best for heavy refactors and multi-file work.',
     author: 'Dev',
     cost: '$15/month (Claude API)',
+    popularity: 85,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -29,6 +36,10 @@ window.TEMPLATES = [
       integration: [{ id: 'aider', name: 'Aider (terminal)' }],
       context: [],
       agent: [{ id: 'claude-code', name: 'Claude Code' }],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'podman', name: 'Podman' },
+      ],
     },
   },
   {
@@ -37,6 +48,7 @@ window.TEMPLATES = [
     description: 'The most-installed AI extension. Best for inline completions and chat.',
     author: 'Dev',
     cost: '$10/month (GitHub Copilot)',
+    popularity: 90,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -45,6 +57,11 @@ window.TEMPLATES = [
       integration: [{ id: 'copilot', name: 'GitHub Copilot' }],
       context: [{ id: 'copilot-idx', name: 'GitHub Copilot indexing' }],
       agent: [],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'docker', name: 'Docker' },
+        { id: 'datadog', name: 'Datadog' },
+      ],
     },
   },
   {
@@ -53,6 +70,7 @@ window.TEMPLATES = [
     description: 'Single vendor solution. IDE + integration + agent + context in one editor.',
     author: 'Dev',
     cost: '$30/month (Windsurf)',
+    popularity: 65,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -69,6 +87,7 @@ window.TEMPLATES = [
     description: 'Code never leaves your machine. Local LLM + local indexing + BYO integration.',
     author: 'Dev',
     cost: 'Free (self-hosted)',
+    popularity: 75,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -77,6 +96,13 @@ window.TEMPLATES = [
       integration: [{ id: 'continue', name: 'Continue.dev' }],
       context: [{ id: 'continue-idx', name: 'Continue indexing' }],
       agent: [],
+      others: [
+        { id: 'forgejo', name: 'Forgejo' },
+        { id: 'podman', name: 'Podman' },
+        { id: 'glitchtip', name: 'GlitchTip' },
+        { id: 'grafana', name: 'Grafana' },
+        { id: 'owasp-dc', name: 'OWASP Dependency-Check' },
+      ],
     },
   },
   {
@@ -85,6 +111,7 @@ window.TEMPLATES = [
     description: 'Cheap and cheerful. DeepSeek V4 Flash + Continue = $5/month coding.',
     author: 'Dev',
     cost: '$5/month (DeepSeek API)',
+    popularity: 80,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -93,6 +120,10 @@ window.TEMPLATES = [
       integration: [{ id: 'continue', name: 'Continue.dev' }],
       context: [{ id: 'continue-idx', name: 'Continue indexing' }],
       agent: [],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'glitchtip', name: 'GlitchTip' },
+      ],
     },
   },
   {
@@ -101,6 +132,7 @@ window.TEMPLATES = [
     description: 'Deep IDE integration for Java, Kotlin, Go teams with Sourcegraph context.',
     author: 'Dev',
     cost: '$20/month (JetBrains + Claude API)',
+    popularity: 50,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -109,6 +141,13 @@ window.TEMPLATES = [
       integration: [{ id: 'jetbrains-ai', name: 'JetBrains AI Assistant' }],
       context: [{ id: 'sourcegraph-cody', name: 'Sourcegraph Context' }],
       agent: [],
+      others: [
+        { id: 'gitlab', name: 'GitLab' },
+        { id: 'docker', name: 'Docker' },
+        { id: 'new-relic', name: 'New Relic' },
+        { id: 'sonarqube', name: 'SonarQube' },
+        { id: 'checkmarx', name: 'Checkmarx' },
+      ],
     },
   },
   {
@@ -117,6 +156,7 @@ window.TEMPLATES = [
     description: 'Git-aware, conversational edits. Best for OSS contributions and surgical changes.',
     author: 'Dev',
     cost: '$10/month (Claude API)',
+    popularity: 45,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -133,6 +173,7 @@ window.TEMPLATES = [
     description: 'Free autonomous agent inside VS Code with real-time repo context.',
     author: 'Dev',
     cost: '$25/month (Claude API + Greptile)',
+    popularity: 55,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -141,6 +182,11 @@ window.TEMPLATES = [
       integration: [{ id: 'cline', name: 'Cline' }],
       context: [{ id: 'greptile', name: 'Greptile' }],
       agent: [{ id: 'cline-agent', name: 'Cline Agent' }],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'docker', name: 'Docker' },
+        { id: 'sentry', name: 'Sentry' },
+      ],
     },
   },
   {
@@ -149,6 +195,7 @@ window.TEMPLATES = [
     description: 'Cloud-hosted autonomous agent. Assign tickets, it ships PRs. Maximum delegation.',
     author: 'Dev',
     cost: '$500+/month (Devin)',
+    popularity: 30,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -157,6 +204,12 @@ window.TEMPLATES = [
       integration: [{ id: 'direct-api', name: 'Direct API / custom' }],
       context: [{ id: 'greptile', name: 'Greptile' }],
       agent: [{ id: 'devin', name: 'Devin' }],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'docker', name: 'Docker' },
+        { id: 'datadog', name: 'Datadog' },
+        { id: 'snyk', name: 'Snyk' },
+      ],
     },
   },
   {
@@ -165,6 +218,7 @@ window.TEMPLATES = [
     description: 'Gemini 1M+ context for entire-repo refactors. Continue for BYO model flexibility.',
     author: 'Dev',
     cost: '$20/month (Gemini API)',
+    popularity: 40,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -181,6 +235,7 @@ window.TEMPLATES = [
     description: 'iOS and macOS development with native Xcode AI integration.',
     author: 'Dev',
     cost: '$10/month (Claude API)',
+    popularity: 35,
     upvotes: 0,
     downvotes: 0,
     selections: {
@@ -189,6 +244,108 @@ window.TEMPLATES = [
       integration: [{ id: 'xcode-ai', name: 'Xcode AI' }],
       context: [],
       agent: [],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'bugsnag', name: 'Bugsnag' },
+      ],
+    },
+  },
+  {
+    id: 'production-startup',
+    name: 'Production-Ready Startup',
+    description: 'Cursor for daily coding plus the full production toolchain: source control, containers, observability, and security scanning.',
+    author: 'Dev',
+    cost: '$50/month (Cursor + Sentry + Snyk)',
+    popularity: 95,
+    upvotes: 0,
+    downvotes: 0,
+    selections: {
+      ide: [{ id: 'cursor', name: 'Cursor' }],
+      llm: [{ id: 'claude-sonnet', name: 'Claude Sonnet 4.6' }],
+      integration: [{ id: 'cursor-built', name: 'Cursor built-in' }],
+      context: [{ id: 'cursor-cb', name: '@codebase (Cursor)' }],
+      agent: [{ id: 'cursor-agent', name: 'Cursor Agent Mode' }],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'docker', name: 'Docker' },
+        { id: 'sentry', name: 'Sentry' },
+        { id: 'datadog', name: 'Datadog' },
+        { id: 'snyk', name: 'Snyk' },
+      ],
+    },
+  },
+  {
+    id: 'enterprise-devops',
+    name: 'Enterprise DevOps',
+    description: 'GitLab end-to-end with self-hosted everything. Heavy on compliance, security scanning, and full observability.',
+    author: 'Dev',
+    cost: '$100+/month (GitLab + Datadog + Checkmarx)',
+    popularity: 70,
+    upvotes: 0,
+    downvotes: 0,
+    selections: {
+      ide: [{ id: 'jetbrains', name: 'JetBrains' }],
+      llm: [{ id: 'claude-opus', name: 'Claude Opus 4.7' }],
+      integration: [{ id: 'jetbrains-ai', name: 'JetBrains AI Assistant' }],
+      context: [{ id: 'sourcegraph-cody', name: 'Sourcegraph Context' }],
+      agent: [],
+      others: [
+        { id: 'gitlab', name: 'GitLab' },
+        { id: 'containerd', name: 'containerd' },
+        { id: 'datadog', name: 'Datadog' },
+        { id: 'checkmarx', name: 'Checkmarx' },
+        { id: 'sonarqube', name: 'SonarQube' },
+      ],
+    },
+  },
+  {
+    id: 'fully-self-hosted',
+    name: 'Fully Self-Hosted Stack',
+    description: 'Zero cloud dependencies. Forgejo, Podman, local LLM, and the LGTM stack for observability.',
+    author: 'Dev',
+    cost: 'Free (self-hosted)',
+    popularity: 60,
+    upvotes: 0,
+    downvotes: 0,
+    selections: {
+      ide: [{ id: 'vscode', name: 'VS Code' }],
+      llm: [{ id: 'qwen-coder', name: 'Qwen 3 Coder' }],
+      integration: [{ id: 'continue', name: 'Continue.dev' }],
+      context: [{ id: 'continue-idx', name: 'Continue indexing' }],
+      agent: [],
+      others: [
+        { id: 'forgejo', name: 'Forgejo' },
+        { id: 'podman', name: 'Podman' },
+        { id: 'glitchtip', name: 'GlitchTip' },
+        { id: 'grafana', name: 'Grafana' },
+        { id: 'prometheus', name: 'Prometheus' },
+        { id: 'owasp-dc', name: 'OWASP Dependency-Check' },
+      ],
+    },
+  },
+  {
+    id: 'kubernetes-platform',
+    name: 'Kubernetes Platform Team',
+    description: 'Cloud-native runtime with OpenTelemetry-first observability. For teams running k8s at scale.',
+    author: 'Dev',
+    cost: '$40/month (Claude API + Grafana Cloud)',
+    popularity: 55,
+    upvotes: 0,
+    downvotes: 0,
+    selections: {
+      ide: [{ id: 'vscode', name: 'VS Code' }],
+      llm: [{ id: 'claude-sonnet', name: 'Claude Sonnet 4.6' }],
+      integration: [{ id: 'cline', name: 'Cline' }],
+      context: [{ id: 'sourcegraph-cody', name: 'Sourcegraph Context' }],
+      agent: [{ id: 'cline-agent', name: 'Cline Agent' }],
+      others: [
+        { id: 'github', name: 'GitHub' },
+        { id: 'cri-o', name: 'CRI-O' },
+        { id: 'prometheus', name: 'Prometheus' },
+        { id: 'grafana', name: 'Grafana' },
+        { id: 'signoz', name: 'SigNoz' },
+        { id: 'snyk', name: 'Snyk' },
+      ],
     },
   },
 ];

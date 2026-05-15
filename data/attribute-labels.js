@@ -43,4 +43,5 @@ const ATTRIBUTE_LABELS = {
   indexType: 'Index type',
   updateMode: 'Update mode',
   guardrails: 'Guardrails',
+  category: 'Category',
 };
