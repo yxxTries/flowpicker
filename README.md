@@ -1,82 +1,113 @@
 # Flowpicker
 
-PC Part Picker for AI coding workflows. Pick one tool per layer (IDE, LLM, Integration, Context/RAG, Agent) and the page warns you about incompatibilities, surfaces cost estimates, and explains setup complexity.
+**Flowpicker is a PC Part Picker for AI coding workflows.** Build a stack one layer at a time — IDE, LLM, integration, context/RAG, agent, plus version control, monitoring, security — and the page tells you what fits together, what costs what, and where the gotchas are.
 
-## Run
+Live at **[flowpicker.xyz](https://flowpicker.xyz)**.
 
-Products live in a SQLite database at `data/flowpicker.db`, loaded in the browser via sql.js (WASM). Because the page uses `fetch()` for the `.db` and `.wasm` files, you must serve the directory over HTTP. Opening `index.html` directly from disk (`file://`) will not work.
+## What you can do with it
 
-From the project root:
+- **Plan a stack.** Pick one product per layer on the home page. Compatibility warnings, monthly cost estimates, and setup-effort notes update as you go.
+- **Browse the catalog.** Filter every product by cost, OS, hosting, context window, open-source vs. closed, and more.
+- **Compare side by side.** Pick any products (cross-layer is fine) and see pricing, benchmarks, context, and capabilities in a generated table. Share the URL.
+- **Use templates.** Start from a pre-built stack (e.g. "Solo dev on a budget", "Enterprise with on-prem LLM") and tweak.
+- **Save and share.** Saved stacks live in your browser; share links round-trip the full stack through the URL hash.
 
+## Tech stack
+
+- **No framework, no build step.** Plain HTML, CSS, and ES2020 JavaScript loaded with `<script>` tags. Features attach to a `window.App` namespace.
+- **SQLite in the browser.** All ~140 products live in `data/flowpicker.db`, loaded client-side via **sql.js** (WASM). Editing products = editing rows in the DB.
+- **No backend for the app itself.** Saved stacks, dark-mode preference, comparisons — all in `localStorage`. The optional `server.js` (Node + `better-sqlite3`) powers an experimental templates API but the static site works without it.
+- **Tests.** Unit tests with **Vitest** + **jsdom**; E2E with **Playwright**.
+- **Hosting.** Static-hosted (currently GitHub Pages via `CNAME`).
+
+## Run locally
+
+The page uses `fetch()` to load the SQLite database and WASM runtime, so you must serve over HTTP — opening `index.html` from disk won't work.
+
+```bash
+npm install
+npm run serve        # http-server on http://127.0.0.1:8000
+# or
+python -m http.server 8000
 ```
-npx http-server -p 8000        # or: python -m http.server 8000
-```
 
-Then open http://127.0.0.1:8000/index.html.
+Then open <http://127.0.0.1:8000/index.html>.
+
+### Other scripts
+
+```bash
+npm test             # vitest run (unit)
+npm run test:e2e     # playwright
+npm run server       # optional Node API for templates
+npm run dev          # both: static server + API server
+```
 
 ## Editing products
 
-`data/flowpicker.db` is the source of truth. Edit it with [DB Browser for SQLite](https://sqlitebrowser.org/) or the `sqlite3` CLI, then reload the page. Schema:
+`data/flowpicker.db` is the source of truth. Open it with [DB Browser for SQLite](https://sqlitebrowser.org/) or the `sqlite3` CLI, edit, save, reload the page.
 
-* `layers(id, name, optional, position)` is one row per layer.
-* `layer_chip_keys(layer_id, key, position)` says which attributes render as table chips.
-* `options(layer_id, id, name, position)` holds the products inside each layer.
-* `option_attrs(layer_id, option_id, key, value)` stores free form key/value attributes (for example `contextWindow`, `notes`, `latency`). Add new keys here and they show up in the option cards automatically. Add a label in `data/attribute-labels.js` for a prettier display name.
+Schema:
 
-The one time migration script that built the initial DB lives at `tools/build-db.js`. If you prefer editing a single JS file and regenerating the database, update the product list there and run:
+| Table | Purpose |
+|---|---|
+| `layers(id, name, optional, position)` | One row per layer (IDE, LLM, etc.) |
+| `options(layer_id, id, name, position)` | Products inside each layer |
+| `option_attrs(layer_id, option_id, key, value)` | Free-form attributes (`contextWindow`, `pricing`, `sweBench`, …) |
+| `layer_chip_keys(layer_id, key, position)` | Which attributes render as chips on cards |
 
-```
+New attribute keys appear on cards automatically. Add a display label in `data/attribute-labels.js` for prettier rendering, and (optionally) group it in `ATTRIBUTE_GROUPS` so it shows up in the Compare page.
+
+If you'd rather edit a single JS file, update `tools/build-db.js` and regenerate:
+
+```bash
 node tools/build-db.js
 ```
 
-That overwrites `data/flowpicker.db`.
-
-## Structure
+## Project layout
 
 ```
 flowpicker/
-├── index.html                    Page shell; loads CSS + JS in order
-├── README.md                     This file
+├── index.html              Plan page (stack builder)
+├── browse.html             Catalog with filters
+├── compare.html            Dynamic side-by-side comparator
+├── templates.html          Pre-built starter stacks
+├── saved.html              User's saved stacks
+├── best/, compare/         SEO landing pages
 ├── data/
-│  ├── flowpicker.db              SQLite: layers and products (source of truth)
-│  ├── rules.js                   COMPATIBILITY_RULES: predicate + message pairs
-│  └── attribute-labels.js        ATTRIBUTE_LABELS: display names for option fields
+│   ├── flowpicker.db       SQLite — products (source of truth)
+│   ├── rules.js            Compatibility predicates + messages
+│   ├── attribute-labels.js Display labels + comparison groups
+│   └── templates.db        Templates DB (used by server.js)
 ├── vendor/
-│  ├── sql-wasm.js                sql.js loader (pinned, ~50KB)
-│  └── sql-wasm.wasm              SQLite WASM runtime (~640KB)
-├── tools/
-│  └── build-db.js                Script that builds flowpicker.db from a JS list
+│   ├── sql-wasm.js         sql.js loader (~50 KB)
+│   └── sql-wasm.wasm       SQLite WASM runtime (~640 KB)
 ├── src/
-│  ├── db.js                      Loads sql.js + flowpicker.db, materializes LAYERS
-│  ├── main.js                    App namespace + async bootstrap on DOMContentLoaded
-│  ├── styles/
-│  │  ├── tokens.css              :root CSS variables (colors)
-│  │  └── base.css                Page shell, typography, chips, buttons
-│  └── features/                  Vertical slices; each owns its JS + CSS
-│     ├── table/                  The main table on the page
-│     ├── warnings/               Retractable compatibility banner
-│     ├── modal/                  Pick a layer modal with option cards
-│     └── browse-filters/         Filters sidebar on the browse page
-├── tests/
-│  └── unit/                      Unit tests for features and utilities
-└── scripts/
-   └── seed-templates.js          Template seeding script
+│   ├── db.js               Loads sql.js + flowpicker.db → LAYERS array
+│   ├── main.js             App namespace + bootstrap
+│   ├── styles/             tokens.css (CSS vars) + base.css
+│   └── features/           One folder per feature (JS + CSS)
+│       ├── table/          Main stack table
+│       ├── warnings/       Compatibility banner
+│       ├── modal/          Layer-picker modal
+│       ├── browse-filters/ Browse-page filters + detail panel
+│       ├── compare/        Compare-page picker + table
+│       ├── templates/      Template gallery
+│       ├── saved-flows/    Save/load stacks
+│       ├── export/         Share-link encoder/decoder
+│       ├── stack-analysis/ Cost + setup-effort summary
+│       └── …
+├── tools/build-db.js       Rebuilds flowpicker.db from JS
+├── tests/unit/             Vitest specs
+├── server.js               Optional Node API (templates)
+└── package.json
 ```
 
 ## Conventions
 
-* **No build step.** All files are loaded via `<link>` and `<script>` tags. Order in `index.html` matters: `sql-wasm.js` before `main.js`, `main.js` (declares `App`) before `db.js` (attaches to `App`), then every feature.
-* **Globals via `App`.** Features attach to `window.App.features.<name>` and share state through `App.state`. No ES modules.
-* **Shared DOM refs.** Cached once in `App.refs` by `main.js`. Features read from there instead of requerying the DOM.
-* **One feature per folder.** Adding a feature means adding `src/features/<name>/<name>.js` plus `<name>.css`, attaching to `App.features.<name>`, and wiring its script and stylesheet in `index.html`.
-* **Products from SQLite.** `src/db.js` loads `data/flowpicker.db` and materializes a synchronous `window.LAYERS` array. Features read `LAYERS` as before; the database is just where the data lives.
-
-## Adding a feature
-
-1. Run `mkdir src/features/<name>` and add `<name>.js` plus `<name>.css`.
-2. In the JS, wrap the code in an IIFE that assigns to `App.features.<name> = (() => { … })()`. Expose at least `init()`. Add other methods as you need them.
-3. Have `main.js` call `App.features.<name>.init()` during bootstrap.
-4. Add `<link>` and `<script>` tags to `index.html` in the right order.
+- **No build step.** Order in HTML matters: `sql-wasm.js` → `attribute-labels.js` → `db.js` → `selections-store.js` → feature scripts.
+- **Globals via `App`.** Features attach to `window.App.features.<name>` and read shared state from `App.state`. No ES modules.
+- **One feature per folder.** Adding a feature = create `src/features/<name>/<name>.{js,css}`, expose `App.features.<name>.init()`, wire script + stylesheet tags in the relevant HTML pages.
+- **Products from SQLite.** `src/db.js` materializes the SQLite tables into a `LAYERS` array; features read from there.
 
 ## Adding a compatibility rule
 
@@ -85,13 +116,17 @@ Append to `COMPATIBILITY_RULES` in `data/rules.js`:
 ```js
 {
   id: 'unique_id',
-  when: s => /* predicate on selections */ ,
-  message: s => `Human readable warning text`,
+  when: s => /* predicate on selections */,
+  message: s => `Human-readable warning text`,
 }
 ```
 
-`s` is the current `selections` object keyed by layer id (for example `s.ide`, `s.llm`). Rules feed both the warning banner and the browse page compatibility filter, so they stay in sync automatically.
+`s` is the selections object keyed by layer id (`s.ide`, `s.llm`, …). Rules feed both the warning banner and the browse page's compatibility filter, so they stay in sync.
 
 ## Privacy
 
-Flowpicker has no backend. Saved stacks and your local profile live only inside your browser's `localStorage`. Clearing site data removes them.
+Flowpicker has no user backend. Saved stacks, the compare set, and dark-mode preference all live in your browser's `localStorage`. Clearing site data removes them.
+
+## License
+
+See [LICENSE](LICENSE).

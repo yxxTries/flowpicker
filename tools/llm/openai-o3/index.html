@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>o3 — LLM Provider / Model for AI coding (2026 review)</title>
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg" />
+  <meta name="description" content="o3 llm provider / model: Hardest coding problems, complex multi-step reasoning, advanced debugging" />
+  <link rel="canonical" href="https://flowpicker.xyz/tools/llm/openai-o3/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/tools/llm/openai-o3/" />
+  <meta property="og:title" content="o3 — LLM Provider / Model for AI coding (2026 review)" />
+  <meta property="og:description" content="o3 llm provider / model: Hardest coding problems, complex multi-step reasoning, advanced debugging" />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="o3 — LLM Provider / Model for AI coding (2026 review)" />
+  <meta name="twitter:description" content="o3 llm provider / model: Hardest coding problems, complex multi-step reasoning, advanced debugging" />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../../../src/styles/base.css" />
+  <link rel="stylesheet" href="../../../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../../../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../../../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../../../index.html">Plan</a>
+        <a href="../../../browse.html" id="browse-link">Browse</a>
+        <a href="../../../templates.html">Templates</a>
+        <a href="../../../compare.html">Compare</a>
+        <a href="../../../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../../../">Home</a> › <a href="../../">Tools</a> › <a href="../">LLM Provider / Model</a> › o3</p>
+
+    <section class="seo-hero">
+      <h1>o3</h1>
+      <p class="seo-hero-sub">LLM Provider / Model · Hardest coding problems, complex multi-step reasoning, advanced debugging</p>
+      <p class="seo-hero-links"><a href="https://openai.com/o3" target="_blank" rel="noopener nofollow">Website</a> · <a href="https://platform.openai.com/docs/models" target="_blank" rel="noopener nofollow">Docs</a></p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <tbody>
+          <tr><td>Input price</td><td>$10</td></tr>
+          <tr><td>Output price</td><td>$40</td></tr>
+          <tr><td>Cache price</td><td>$2.50</td></tr>
+          <tr><td>Price tier</td><td>Premium</td></tr>
+          <tr><td>Context window</td><td>200K</td></tr>
+          <tr><td>Max output</td><td>100K</td></tr>
+          <tr><td>Context tier</td><td>128K-500K</td></tr>
+          <tr><td>Speed tier</td><td>Slow/Reasoning</td></tr>
+          <tr><td>Latency</td><td>medium</td></tr>
+          <tr><td>Knowledge cutoff</td><td>Jun 2024</td></tr>
+          <tr><td>Modality</td><td>Multimodal (vision)</td></tr>
+          <tr><td>Model ID</td><td>o3</td></tr>
+          <tr><td>Provider</td><td>OpenAI</td></tr>
+          <tr><td>HumanEval</td><td>96%</td></tr>
+          <tr><td>MMLU</td><td>91%</td></tr>
+          <tr><td>SWE-Bench</td><td>71%</td></tr>
+          <tr><td>Benchmark</td><td>SWE-bench: top</td></tr>
+          <tr><td>Released</td><td>Apr 2025</td></tr>
+          <tr><td>Hosting</td><td>Closed/API</td></tr>
+          <tr><td>Capabilities</td><td>Vision, Tool use, Extended thinking, Streaming, Structured output</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What o3 does</h2>
+      <p>Vision, Tool use, Extended thinking, Streaming, Structured output</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Best for</h2>
+      <p>Hardest coding problems, complex multi-step reasoning, advanced debugging</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Works well with</h2>
+      <div class="seo-works-grid">
+        <div class="seo-works-col">
+          <h3>IDE / Editor</h3>
+          <ul><li><a href="../../ide/vscode/">VS Code</a></li><li><a href="../../ide/cursor/">Cursor</a></li><li><a href="../../ide/zed/">Zed</a></li><li><a href="../../ide/neovim/">Neovim</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Integration</h3>
+          <ul><li><a href="../../integration/copilot/">GitHub Copilot</a></li><li><a href="../../integration/continue/">Continue.dev</a></li><li><a href="../../integration/codeium/">Codeium</a></li><li><a href="../../integration/cursor-built/">Cursor built-in</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Context / RAG</h3>
+          <ul><li><a href="../../context/none/">None (vanilla)</a></li><li><a href="../../context/cursor-cb/">@codebase (Cursor)</a></li><li><a href="../../context/continue-idx/">Continue codebase indexing</a></li><li><a href="../../context/greptile/">Greptile</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Agent / Orchestration</h3>
+          <ul><li><a href="../../agent/none/">None</a></li><li><a href="../../agent/aider-arch/">Aider (architect)</a></li><li><a href="../../agent/swe-agent/">SWE-agent</a></li><li><a href="../../agent/langgraph/">Custom LangGraph</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Other tools</h3>
+          <ul><li><a href="../../others/github/">GitHub</a></li><li><a href="../../others/gitlab/">GitLab</a></li><li><a href="../../others/bitbucket/">Bitbucket</a></li><li><a href="../../others/gitea/">Gitea</a></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Conflicts &amp; caveats</h2>
+      <ul>
+          <li>Claude Code only works with Claude models — your LLM is o3.</li>
+          <li>Devin uses Cognition&#39;s proprietary model internally — your selected o3 will be ignored.</li>
+        </ul>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Build a full stack around o3 — Flowpicker shows compatibility warnings before you commit.</p>
+      <a class="seo-cta-link" href="../../../index.html">Open the stack planner →</a>
+    </div>
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"o3","description":"Hardest coding problems, complex multi-step reasoning, advanced debugging","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://flowpicker.xyz/tools/llm/openai-o3/"}</script>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../../../src/features/darkmode/darkmode.js"></script>
+  <script src="../../../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>
