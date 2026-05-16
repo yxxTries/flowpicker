@@ -135,6 +135,7 @@ h1.tagline {
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 

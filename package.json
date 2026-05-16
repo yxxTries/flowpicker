@@ -11,7 +11,9 @@
     "test:all": "vitest run && playwright test",
     "serve": "http-server -p 8000 -c-1 .",
     "server": "node server.js",
-    "dev": "concurrently \"npm run server\" \"npm run serve\""
+    "dev": "concurrently \"npm run server\" \"npm run serve\"",
+    "build:pages": "node tools/build-static-pages.js",
+    "build:sitemap": "node tools/build-sitemap.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.10.0"

@@ -44,6 +44,7 @@
   <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
   <link rel="stylesheet" href="src/features/seo-pages/seo-pages.css" />
   <link rel="stylesheet" href="src/features/compare/compare.css" />
+  <link rel="stylesheet" href="src/features/auth/auth.css" />
 </head>
 <body>
   <main class="page">
@@ -64,12 +65,13 @@
         <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
         <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
       </nav>
+      <div id="auth-header-slot"></div>
       <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
     </header>
 
-    <section class="seo-hero">
-      <h1>Compare Tools</h1>
-      <p>Pick any tools — IDEs, LLMs, integrations, agents — and stack them up side by side. Pricing, context windows, benchmarks, and capabilities, all from the same database that powers Flowpicker's stack builder.</p>
+    <section class="seo-hero seo-hero-compact">
+      <h1 class="tagline">Compare Tools</h1>
+      <p class="tagline-sub">Pick any tool and compare them side by side. Pricing, context windows, benchmarks, and capabilities, all from the latest data available.</p>
     </section>
 
     <section class="cmp-app" id="cmp-app" aria-label="Build a comparison">
@@ -78,7 +80,7 @@
           <span class="cmp-count" id="cmp-count">0 / 4 picked</span>
           <label class="cmp-toggle">
             <input type="checkbox" id="cmp-toggle-identical" />
-            Hide identical rows
+            <span class="cmp-toggle-label">Hide identical rows</span>
           </label>
         </div>
       </div>
@@ -133,6 +135,22 @@
           <p class="seo-card-title">DeepSeek vs Claude</p>
           <p class="seo-card-desc">Cheap open-weight vs premium closed — the cost-per-quality trade-off.</p>
         </a>
+        <a class="seo-card" href="compare/cursor-vs-claude-code.html" data-cmp-preset="ide:cursor,agent:claude-code">
+          <p class="seo-card-title">Cursor vs Claude Code</p>
+          <p class="seo-card-desc">IDE that helps vs CLI agent that delegates. When to pick each — or use both.</p>
+        </a>
+        <a class="seo-card" href="compare/cursor-vs-copilot-pricing.html" data-cmp-preset="ide:cursor,integration:copilot">
+          <p class="seo-card-title">Cursor vs Copilot pricing</p>
+          <p class="seo-card-desc">Every plan and per-seat cost. Real monthly math by buyer type.</p>
+        </a>
+        <a class="seo-card" href="compare/cursor-vs-windsurf-pricing.html" data-cmp-preset="ide:cursor,ide:windsurf">
+          <p class="seo-card-title">Cursor vs Windsurf pricing</p>
+          <p class="seo-card-desc">Premium requests vs Flow Action credits. Which actually costs less.</p>
+        </a>
+        <a class="seo-card" href="compare/copilot-vs-cursor-jetbrains.html" data-cmp-preset="ide:jetbrains,integration:copilot">
+          <p class="seo-card-title">Copilot vs Cursor for JetBrains</p>
+          <p class="seo-card-desc">Cursor doesn't run on JetBrains. Here's what to actually use.</p>
+        </a>
       </div>
     </section>
 
@@ -151,6 +169,22 @@
           <p class="seo-card-title">Best free AI coding tools</p>
           <p class="seo-card-desc">Zero-cost stacks that still feel premium. Local LLMs, open-source agents.</p>
         </a>
+        <a class="seo-card" href="best/best-ide-for-claude.html">
+          <p class="seo-card-title">Best IDE for Claude</p>
+          <p class="seo-card-desc">Cursor, Zed, Windsurf, VS Code, JetBrains — ranked by Claude support quality.</p>
+        </a>
+        <a class="seo-card" href="best/best-ai-coding-agent.html">
+          <p class="seo-card-title">Best AI coding agent</p>
+          <p class="seo-card-desc">Claude Code, Aider, Cline, Devin, Codex CLI compared — honest picks per use case.</p>
+        </a>
+        <a class="seo-card" href="best/claude-code-cost-per-month.html">
+          <p class="seo-card-title">Claude Code cost per month</p>
+          <p class="seo-card-desc">Pro vs Max vs API — what Claude Code actually costs at real usage.</p>
+        </a>
+        <a class="seo-card" href="best/aider-cost-per-month.html">
+          <p class="seo-card-title">Aider cost per month</p>
+          <p class="seo-card-desc">BYO API key — real token math by model and usage level.</p>
+        </a>
       </div>
     </section>
 
@@ -168,6 +202,11 @@
     </div>
   </footer>
 
+  <div id="auth-modal" class="auth-modal" hidden>
+    <div class="auth-modal-backdrop"></div>
+    <div class="auth-modal-panel"></div>
+  </div>
+
   <script>window.App = { features: {} };</script>
   <script src="vendor/sql-wasm.js"></script>
   <script src="data/attribute-labels.js"></script>
@@ -176,6 +215,7 @@
   <script src="src/features/darkmode/darkmode.js"></script>
   <script src="src/features/browse-menu/browse-menu-preview.js"></script>
   <script src="src/features/compare/compare.js"></script>
+  <script src="src/features/auth/auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.App && App.features.darkmode) App.features.darkmode.init();

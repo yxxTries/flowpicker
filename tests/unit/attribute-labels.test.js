@@ -1,15 +1,17 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { loadScript } from './helpers/loadScript.js';
 
 describe('ATTRIBUTE_LABELS', () => {
-  it('exposes a global object', () => {
+  beforeEach(() => {
     loadScript('data/attribute-labels.js');
+  });
+
+  it('exposes a global object', () => {
     expect(typeof globalThis.ATTRIBUTE_LABELS).toBe('object');
     expect(globalThis.ATTRIBUTE_LABELS).not.toBeNull();
   });
 
   it('every value is a non-empty string', () => {
-    loadScript('data/attribute-labels.js');
     for (const [k, v] of Object.entries(globalThis.ATTRIBUTE_LABELS)) {
       expect(typeof v).toBe('string');
       expect(v.length, `${k} → "${v}"`).toBeGreaterThan(0);
@@ -17,7 +19,6 @@ describe('ATTRIBUTE_LABELS', () => {
   });
 
   it('covers the attribute keys used by table resolvers', () => {
-    loadScript('data/attribute-labels.js');
     const labels = globalThis.ATTRIBUTE_LABELS;
     for (const key of [
       'priceInput', 'priceOutput', 'contextWindow', 'speedTier',

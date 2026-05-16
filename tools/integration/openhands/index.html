@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenHands — Integration for AI coding (2026 review)</title>
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg" />
+  <meta name="description" content="OpenHands integration: Open-source autonomous AI software engineer accessible via browser or CLI" />
+  <link rel="canonical" href="https://flowpicker.xyz/tools/integration/openhands/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/tools/integration/openhands/" />
+  <meta property="og:title" content="OpenHands — Integration for AI coding (2026 review)" />
+  <meta property="og:description" content="OpenHands integration: Open-source autonomous AI software engineer accessible via browser or CLI" />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OpenHands — Integration for AI coding (2026 review)" />
+  <meta name="twitter:description" content="OpenHands integration: Open-source autonomous AI software engineer accessible via browser or CLI" />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../../../src/styles/base.css" />
+  <link rel="stylesheet" href="../../../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../../../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../../../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../../../index.html">Plan</a>
+        <a href="../../../browse.html" id="browse-link">Browse</a>
+        <a href="../../../templates.html">Templates</a>
+        <a href="../../../compare.html">Compare</a>
+        <a href="../../../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../../../">Home</a> › <a href="../../">Tools</a> › <a href="../">Integration</a> › OpenHands</p>
+
+    <section class="seo-hero">
+      <h1>OpenHands</h1>
+      <p class="seo-hero-sub">Integration · Open-source autonomous AI software engineer accessible via browser or CLI</p>
+      <p class="seo-hero-links"><a href="https://www.openhands.dev/" target="_blank" rel="noopener nofollow">Website</a> · <a href="https://docs.openhands.dev/" target="_blank" rel="noopener nofollow">Docs</a></p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <tbody>
+          <tr><td>Pricing</td><td>BYO API key</td></tr>
+          <tr><td>Setup effort</td><td>Low</td></tr>
+          <tr><td>Released</td><td>2024</td></tr>
+          <tr><td>Open source</td><td>Yes</td></tr>
+          <tr><td>Interface</td><td>In-editor</td></tr>
+          <tr><td>Privacy</td><td>Configurable</td></tr>
+          <tr><td>Model choice</td><td>BYO model</td></tr>
+          <tr><td>Context handling</td><td>Repo-aware</td></tr>
+          <tr><td>Compatibility</td><td>Any editor (web UI)</td></tr>
+          <tr><td>Capabilities</td><td>Chat, Multi-file edits, Terminal commands, Browser, Git, Multi-agent, Sandboxed</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What OpenHands does</h2>
+      <p>Chat, Multi-file edits, Terminal commands, Browser, Git, Multi-agent, Sandboxed</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Best for</h2>
+      <p>Open-source autonomous AI software engineer accessible via browser or CLI</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Works well with</h2>
+      <div class="seo-works-grid">
+        <div class="seo-works-col">
+          <h3>IDE / Editor</h3>
+          <ul><li><a href="../../ide/vscode/">VS Code</a></li><li><a href="../../ide/cursor/">Cursor</a></li><li><a href="../../ide/zed/">Zed</a></li><li><a href="../../ide/neovim/">Neovim</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>LLM Provider / Model</h3>
+          <ul><li><a href="../../llm/claude-sonnet/">Claude Sonnet 4.6</a></li><li><a href="../../llm/claude-opus/">Claude Opus 4.7</a></li><li><a href="../../llm/gpt4o/">GPT-4o</a></li><li><a href="../../llm/gemini/">Gemini 2.x</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Context / RAG</h3>
+          <ul><li><a href="../../context/none/">None (vanilla)</a></li><li><a href="../../context/greptile/">Greptile</a></li><li><a href="../../context/chromadb/">Local ChromaDB</a></li><li><a href="../../context/sourcegraph-cody/">Sourcegraph Cody Context</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Agent / Orchestration</h3>
+          <ul><li><a href="../../agent/none/">None</a></li><li><a href="../../agent/swe-agent/">SWE-agent</a></li><li><a href="../../agent/claude-code/">Claude Code</a></li><li><a href="../../agent/langgraph/">Custom LangGraph</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Other tools</h3>
+          <ul><li><a href="../../others/github/">GitHub</a></li><li><a href="../../others/gitlab/">GitLab</a></li><li><a href="../../others/bitbucket/">Bitbucket</a></li><li><a href="../../others/gitea/">Gitea</a></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Conflicts &amp; caveats</h2>
+      <ul>
+          <li>Replit has its own built-in AI Agent — external integrations like OpenHands cannot run inside the Replit web IDE.</li>
+          <li>OpenHands does not officially support Xcode. Use GitHub Copilot for Xcode or Direct API.</li>
+          <li>OpenHands has limited or no official Android Studio support. Use GitHub Copilot or JetBrains AI Assistant.</li>
+          <li>@codebase (Cursor) only works with Cursor built-in integration (yours is OpenHands).</li>
+          <li>Continue&#39;s codebase indexing only works when the integration is Continue.dev (yours is OpenHands).</li>
+          <li>Windsurf codebase indexing only works with Windsurf Cascade integration (yours is OpenHands).</li>
+          <li>Aider architect mode requires the Aider integration (yours is OpenHands).</li>
+        </ul>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Build a full stack around OpenHands — Flowpicker shows compatibility warnings before you commit.</p>
+      <a class="seo-cta-link" href="../../../index.html">Open the stack planner →</a>
+    </div>
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"OpenHands","description":"Open-source autonomous AI software engineer accessible via browser or CLI","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://flowpicker.xyz/tools/integration/openhands/","offers":{"@type":"Offer","priceCurrency":"USD","description":"BYO API key"}}</script>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../../../src/features/darkmode/darkmode.js"></script>
+  <script src="../../../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

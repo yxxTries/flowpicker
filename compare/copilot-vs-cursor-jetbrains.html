@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copilot vs Cursor for JetBrains (2026) — The Honest Answer</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="Looking at Cursor on JetBrains? It doesn't run there. Here's what JetBrains users should actually use for AI coding — Copilot, JetBrains AI, Cline, Continue compared." />
+  <link rel="canonical" href="https://flowpicker.xyz/compare/copilot-vs-cursor-jetbrains.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/compare/copilot-vs-cursor-jetbrains.html" />
+  <meta property="og:title" content="Copilot vs Cursor for JetBrains (2026)" />
+  <meta property="og:description" content="Cursor doesn't run on JetBrains — here's what to actually use." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Copilot vs Cursor for JetBrains (2026)" />
+  <meta name="twitter:description" content="Cursor doesn't run on JetBrains — here's what to actually use." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html" class="active">Compare</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › Copilot vs Cursor for JetBrains</p>
+
+    <section class="seo-hero">
+      <h1>Copilot vs Cursor for JetBrains</h1>
+      <p>If you searched this, the short version is: <strong>Cursor doesn't run inside JetBrains IDEs.</strong> Cursor is a standalone editor (a VS Code fork), not a plug-in. So this isn't a true comparison — it's "what should JetBrains users actually use." Here's the honest answer.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Why Cursor isn't an option in IntelliJ / PyCharm / GoLand / Rider</h2>
+      <p>Cursor is a fork of VS Code, not an extension. The whole product is the editor. There's no Cursor plug-in for IntelliJ, PyCharm, GoLand, Rider, WebStorm, RubyMine, CLion, DataGrip, Android Studio, or Fleet. Anthropic-flavored "Cursor for JetBrains" rumors come up every few months on Reddit — they remain rumors.</p>
+      <p>If your shop is committed to JetBrains for refactoring tools, debugger, and language servers, your real options are:</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>🏆 Best overall: GitHub Copilot</h2>
+      <p><strong>Why:</strong> First-class JetBrains plug-in. Inline completions, chat, Copilot Workspace, agent mode — all work natively. Tabnine-level latency for completions, plus access to Claude Sonnet / Opus and Gemini on Copilot Pro+ ($39/mo). $10/mo for the standard Pro tier.</p>
+      <p><strong>Skip if:</strong> Your team has security concerns about sending code to GitHub-hosted infra. (Business and Enterprise tiers offer no-retention modes.)</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>🧠 Best deep-IDE integration: JetBrains AI Assistant</h2>
+      <p><strong>Why:</strong> Made by JetBrains, ships in the same installer as your IDE. Integrates with IntelliJ's refactoring, inspections, and debugger in ways no third-party can. Claude support added in 2025. $10/mo individual, $20/seat team.</p>
+      <p><strong>Skip if:</strong> You want broad model choice — Assistant is JetBrains-curated, not a free model picker.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>🤖 Best agentic option: Cline (or Continue.dev)</h2>
+      <p><strong>Why:</strong> Cline has an official JetBrains plug-in as of 2025. You get autonomous Plan/Act modes, terminal access, BYO API key (Claude, GPT, Gemini, DeepSeek). Continue.dev is the same idea but more assistive — chat and completions with BYO key.</p>
+      <p><strong>Skip if:</strong> You don't want to manage an API key. Use Copilot or JetBrains AI Assistant instead.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>🔍 Best for cross-repo context: Sourcegraph Cody</h2>
+      <p><strong>Why:</strong> Cody's JetBrains plug-in indexes across repos, not just the open project. Strongest "codebase question" experience for monorepos and multi-repo orgs. Pairs well with Copilot for completions + Cody for context.</p>
+      <p><strong>Skip if:</strong> You only work in one repo at a time — Copilot's workspace context is enough.</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Side-by-side</h2>
+      <table class="seo-compare-table">
+        <thead>
+          <tr><th></th><th>Copilot</th><th>JetBrains AI</th><th>Cline</th><th>Continue.dev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>JetBrains support</td><td>Official</td><td>Native</td><td>Official plug-in</td><td>Official plug-in</td></tr>
+          <tr><td>Price</td><td>$10–39/mo</td><td>$10–20/mo</td><td>Free + API tokens</td><td>Free + API tokens</td></tr>
+          <tr><td>Model choice</td><td>GPT, Claude, Gemini (Pro+)</td><td>Curated: Claude, GPT, Gemini</td><td>BYO any</td><td>BYO any</td></tr>
+          <tr><td>Autonomy</td><td>Agent mode in 2026</td><td>Limited agent</td><td>Full autonomous</td><td>Assistive</td></tr>
+          <tr><td>Codebase context</td><td>Workspace indexing</td><td>Project indexing</td><td>Manual @file</td><td>Codebase indexing (Continue's own)</td></tr>
+          <tr><td>Best for</td><td>Default pick</td><td>Refactoring + debug-integrated</td><td>Autonomous tasks</td><td>BYO-everything flexibility</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What if you really want Cursor?</h2>
+      <p>Your options:</p>
+      <ul>
+        <li><strong>Run both editors side by side.</strong> Some devs keep JetBrains open for debugging and refactoring, and use Cursor in a second window for AI-heavy work. Awkward but real.</li>
+        <li><strong>Switch the AI-heavy parts to Cursor.</strong> If 80% of your day is now AI work, the JetBrains-specific value drops and the editor switch becomes worth it.</li>
+        <li><strong>Wait.</strong> JetBrains has been visibly investing in AI Assistant. Cursor's lead in plug-in IDEs may narrow over the next year.</li>
+      </ul>
+    </section>
+
+    <section class="seo-section">
+      <h2>The honest pick</h2>
+      <p><strong>Default:</strong> GitHub Copilot. $10/mo, first-class JetBrains support, model choice on Pro+.</p>
+      <p><strong>If you want the deepest IDE integration:</strong> JetBrains AI Assistant.</p>
+      <p><strong>If you want autonomous agent work in JetBrains:</strong> Cline.</p>
+      <p><strong>If you have to have Cursor:</strong> Run Cursor in parallel for AI work, JetBrains for the rest. Or switch.</p>
+      <p>Build your stack — and confirm the JetBrains compatibility — in <a href="../index.html">Flowpicker</a>. The planner will flag integrations that don't actually support your IDE.</p>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">JetBrains shop? Flowpicker shows every AI tool that actually supports JetBrains before you pay.</p>
+      <a class="seo-cta-link" href="../index.html">Build your JetBrains AI stack →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script src="../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

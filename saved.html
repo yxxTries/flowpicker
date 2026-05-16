@@ -59,7 +59,7 @@
     </header>
 
     <p class="tagline">Your saved stacks.</p>
-    <p class="tagline-note">Saved stacks live in this browser only — Flowpicker has no backend.</p>
+    <p class="tagline-note">Saved stacks live in this browser only, sign in to get user specific saved lists.</p>
 
     <div id="saved-container"></div>
   </main>
@@ -87,11 +87,14 @@
     document.addEventListener('DOMContentLoaded', () => {
       App.features.darkmode.init();
       renderSaved();
+      document.addEventListener('flowpicker:auth-changed', renderSaved);
     });
 
     function renderSaved() {
       const container = document.getElementById('saved-container');
-      const flows = window.SavedFlows.listFor();
+      const user = window.FlowpickerAuth && window.FlowpickerAuth.getUser();
+      const ownerKey = user ? user.email : '__local__';
+      const flows = window.SavedFlows.listFor(ownerKey);
 
       if (flows.length === 0) {
         container.innerHTML = `
@@ -126,13 +129,13 @@
       container.querySelectorAll('.saved-item').forEach(li => {
         const id = li.dataset.id;
         li.querySelector('[data-action="open"]').addEventListener('click', () => {
-          const flow = window.SavedFlows.get(null, id);
+          const flow = window.SavedFlows.get(ownerKey, id);
           if (!flow) return;
           window.SelectionsStore.save(flow.selections);
           window.location.href = 'index.html';
         });
         li.querySelector('[data-action="delete"]').addEventListener('click', () => {
-          window.SavedFlows.remove(null, id);
+          window.SavedFlows.remove(ownerKey, id);
           renderSaved();
         });
       });

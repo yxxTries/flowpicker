@@ -4,7 +4,10 @@ import { bootApp, loadScript } from './helpers/loadScript.js';
 // auth.js self-initializes by reading currentUser from localStorage when the
 // module is first evaluated. To keep tests independent we re-load the script
 // in each test after seeding (or clearing) localStorage.
-function loadAuthFresh() {
+// Pass { signOut: true } to also clear the persisted session, simulating a
+// "reload while signed out" without wiping the registered-accounts DB.
+function loadAuthFresh({ signOut = false } = {}) {
+  if (signOut) localStorage.removeItem('flowpicker-auth-user');
   document.body.innerHTML = `
     <div id="auth-header-slot"></div>
     <div id="auth-modal" class="auth-modal" hidden>
@@ -20,21 +23,23 @@ describe('FlowpickerAuth', () => {
     loadAuthFresh();
   });
 
-  it('starts signed out by default', () => {
-    expect(window.FlowpickerAuth.isSignedIn()).toBe(false);
-    expect(window.FlowpickerAuth.getUser()).toBeNull();
-  });
+  describe('initial state', () => {
+    it('starts signed out by default', () => {
+      expect(window.FlowpickerAuth.isSignedIn()).toBe(false);
+      expect(window.FlowpickerAuth.getUser()).toBeNull();
+    });
 
-  it('renders a "Sign in" button when no session', () => {
-    const slot = document.getElementById('auth-header-slot');
-    expect(slot.querySelector('#auth-open-btn')).not.toBeNull();
-  });
+    it('renders a "Sign in" button when no session', () => {
+      const slot = document.getElementById('auth-header-slot');
+      expect(slot.querySelector('#auth-open-btn')).not.toBeNull();
+    });
 
-  it('openSignIn() opens the modal in sign-in view', () => {
-    window.FlowpickerAuth.openSignIn();
-    const modal = document.getElementById('auth-modal');
-    expect(modal.hidden).toBe(false);
-    expect(modal.querySelector('#auth-signin-form')).not.toBeNull();
+    it('openSignIn() opens the modal in sign-in view', () => {
+      window.FlowpickerAuth.openSignIn();
+      const modal = document.getElementById('auth-modal');
+      expect(modal.hidden).toBe(false);
+      expect(modal.querySelector('#auth-signin-form')).not.toBeNull();
+    });
   });
 
   describe('register flow', () => {
@@ -97,7 +102,7 @@ describe('FlowpickerAuth', () => {
       expect(window.FlowpickerAuth.isSignedIn()).toBe(true);
 
       // Sign out, reload, try again with same email
-      loadAuthFresh();
+      loadAuthFresh({ signOut: true });
       window.FlowpickerAuth.openSignIn();
       document.querySelector('[data-switch="register"]').click();
       document.getElementById('auth-email').value = 'dupe@example.com';
@@ -122,7 +127,7 @@ describe('FlowpickerAuth', () => {
       document.getElementById('auth-password2').value = 'correct-horse';
       document.getElementById('auth-register-form').dispatchEvent(new Event('submit', { cancelable: true }));
       // Reload so we start signed-out
-      loadAuthFresh();
+      loadAuthFresh({ signOut: true });
     });
 
     it('signs in with correct credentials', () => {
@@ -185,10 +190,12 @@ describe('FlowpickerAuth', () => {
     });
   });
 
-  it('Escape key closes an open modal', () => {
-    window.FlowpickerAuth.openSignIn();
-    expect(document.getElementById('auth-modal').hidden).toBe(false);
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-    expect(document.getElementById('auth-modal').hidden).toBe(true);
+  describe('modal interactions', () => {
+    it('Escape key closes an open modal', () => {
+      window.FlowpickerAuth.openSignIn();
+      expect(document.getElementById('auth-modal').hidden).toBe(false);
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      expect(document.getElementById('auth-modal').hidden).toBe(true);
+    });
   });
 });

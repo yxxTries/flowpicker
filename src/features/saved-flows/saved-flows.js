@@ -1,42 +1,53 @@
-// Local saved flows. Each flow is a snapshot of selections + a name + savedAt.
-// Storage shape: [ { id, name, selections, savedAt } ]
+// Local saved flows, scoped per signed-in user.
+// Storage shape: { "email@x.com": [ { id, name, selections, savedAt }, ... ] }
 (() => {
   const KEY = 'flowpicker-saved-flows';
+  const LEGACY_BUCKET = '__local__';
 
-  function readAll() {
+  function readDB() {
     try {
       const val = JSON.parse(localStorage.getItem(KEY));
-      // Migrate old email-keyed format if needed
-      if (val && !Array.isArray(val)) {
-        const merged = Object.values(val).flat();
-        writeAll(merged);
-        return merged;
+      if (Array.isArray(val)) {
+        const migrated = { [LEGACY_BUCKET]: val };
+        writeDB(migrated);
+        return migrated;
       }
-      return val || [];
-    } catch { return []; }
+      if (val && typeof val === 'object') return val;
+      return {};
+    } catch { return {}; }
   }
 
-  function writeAll(list) {
-    localStorage.setItem(KEY, JSON.stringify(list));
+  function writeDB(db) {
+    localStorage.setItem(KEY, JSON.stringify(db));
   }
 
-  function listFor() {
-    return readAll();
+  function listFor(email) {
+    if (!email) return [];
+    const db = readDB();
+    return db[email] || [];
   }
 
-  function save(_ignored, flow) {
-    const list = readAll();
+  function save(email, flow) {
+    if (!email) return;
+    const db = readDB();
+    const list = db[email] || [];
     list.unshift(flow);
-    writeAll(list);
+    db[email] = list;
+    writeDB(db);
   }
 
-  function remove(_ignored, id) {
-    const list = readAll().filter(f => f.id !== id);
-    writeAll(list);
+  function remove(email, id) {
+    if (!email) return;
+    const db = readDB();
+    if (!db[email]) return;
+    db[email] = db[email].filter(f => f.id !== id);
+    writeDB(db);
   }
 
-  function get(_ignored, id) {
-    return readAll().find(f => f.id === id) || null;
+  function get(email, id) {
+    if (!email) return null;
+    const db = readDB();
+    return (db[email] || []).find(f => f.id === id) || null;
   }
 
   function defaultName(selections) {
