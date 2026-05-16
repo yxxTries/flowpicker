@@ -24,6 +24,12 @@
     localStorage.removeItem(STORAGE_KEY);
   }
 
+  function emitAuthChanged() {
+    document.dispatchEvent(new CustomEvent('flowpicker:auth-changed', {
+      detail: { user: currentUser },
+    }));
+  }
+
   // ── State ─────────────────────────────────────────────────────────────────
   let currentUser = getSession();
   let currentView = 'signin'; // 'signin' | 'register' | 'forgot'
@@ -277,6 +283,7 @@
     saveSession(currentUser);
     closeModal();
     renderHeaderBtn();
+    emitAuthChanged();
   }
 
   function handleRegister(e) {
@@ -318,6 +325,7 @@
     saveSession(currentUser);
     closeModal();
     renderHeaderBtn();
+    emitAuthChanged();
   }
 
   function handleForgot(e) {
@@ -345,6 +353,7 @@
     const dd = qs('#auth-dropdown');
     if (dd) dd.hidden = true;
     document.removeEventListener('click', closeDropdownOutside, { capture: true });
+    emitAuthChanged();
   }
 
   // Very lightweight obfuscation — NOT cryptographic, just avoids plaintext in localStorage.
