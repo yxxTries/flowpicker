@@ -66,8 +66,8 @@
   background: #1f1f1e;
 }
 
-.col-layer      { width: 26%; }
-.col-selection  { width: 16%; }
+.col-layer      { width: 22%; }
+.col-selection  { width: 20%; }
 .col-cost       { width: 9%; }
 .col-source     { width: 8%; }
 .col-complexity { width: 9%; }
