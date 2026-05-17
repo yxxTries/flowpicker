@@ -1,6 +1,6 @@
 # Flowpicker
 
-**Flowpicker is a PC Part Picker for AI coding workflows.** Build a stack one layer at a time — IDE, LLM, integration, context/RAG, agent, plus version control, monitoring, security — and the page tells you what fits together, what costs what, and where the gotchas are.
+**Flowpicker is a tool picker for AI workflows.** Build a stack one layer at a time — IDE, LLM, integration, context/RAG, agent, plus version control, monitoring, security — and the page tells you what fits together, what costs what, and where the gotchas are.
 
 Live at **[flowpicker.xyz](https://flowpicker.xyz)**.
 

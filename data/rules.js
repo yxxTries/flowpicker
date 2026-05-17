@@ -36,10 +36,12 @@ const COMPATIBILITY_RULES = [
       const cursorSupported = new Set([
         'claude-sonnet', 'claude-opus', 'claude-haiku',
         'gpt4o', 'openai-o3', 'openai-o4-mini', 'openai-gpt4-1',
+        'gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro',
         'gemini', 'gemini-2-5-pro', 'gemini-2-5-flash', 'gemini-3-flash',
         'grok-4.3', 'grok-4.20', 'grok-fast',
-        'deepseek', 'deepseek-v4-flash', 'deepseek-v4-pro',
+        'deepseek', 'deepseek-v4-flash', 'deepseek-v4-pro', 'deepseek-r2',
         'gpt-oss-120b', 'gpt-oss-20b',
+        'kimi-k2-6',
       ]);
       return !cursorSupported.has(s.llm.id);
     },
@@ -82,7 +84,7 @@ const COMPATIBILITY_RULES = [
   {
     id: 'selfhosted-llm-cloud-context-privacy',
     when: s => {
-      const selfHostedLLMs = ['llama3', 'deepseek', 'qwen-3', 'qwen-3.6', 'qwen-coder', 'qwen-coder-next', 'gemma-4', 'llama-4', 'phi-4', 'mistral-large-3', 'devstral-2', 'ministral-14b', 'gpt-oss-120b', 'gpt-oss-20b', 'glm-5.1', 'laguna-xs2', 'minimax-m2.7', 'mimo-v2.5-pro', 'ling-2.6-1t', 'granite-4.1'];
+      const selfHostedLLMs = ['llama3', 'deepseek', 'qwen-3', 'qwen-3.6', 'qwen-coder', 'qwen-coder-next', 'gemma-4', 'llama-4', 'phi-4', 'mistral-large-3', 'devstral-2', 'ministral-14b', 'gpt-oss-120b', 'gpt-oss-20b', 'glm-5.1', 'laguna-xs2', 'minimax-m2.7', 'mimo-v2.5-pro', 'ling-2.6-1t', 'granite-4.1', 'kimi-k2-6', 'hy3-preview', 'step-3-5-flash', 'nemotron-3-super', 'nemotron-3-nano-omni', 'qwen-3-5-397b', 'qwen-3-6-27b', 'jamba-mini-2', 'jamba-large-2'];
       const cloudContexts = ['cursor-cb', 'greptile', 'sourcegraph-cody', 'copilot-idx', 'pinecone', 'windsurf-idx', 'redis-vector', 'milvus', 'mem0'];
       return selfHostedLLMs.includes(s.llm?.id) && cloudContexts.includes(s.context?.id);
     },
