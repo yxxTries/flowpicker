@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hy3 Preview — LLM Provider / Model for AI coding (2026 review)</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="description" content="Hy3 Preview llm provider / model: Agent-led tasks in development environments, CodeBuddy/WorkBuddy workflows, low-latency production coding (54% TTFT reduction), open-weight" />
+  <link rel="canonical" href="https://flowpicker.xyz/tools/llm/hy3-preview/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/tools/llm/hy3-preview/" />
+  <meta property="og:title" content="Hy3 Preview — LLM Provider / Model for AI coding (2026 review)" />
+  <meta property="og:description" content="Hy3 Preview llm provider / model: Agent-led tasks in development environments, CodeBuddy/WorkBuddy workflows, low-latency production coding (54% TTFT reduction), open-weight" />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hy3 Preview — LLM Provider / Model for AI coding (2026 review)" />
+  <meta name="twitter:description" content="Hy3 Preview llm provider / model: Agent-led tasks in development environments, CodeBuddy/WorkBuddy workflows, low-latency production coding (54% TTFT reduction), open-weight" />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../../../src/styles/base.css" />
+  <link rel="stylesheet" href="../../../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../../../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../../../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../../../index.html">Plan</a>
+        <a href="../../../browse.html" id="browse-link">Browse</a>
+        <a href="../../../templates.html">Templates</a>
+        <a href="../../../compare.html">Compare</a>
+        <a href="../../../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../../../">Home</a> › <a href="../../">Tools</a> › <a href="../">LLM Provider / Model</a> › Hy3 Preview</p>
+
+    <section class="seo-hero">
+      <h1>Hy3 Preview</h1>
+      <p class="seo-hero-sub">LLM Provider / Model · Agent-led tasks in development environments, CodeBuddy/WorkBuddy workflows, low-latency production coding (54% TTFT reduction), open-weight frontier alternative</p>
+      <p class="seo-hero-links"><a href="https://hy3ai.com/" target="_blank" rel="noopener nofollow">Website</a> · <a href="https://huggingface.co/tencent/Hy3-preview" target="_blank" rel="noopener nofollow">Docs</a></p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <tbody>
+          <tr><td>Input price</td><td>$0.30</td></tr>
+          <tr><td>Output price</td><td>$1.20</td></tr>
+          <tr><td>Cache price</td><td>$0.03</td></tr>
+          <tr><td>Price tier</td><td>Budget</td></tr>
+          <tr><td>Context window</td><td>256K</td></tr>
+          <tr><td>Max output</td><td>32K</td></tr>
+          <tr><td>Context tier</td><td>128K-500K</td></tr>
+          <tr><td>Speed tier</td><td>Standard</td></tr>
+          <tr><td>Latency</td><td>medium</td></tr>
+          <tr><td>Knowledge cutoff</td><td>Feb 2026</td></tr>
+          <tr><td>Modality</td><td>Text-only</td></tr>
+          <tr><td>Model ID</td><td>hy3-preview</td></tr>
+          <tr><td>Provider</td><td>Tencent</td></tr>
+          <tr><td>HumanEval</td><td>90%</td></tr>
+          <tr><td>MMLU</td><td>86%</td></tr>
+          <tr><td>SWE-Bench</td><td>74%</td></tr>
+          <tr><td>Benchmark</td><td>SWE-bench Verified: high</td></tr>
+          <tr><td>Released</td><td>Apr 2026</td></tr>
+          <tr><td>Hosting</td><td>Open-weights</td></tr>
+          <tr><td>Capabilities</td><td>Tool use, Streaming, Structured output, Agentic coding, Multi-Token Prediction (3.8B layer), 295B MoE (21B active), Function calling, Multi-step reasoning, Self-hostable</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What Hy3 Preview does</h2>
+      <p>Tool use, Streaming, Structured output, Agentic coding, Multi-Token Prediction (3.8B layer), 295B MoE (21B active), Function calling, Multi-step reasoning, Self-hostable</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Best for</h2>
+      <p>Agent-led tasks in development environments, CodeBuddy/WorkBuddy workflows, low-latency production coding (54% TTFT reduction), open-weight frontier alternative</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Works well with</h2>
+      <div class="seo-works-grid">
+        <div class="seo-works-col">
+          <h3>IDE / Editor</h3>
+          <ul><li><a href="../../ide/vscode/">VS Code</a></li><li><a href="../../ide/cursor/">Cursor</a></li><li><a href="../../ide/zed/">Zed</a></li><li><a href="../../ide/neovim/">Neovim</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Integration</h3>
+          <ul><li><a href="../../integration/copilot/">GitHub Copilot</a></li><li><a href="../../integration/continue/">Continue.dev</a></li><li><a href="../../integration/codeium/">Codeium</a></li><li><a href="../../integration/aider/">Aider (terminal)</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Context / RAG</h3>
+          <ul><li><a href="../../context/none/">None (vanilla)</a></li><li><a href="../../context/continue-idx/">Continue codebase indexing</a></li><li><a href="../../context/greptile/">Greptile</a></li><li><a href="../../context/chromadb/">Local ChromaDB</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Agent / Orchestration</h3>
+          <ul><li><a href="../../agent/none/">None</a></li><li><a href="../../agent/aider-arch/">Aider (architect)</a></li><li><a href="../../agent/swe-agent/">SWE-agent</a></li><li><a href="../../agent/langgraph/">Custom LangGraph</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Other tools</h3>
+          <ul><li><a href="../../others/github/">GitHub</a></li><li><a href="../../others/gitlab/">GitLab</a></li><li><a href="../../others/bitbucket/">Bitbucket</a></li><li><a href="../../others/gitea/">Gitea</a></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Conflicts &amp; caveats</h2>
+      <ul>
+          <li>Cursor&#39;s built-in model menu may not include Hy3 Preview — verify it&#39;s available in your Cursor model picker.</li>
+          <li>Privacy conflict: Self-hosted Hy3 Preview sends code to cloud @codebase (Cursor). Use local context (Continue indexing, ChromaDB, LanceDB, pgvector) for true privacy.</li>
+          <li>Claude Code only works with Claude models — your LLM is Hy3 Preview.</li>
+          <li>Devin uses Cognition&#39;s proprietary model internally — your selected Hy3 Preview will be ignored.</li>
+        </ul>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Build a full stack around Hy3 Preview — Flowpicker shows compatibility warnings before you commit.</p>
+      <a class="seo-cta-link" href="../../../index.html">Open the stack planner →</a>
+    </div>
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hy3 Preview","description":"Agent-led tasks in development environments, CodeBuddy/WorkBuddy workflows, low-latency production coding (54% TTFT reduction), open-weight frontier alternative","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://flowpicker.xyz/tools/llm/hy3-preview/"}</script>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../../../src/features/darkmode/darkmode.js"></script>
+  <script src="../../../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

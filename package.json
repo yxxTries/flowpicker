@@ -2,7 +2,7 @@
   "name": "flowpicker",
   "version": "0.0.0",
   "private": true,
-  "description": "PC Part Picker for AI coding workflows.",
+  "description": "Tool picker for AI workflows.",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
