@@ -66,8 +66,8 @@
   background: #1f1f1e;
 }
 
-.col-layer        { width: 12%; }
-.col-selection    { width: 16%; }
+.col-layer        { width: 14%; }
+.col-selection    { width: 14%; }
 .col-bestfor      { width: 20%; }
 .col-cost         { width: 11%; }
 .col-headlinespec { width: 14%; }
@@ -83,8 +83,13 @@
   line-height: 1.4;
 }
 
-.picker-table td:first-child {
-  white-space: nowrap;
+.picker-table td.col-layer {
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.picker-table td.col-layer .layer-name {
+  display: inline;
 }
 
 .placeholder-cell {
