@@ -117,9 +117,67 @@ function refresh() {
   if (App.features.stackAnalysis && App.features.stackAnalysis.render) App.features.stackAnalysis.render();
 }
 
+// Undo state for Reset. A snapshot of selections is kept for 5 seconds after
+// a reset; clicking the Undo link in the toast restores it.
+let resetUndoTimer = null;
+let resetUndoSnapshot = null;
+
 function reset() {
+  // Snapshot before clearing. Deep-enough copy: layers map → arrays of picks.
+  resetUndoSnapshot = {};
+  for (const k of Object.keys(App.state.selections)) {
+    resetUndoSnapshot[k] = [...(App.state.selections[k] || [])];
+  }
+  const hadSelections = Object.keys(resetUndoSnapshot).length > 0;
   App.state.selections = {};
   refresh();
+  if (hadSelections) showResetUndoToast();
+}
+
+function showResetUndoToast() {
+  const toast = App.refs.exportToast;
+  if (!toast) return;
+
+  toast.innerHTML = '';
+  toast.classList.add('has-action');
+  const msg = document.createElement('span');
+  msg.textContent = 'Cleared. ';
+  toast.appendChild(msg);
+  const undo = document.createElement('button');
+  undo.type = 'button';
+  undo.className = 'export-toast-action';
+  undo.textContent = 'Undo';
+  undo.addEventListener('click', () => {
+    if (!resetUndoSnapshot) return;
+    App.state.selections = resetUndoSnapshot;
+    resetUndoSnapshot = null;
+    clearTimeout(resetUndoTimer);
+    hideResetUndoToast();
+    refresh();
+  });
+  toast.appendChild(undo);
+
+  toast.hidden = false;
+  // Force reflow so the transition runs from hidden → visible.
+  void toast.offsetWidth;
+  toast.classList.add('is-visible');
+
+  clearTimeout(resetUndoTimer);
+  resetUndoTimer = setTimeout(() => {
+    resetUndoSnapshot = null;
+    hideResetUndoToast();
+  }, 5000);
+}
+
+function hideResetUndoToast() {
+  const toast = App.refs.exportToast;
+  if (!toast) return;
+  toast.classList.remove('is-visible');
+  setTimeout(() => {
+    toast.hidden = true;
+    toast.classList.remove('has-action');
+    toast.innerHTML = '';
+  }, 200);
 }
 
 window.refresh = refresh;

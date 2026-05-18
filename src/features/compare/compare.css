@@ -68,6 +68,33 @@
   background: var(--chip-bg, rgba(0, 0, 0, 0.04));
 }
 
+/* Clear all — sits at the right of the toolbar, only visible when there's
+   at least one picked product. Quiet by default; lights up on hover. */
+.cmp-clear {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.cmp-clear:hover,
+.cmp-clear:focus-visible {
+  color: var(--text);
+  border-color: var(--text);
+  outline: none;
+}
+
+.cmp-clear[hidden] {
+  display: none;
+}
+
 /* ---------- Picker ---------- */
 .cmp-picker {
   border: 1px solid var(--border);
@@ -198,6 +225,10 @@
   max-height: 260px;
   overflow-y: auto;
   padding-right: 4px;
+}
+
+.cmp-results[hidden] {
+  display: none;
 }
 
 .cmp-results-empty {
@@ -410,8 +441,18 @@
   color: var(--muted);
 }
 
+/* Diff cells — cells whose value differs from the most common value in
+   their row. Previous design used only a 3px inset border which was easy
+   to miss; now combine the left stripe with a subtle background tint and
+   a slightly bolder text weight so differences pop in a quick scan. */
 .cmp-cell-diff {
   box-shadow: inset 3px 0 0 0 var(--accent);
+  background: var(--accent-soft);
+  font-weight: 500;
+}
+
+:root[data-theme="dark"] .cmp-cell-diff {
+  background: rgba(90, 127, 255, 0.10);
 }
 
 .cmp-row-noattrs {
