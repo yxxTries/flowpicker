@@ -1,7 +1,20 @@
 App.features.table = (() => {
-  // Per-layer renderers for the four right-hand data columns.
-  // Each resolver returns text for the cell, or null/falsy to show '—'.
+  // Per-layer renderers for each data column.
+  // Each resolver returns a string for the cell, or null/falsy to show '—'.
+  //
+  // The column set was chosen to match what 2026 comparison articles surface
+  // at scan-time (best-for, headline spec, type) without leaving placeholder
+  // cells on non-LLM rows (per NN/G lawn-mower scanning research, every "—"
+  // cell costs a fixation; LLM-only columns would create scan tax).
   const CELL_RESOLVERS = {
+    bestfor: {
+      llm:         o => o.bestFor || null,
+      ide:         o => o.bestFor || null,
+      integration: o => o.bestFor || null,
+      context:     o => o.bestFor || null,
+      agent:       o => o.bestFor || null,
+      others:      o => o.bestFor || null,
+    },
     cost: {
       llm:         o => (o.priceInput && o.priceOutput)
                           ? `${o.priceInput} / ${o.priceOutput} per 1M tok`
@@ -12,37 +25,36 @@ App.features.table = (() => {
       agent:       o => withUnit(o.cost),
       others:      o => withUnit(o.pricing),
     },
-    complexity: {
-      llm:         () => 'API call',
+    // Headline spec — layer-aware pair carrying each layer's most decision-
+    // relevant secondary attrs. LLM gets context+SWE-bench (the 2026 headline
+    // numbers); every other layer gets the two attrs most-cited in its review
+    // articles. No placeholders.
+    headlinespec: {
+      llm:         o => [o.contextWindow, o.sweBench].filter(Boolean).join(' · '),
+      ide:         o => [o.interface, o.aiIntegration].filter(Boolean).join(' · '),
+      integration: o => [o.interface, o.compatibility].filter(Boolean).join(' · '),
+      context:     o => [o.hosting, o.staleness].filter(Boolean).join(' · '),
+      agent:       o => [o.autonomy, o.interface].filter(Boolean).join(' · '),
+      others:      o => [o.category, o.interface].filter(Boolean).join(' · '),
+    },
+    // Type — normalized vocabulary across layers. LLM exposes its hosting
+    // model (API / Open weights); other layers expose open-source status.
+    // Same column, consistent reading order.
+    type: {
+      llm:         o => normalizeLlmType(o.hosting),
+      ide:         o => normalizeOpenSource(o.openSource),
+      integration: o => normalizeOpenSource(o.openSource),
+      context:     o => normalizeOpenSource(o.openSource),
+      agent:       o => normalizeOpenSource(o.openSource),
+      others:      o => normalizeOpenSource(o.openSource),
+    },
+    setup: {
+      llm:         () => null, // LLMs are always API calls; no useful setup metric
       ide:         o => o.setup,
       integration: o => o.setup,
       context:     o => o.setup,
       agent:       o => o.setup,
       others:      o => o.setup,
-    },
-    source: {
-      llm:         o => o.hosting,
-      ide:         o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
-      integration: o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
-      context:     o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
-      agent:       o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
-      others:      o => o.openSource === 'Yes' ? 'Open source' : o.openSource === 'No' ? 'Closed' : null,
-    },
-    provider: {
-      llm:         o => o.provider,
-      ide:         o => (o.name || '').split(' ')[0] || null,
-      integration: o => (o.name || '').split(' ')[0] || null,
-      context:     o => (o.name || '').split(' ')[0] || null,
-      agent:       o => (o.name || '').split(' ')[0] || null,
-      others:      o => (o.name || '').split(' ')[0] || null,
-    },
-    keyspecs: {
-      llm:         o => [o.contextWindow, o.speedTier].filter(Boolean).join(' · '),
-      ide:         o => [o.aiIntegration, o.interface].filter(Boolean).join(' · '),
-      integration: o => [o.interface, o.compatibility].filter(Boolean).join(' · '),
-      context:     o => [o.hosting, o.staleness].filter(Boolean).join(' · '),
-      agent:       o => [o.autonomy, o.interface].filter(Boolean).join(' · '),
-      others:      o => [o.category, o.interface].filter(Boolean).join(' · '),
     },
     website: {
       llm:         o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
@@ -53,6 +65,20 @@ App.features.table = (() => {
       others:      o => o.websiteUrl && o.websiteUrl !== '—' ? { url: o.websiteUrl, name: o.name } : null,
     },
   };
+
+  function normalizeLlmType(hosting) {
+    if (!hosting || hosting === '—') return null;
+    if (/open[\s-]?weights?/i.test(hosting)) return 'Open weights';
+    if (/local/i.test(hosting)) return 'Local';
+    if (/closed|api/i.test(hosting)) return 'API';
+    return hosting;
+  }
+
+  function normalizeOpenSource(v) {
+    if (v === 'Yes') return 'Open source';
+    if (v === 'No')  return 'Closed';
+    return null;
+  }
 
   function withUnit(value) {
     if (!value || value === '—') return null;
@@ -160,6 +186,14 @@ App.features.table = (() => {
     p.className = 'layer-info-text';
     p.textContent = info.body;
     body.appendChild(p);
+
+    const cta = document.createElement('a');
+    cta.className = 'choose-btn layer-info-cta';
+    cta.textContent = `Browse ${info.title} →`;
+    cta.href = `browse.html?return=plan#${layerId}`;
+    cta.addEventListener('click', () => closeLayerInfo());
+    body.appendChild(cta);
+
     panel.appendChild(body);
 
     overlay.appendChild(panel);
@@ -197,10 +231,13 @@ App.features.table = (() => {
 
       const layerCell = document.createElement('td');
       layerCell.className = 'col-layer';
+      const requiredMarker = layer.optional
+        ? '<span class="layer-optional">(optional)</span>'
+        : '<span class="layer-required" title="Required for stack analysis" aria-label="Required">●</span>';
       layerCell.innerHTML =
         `<span class="layer-name">${layer.name}</span>` +
         `<button type="button" class="layer-info-btn" data-layer="${layer.id}" aria-label="About ${layer.name}" aria-expanded="false">i</button>` +
-        (layer.optional ? '<span class="layer-optional">(optional)</span>' : '');
+        requiredMarker;
       tr.appendChild(layerCell);
 
       const selCell = document.createElement('td');
@@ -211,7 +248,7 @@ App.features.table = (() => {
       const picks = App.state.selections[layer.id] || [];
       const pick = picks[0];
 
-      for (const key of ['cost', 'source', 'complexity', 'provider', 'keyspecs', 'website']) {
+      for (const key of ['bestfor', 'cost', 'headlinespec', 'type', 'setup', 'website']) {
         const td = document.createElement('td');
         td.className = `col-${key}`;
         const val = resolveCell(key, layer.id, pick);

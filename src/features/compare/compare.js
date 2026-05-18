@@ -27,7 +27,7 @@
   let suppressHashEvent = false;
 
   // -------- DOM refs (resolved at init) --------
-  let elPicker, elSearch, elLayerFilter, elResults, elChips, elTable, elEmpty, elToggleIdentical, elCount;
+  let elPicker, elSearch, elLayerFilter, elResults, elChips, elTable, elEmpty, elToggleIdentical, elCount, elClear;
 
   function maxCols() {
     return window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches ? MAX_MOBILE : MAX_DESKTOP;
@@ -118,6 +118,18 @@
     const layerFilter = elLayerFilter.value;
     const reached = picked.length >= maxCols();
 
+    // Once the user has started comparing (2+ picks) and isn't actively
+    // searching/filtering, collapse the results list — it takes a lot of
+    // vertical space and the cards are mostly disabled-grey at that point.
+    // Typing in the search or changing the layer filter re-expands it.
+    const isBrowsing = !q && !layerFilter;
+    const shouldCollapse = picked.length >= 2 && isBrowsing;
+    elResults.hidden = shouldCollapse;
+    if (shouldCollapse) {
+      elResults.innerHTML = '';
+      return;
+    }
+
     const matches = allProducts.filter(p => {
       if (layerFilter && p.layerId !== layerFilter) return false;
       return matchesSearch(p, q);
@@ -194,6 +206,7 @@
       }
     }
     elCount.textContent = `${picked.length} / ${maxCols()} picked`;
+    if (elClear) elClear.hidden = picked.length === 0;
   }
 
   // -------- Table rendering --------
@@ -250,10 +263,17 @@
     elTable.innerHTML = '';
 
     if (picked.length < 2) {
-      elEmpty.hidden = false;
+      // At 0 picks the picker's own chips-hint ("No products picked yet…")
+      // already prompts the user — showing a second empty-state card below
+      // is redundant noise. Only render the empty card at exactly 1 pick,
+      // when its "Pick 1 more product" message is doing real work.
       elTable.hidden = true;
-      const need = picked.length === 0 ? 'Pick at least 2 products' : 'Pick 1 more product';
-      elEmpty.querySelector('.cmp-empty-title').textContent = `${need} to start comparing.`;
+      if (picked.length === 1) {
+        elEmpty.hidden = false;
+        elEmpty.querySelector('.cmp-empty-title').textContent = 'Pick 1 more product to start comparing.';
+      } else {
+        elEmpty.hidden = true;
+      }
       return;
     }
     elEmpty.hidden = true;
@@ -444,6 +464,7 @@
     elEmpty = document.getElementById('cmp-empty');
     elToggleIdentical = document.getElementById('cmp-toggle-identical');
     elCount = document.getElementById('cmp-count');
+    elClear = document.getElementById('cmp-clear');
 
     if (!elPicker || !elTable) return;
 
@@ -455,6 +476,14 @@
       hideIdenticalRows = elToggleIdentical.checked;
       renderTable();
     });
+    if (elClear) {
+      elClear.addEventListener('click', () => {
+        if (picked.length === 0) return;
+        picked = [];
+        persist();
+        renderAll();
+      });
+    }
 
     window.addEventListener('hashchange', () => {
       if (suppressHashEvent) return;

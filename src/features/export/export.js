@@ -137,13 +137,13 @@ App.features.export = (() => {
   // ---- Export formats ------------------------------------------------------
 
   const COLUMNS = [
-    { key: 'layer',     label: 'Layer' },
-    { key: 'selection', label: 'Selection' },
-    { key: 'cost',      label: 'Cost' },
-    { key: 'source',    label: 'Source' },
-    { key: 'complexity', label: 'Setup Complexity' },
-    { key: 'provider',  label: 'Provider' },
-    { key: 'keyspecs',  label: 'Key Specs' },
+    { key: 'layer',        label: 'Layer' },
+    { key: 'selection',    label: 'Selection' },
+    { key: 'bestfor',      label: 'Best for' },
+    { key: 'cost',         label: 'Cost' },
+    { key: 'headlinespec', label: 'Headline spec' },
+    { key: 'type',         label: 'Type' },
+    { key: 'setup',        label: 'Setup' },
   ];
 
   function rowsForExport() {
@@ -156,13 +156,13 @@ App.features.export = (() => {
       const selection = picks.map(p => p.name).join(', ');
       const first = picks[0];
       const cells = {
-        layer:      layer.name,
-        selection:  selection,
-        cost:       resolve('cost', layer.id, first) || '',
-        source:     resolve('source', layer.id, first) || '',
-        complexity: resolve('complexity', layer.id, first) || '',
-        provider:   resolve('provider', layer.id, first) || '',
-        keyspecs:   resolve('keyspecs', layer.id, first) || '',
+        layer:        layer.name,
+        selection:    selection,
+        bestfor:      resolve('bestfor', layer.id, first) || '',
+        cost:         resolve('cost', layer.id, first) || '',
+        headlinespec: resolve('headlinespec', layer.id, first) || '',
+        type:         resolve('type', layer.id, first) || '',
+        setup:        resolve('setup', layer.id, first) || '',
       };
       out.push(cells);
     }

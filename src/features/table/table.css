@@ -66,14 +66,22 @@
   background: #1f1f1e;
 }
 
-.col-layer      { width: 22%; }
-.col-selection  { width: 20%; }
-.col-cost       { width: 9%; }
-.col-source     { width: 8%; }
-.col-complexity { width: 9%; }
-.col-provider   { width: 8%; }
-.col-keyspecs   { width: 12%; }
-.col-website    { width: 12%; }
+.col-layer        { width: 12%; }
+.col-selection    { width: 16%; }
+.col-bestfor      { width: 20%; }
+.col-cost         { width: 11%; }
+.col-headlinespec { width: 14%; }
+.col-type         { width: 9%; }
+.col-setup        { width: 9%; }
+.col-website      { width: 9%; }
+
+/* Best for carries 5-12 word phrases — allow a clean 2-line wrap rather than
+   truncate with ellipsis. Users scan headers more than rows (NN/G), so taller
+   rows are an acceptable trade for honest scan content. */
+.picker-table td.col-bestfor {
+  white-space: normal;
+  line-height: 1.4;
+}
 
 .picker-table td:first-child {
   white-space: nowrap;
@@ -126,6 +134,16 @@
   font-weight: 400;
   font-size: 13px;
   color: var(--muted);
+}
+
+.layer-required {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 8px;
+  line-height: 1;
+  color: var(--accent);
+  vertical-align: middle;
+  cursor: help;
 }
 
 .layer-info-btn {
@@ -195,6 +213,11 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 8px 14px;
+}
+
+.layer-info-cta {
+  margin-top: 16px;
+  align-self: flex-start;
 }
 
 .selection-name-wrap {
@@ -375,6 +398,7 @@
     color: var(--muted);
   }
 
+
   /* Selection cell is the prominent body (no label prefix). */
   .picker-table td.col-selection {
     padding: 4px 0 10px;
@@ -389,11 +413,11 @@
 
   /* The remaining attribute cells: show a small label : value row.
      Empty placeholder cells are hidden so cards stay compact. */
+  .picker-table td.col-bestfor,
   .picker-table td.col-cost,
-  .picker-table td.col-source,
-  .picker-table td.col-complexity,
-  .picker-table td.col-provider,
-  .picker-table td.col-keyspecs,
+  .picker-table td.col-headlinespec,
+  .picker-table td.col-type,
+  .picker-table td.col-setup,
   .picker-table td.col-website {
     display: flex;
     align-items: baseline;
@@ -408,11 +432,11 @@
     display: none;
   }
 
+  .picker-table td.col-bestfor::before,
   .picker-table td.col-cost::before,
-  .picker-table td.col-source::before,
-  .picker-table td.col-complexity::before,
-  .picker-table td.col-provider::before,
-  .picker-table td.col-keyspecs::before,
+  .picker-table td.col-headlinespec::before,
+  .picker-table td.col-type::before,
+  .picker-table td.col-setup::before,
   .picker-table td.col-website::before {
     flex: 0 0 auto;
     font-size: 11px;
@@ -422,12 +446,19 @@
     color: var(--muted);
   }
 
-  .picker-table td.col-cost::before      { content: "Cost"; }
-  .picker-table td.col-source::before    { content: "Source"; }
-  .picker-table td.col-complexity::before{ content: "Setup"; }
-  .picker-table td.col-provider::before  { content: "Provider"; }
-  .picker-table td.col-keyspecs::before  { content: "Key specs"; }
-  .picker-table td.col-website::before   { content: "Where"; }
+  .picker-table td.col-bestfor::before     { content: "Best for"; }
+  .picker-table td.col-cost::before        { content: "Cost"; }
+  .picker-table td.col-headlinespec::before{ content: "Headline"; }
+  .picker-table td.col-type::before        { content: "Type"; }
+  .picker-table td.col-setup::before       { content: "Setup"; }
+  .picker-table td.col-website::before     { content: "Where"; }
+
+  /* On mobile cards, allow Best for to wrap to its own line for readability. */
+  .picker-table td.col-bestfor {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 
   .picker-table td.col-website .website-link {
     display: inline-block;

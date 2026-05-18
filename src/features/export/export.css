@@ -129,6 +129,33 @@
 
 .export-toast[hidden] { display: none; }
 
+/* Toast with an inline action (e.g. Undo) — needs to accept clicks, so
+   flip pointer-events back on. The action sits inline next to the message. */
+.export-toast.has-action {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.export-toast-action {
+  background: none;
+  border: 0;
+  padding: 0 2px;
+  margin: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent-soft);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.export-toast-action:hover,
+.export-toast-action:focus-visible {
+  color: var(--surface);
+  outline: none;
+}
+
 /* ── Mobile (≤ 720px) ─────────────────────────────────────────────
    Keep export menu inside the viewport, let the toolbar wrap, and
    match button heights to the joined URL field above so the whole
