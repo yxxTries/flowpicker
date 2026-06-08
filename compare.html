@@ -59,6 +59,7 @@
         <a href="browse.html" id="browse-link">Browse</a>
         <a href="templates.html">Templates</a>
         <a href="compare.html" class="active" aria-current="page">Compare</a>
+        <a href="leaderboard.html">Leaderboard</a>
         <a href="saved.html">Saved</a>
       </nav>
       <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
@@ -109,8 +110,12 @@
       </div>
     </section>
 
-    <section class="seo-section">
-      <h2>Featured comparisons</h2>
+    <details class="seo-section seo-details">
+      <summary class="seo-details-summary">
+        <span class="seo-details-title">Featured comparisons</span>
+        <span class="seo-details-hint">12 ready-made matchups</span>
+      </summary>
+      <p style="margin:14px 0 14px;color:var(--muted);font-size:14px;">Looking for a model matchup? Browse <a href="vs/">every X vs Y comparison</a> or see the <a href="leaderboard.html">full model leaderboard</a>.</p>
       <div class="seo-card-grid">
         <a class="seo-card" href="compare/cursor-vs-copilot.html" data-cmp-preset="ide:cursor,integration:copilot">
           <p class="seo-card-title">Cursor vs GitHub Copilot</p>
@@ -157,10 +162,13 @@
           <p class="seo-card-desc">Cursor doesn't run on JetBrains. Here's what to actually use.</p>
         </a>
       </div>
-    </section>
+    </details>
 
-    <section class="seo-section">
-      <h2>Best-of guides</h2>
+    <details class="seo-section seo-details">
+      <summary class="seo-details-summary">
+        <span class="seo-details-title">Best-of guides</span>
+        <span class="seo-details-hint">7 ranked picks</span>
+      </summary>
       <div class="seo-card-grid">
         <a class="seo-card" href="best/best-llm-for-coding.html">
           <p class="seo-card-title">Best LLM for coding (2026)</p>
@@ -191,7 +199,7 @@
           <p class="seo-card-desc">BYO API key — real token math by model and usage level.</p>
         </a>
       </div>
-    </section>
+    </details>
 
     <div class="seo-cta">
       <p class="seo-cta-text">Want to build a custom stack and see what breaks? Flowpicker shows compatibility warnings and monthly cost as you pick.</p>

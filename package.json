@@ -13,7 +13,12 @@
     "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run serve\"",
     "build:pages": "node tools/build-static-pages.js",
-    "build:sitemap": "node tools/build-sitemap.js"
+    "build:compare": "node tools/build-compare-pages.js",
+    "build:alternatives": "node tools/build-alternatives-pages.js",
+    "build:best-for": "node tools/build-best-for-pages.js",
+    "build:pricing": "node tools/build-pricing-pages.js",
+    "build:sitemap": "node tools/build-sitemap.js",
+    "build": "node tools/build-static-pages.js && node tools/build-compare-pages.js && node tools/build-alternatives-pages.js && node tools/build-best-for-pages.js && node tools/build-pricing-pages.js && node tools/build-sitemap.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.10.0"

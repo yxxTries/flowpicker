@@ -144,10 +144,20 @@
     <section class="seo-section">
       <h2>Conflicts &amp; caveats</h2>
       <ul>
+          <li>Trae&#39;s built-in model menu may not include Qwen 3.5 397B-A17B — Trae primarily ships with Claude/GPT/Gemini/DeepSeek.</li>
+          <li>Google Antigravity is built around Gemini 3 Pro; Claude and recent GPT-5 models also work, but Qwen 3.5 397B-A17B is not in the supported model list.</li>
+          <li>Kiro&#39;s spec mode is tuned for Claude models — Qwen 3.5 397B-A17B may work but spec-driven flows are best with Claude.</li>
           <li>Cursor&#39;s built-in model menu may not include Qwen 3.5 397B-A17B — verify it&#39;s available in your Cursor model picker.</li>
-          <li>Privacy conflict: Self-hosted Qwen 3.5 397B-A17B sends code to cloud @codebase (Cursor). Use local context (Continue indexing, ChromaDB, LanceDB, pgvector) for true privacy.</li>
+          <li>OpenAI Codex (VS Code) is tied to OpenAI&#39;s GPT-5.1 Codex family — Qwen 3.5 397B-A17B is not selectable inside this integration.</li>
+          <li>Gemini CLI is locked to Google Gemini models — your LLM is Qwen 3.5 397B-A17B.</li>
+          <li>Privacy conflict: Self-hosted Qwen 3.5 397B-A17B sends code to cloud @codebase (Cursor). Use local context (Continue indexing, ChromaDB, LanceDB, pgvector, Vespa self-hosted) for true privacy.</li>
           <li>Claude Code only works with Claude models — your LLM is Qwen 3.5 397B-A17B.</li>
           <li>Devin uses Cognition&#39;s proprietary model internally — your selected Qwen 3.5 397B-A17B will be ignored.</li>
+          <li>OpenAI Codex (Cloud) runs GPT-5.1 Codex internally — your selected Qwen 3.5 397B-A17B will be ignored.</li>
+          <li>Jules runs Gemini models internally — your selected Qwen 3.5 397B-A17B will be ignored.</li>
+          <li>The Claude Code SDK is tuned for Claude models — Qwen 3.5 397B-A17B may work via the model adapter but loses Claude-specific features (thinking, prompt caching, sub-agents).</li>
+          <li>Lovable uses a fixed internal model — your selected Qwen 3.5 397B-A17B will be ignored.</li>
+          <li>Replit Agent 3 uses its own model selection internally — your selected Qwen 3.5 397B-A17B will be ignored.</li>
         </ul>
     </section>
 

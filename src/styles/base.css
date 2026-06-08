@@ -53,7 +53,8 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px 18px;
   padding: 12px 0 16px;
   border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.08));
   margin-bottom: 16px;
@@ -69,7 +70,8 @@ html, body {
 
 .site-nav {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 8px 16px;
 }
 
 .site-nav a {
@@ -77,6 +79,7 @@ html, body {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
   transition: color 0.15s ease;
 }
 
@@ -218,6 +221,7 @@ h1.tagline {
   .site-nav {
     order: 3;
     width: 100%;
+    flex-wrap: wrap;
     gap: 6px;
     justify-content: space-between;
     padding-top: 6px;
@@ -226,15 +230,19 @@ h1.tagline {
   }
 
   .site-nav a {
-    flex: 1 1 0;
+    /* Six nav items don't fit on one phone row. Let them wrap onto a
+       second row by giving each a basis of roughly a third of the width
+       (3 per row), so chips stay readable instead of being crushed. */
+    flex: 1 1 calc(33.333% - 6px);
     text-align: center;
-    padding: 9px 10px;
+    padding: 9px 8px;
     min-height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
     font-size: 13.5px;
+    white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
     transition: background 0.15s ease, color 0.15s ease;
   }

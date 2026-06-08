@@ -1,0 +1,134 @@
+.lb-app {
+  margin: 8px 0 24px;
+}
+
+.lb-toolbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.lb-note {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.lb-count {
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  border-radius: 10px;
+}
+
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.lb-table th,
+.lb-table td {
+  padding: 9px 12px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.07));
+}
+
+.lb-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.lb-th {
+  position: sticky;
+  top: 0;
+  background: var(--surface, var(--bg));
+  z-index: 1;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.lb-th-rank { width: 40px; text-align: right; }
+
+.lb-sort-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.lb-sort-btn:hover,
+.lb-sort-btn:focus-visible {
+  color: var(--text);
+}
+
+.lb-sort-btn.is-active {
+  color: var(--text);
+}
+
+.lb-caret {
+  font-size: 9px;
+  margin-left: 2px;
+}
+
+.lb-td-rank {
+  text-align: right;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  width: 40px;
+}
+
+.lb-td-name {
+  font-weight: 600;
+  color: var(--text);
+  white-space: normal;
+  min-width: 160px;
+}
+
+.lb-table tbody tr:nth-child(-n+3) .lb-td-rank {
+  color: var(--accent, #4a8bf5);
+  font-weight: 700;
+}
+
+.lb-cell-active {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.lb-cell-empty {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.lb-table tbody tr:hover td {
+  background: var(--surface, rgba(0, 0, 0, 0.02));
+}
+
+.lb-error {
+  padding: 20px;
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .lb-table { font-size: 13px; }
+  .lb-table th,
+  .lb-table td { padding: 8px 9px; }
+}

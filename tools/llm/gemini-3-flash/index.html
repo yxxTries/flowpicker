@@ -144,8 +144,15 @@
     <section class="seo-section">
       <h2>Conflicts &amp; caveats</h2>
       <ul>
+          <li>Trae&#39;s built-in model menu may not include Gemini 3 Flash — Trae primarily ships with Claude/GPT/Gemini/DeepSeek.</li>
+          <li>Kiro&#39;s spec mode is tuned for Claude models — Gemini 3 Flash may work but spec-driven flows are best with Claude.</li>
+          <li>OpenAI Codex (VS Code) is tied to OpenAI&#39;s GPT-5.1 Codex family — Gemini 3 Flash is not selectable inside this integration.</li>
           <li>Claude Code only works with Claude models — your LLM is Gemini 3 Flash.</li>
           <li>Devin uses Cognition&#39;s proprietary model internally — your selected Gemini 3 Flash will be ignored.</li>
+          <li>OpenAI Codex (Cloud) runs GPT-5.1 Codex internally — your selected Gemini 3 Flash will be ignored.</li>
+          <li>The Claude Code SDK is tuned for Claude models — Gemini 3 Flash may work via the model adapter but loses Claude-specific features (thinking, prompt caching, sub-agents).</li>
+          <li>Lovable uses a fixed internal model — your selected Gemini 3 Flash will be ignored.</li>
+          <li>Replit Agent 3 uses its own model selection internally — your selected Gemini 3 Flash will be ignored.</li>
         </ul>
     </section>
 

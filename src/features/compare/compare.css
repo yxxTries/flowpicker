@@ -410,13 +410,62 @@
 
 .cmp-row-group th {
   background: var(--bg);
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* Group header is a full-width toggle button so the whole bar is clickable
+   to expand/collapse the rows under it. */
+.cmp-group-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--muted);
-  padding: 8px 14px;
-  border-top: 1px solid var(--border);
+  padding: 9px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.cmp-group-toggle:hover,
+.cmp-group-toggle:focus-visible {
+  color: var(--text);
+  background: var(--chip-bg, rgba(0, 0, 0, 0.04));
+  outline: none;
+}
+
+:root[data-theme="dark"] .cmp-group-toggle:hover,
+:root[data-theme="dark"] .cmp-group-toggle:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cmp-group-caret {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1;
+  transform: rotate(90deg);
+  transition: transform 0.15s ease;
+}
+
+.cmp-row-group.is-collapsed .cmp-group-caret {
+  transform: rotate(0deg);
+}
+
+.cmp-group-count {
+  margin-left: auto;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.75;
 }
 
 .cmp-th-row {
@@ -505,9 +554,67 @@
   font-size: 13.5px;
 }
 
+/* ---------- Collapsible SEO sections ----------
+   Featured comparisons + Best-of guides are large card walls that push the
+   page down. They start collapsed behind a clickable summary so the compare
+   tool stays the focus; users expand only what they want. */
+.seo-details {
+  border-top: 1px solid var(--border);
+  padding-top: 6px;
+}
+
+.seo-details-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 0;
+  user-select: none;
+}
+
+.seo-details-summary::-webkit-details-marker {
+  display: none;
+}
+
+.seo-details-summary::before {
+  content: '▸';
+  font-size: 13px;
+  color: var(--muted);
+  transition: transform 0.15s ease;
+  transform: translateY(-1px);
+}
+
+.seo-details[open] > .seo-details-summary::before {
+  transform: translateY(-1px) rotate(90deg);
+}
+
+.seo-details-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.seo-details-hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.seo-details-summary:hover .seo-details-title,
+.seo-details-summary:focus-visible .seo-details-title {
+  color: var(--accent);
+}
+
+.seo-details-summary:focus-visible {
+  outline: none;
+}
+
 /* ---------- Mobile ---------- */
 @media (max-width: 720px) {
   .cmp-picker { padding: 12px; }
+  .seo-details-title { font-size: 19px; }
   .cmp-results { max-height: 220px; }
   .cmp-table { font-size: 13.5px; }
   .cmp-table th,
