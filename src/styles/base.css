@@ -11,9 +11,13 @@ html, body {
 }
 
 .page {
+  /* Horizontal page padding is exposed as a variable so full-bleed children
+     (e.g. the browse mobile toolbar) can cancel it with an exact negative
+     margin instead of guessing — keeping breakpoints from drifting apart. */
+  --page-pad-x: 48px;
   max-width: none;
   margin: 0 auto;
-  padding: 32px 48px 96px;
+  padding: 32px var(--page-pad-x) 96px;
 }
 
 .site-footer {
@@ -192,7 +196,8 @@ h1.tagline {
    buttons stop overlapping.                                          */
 @media (max-width: 720px) {
   .page {
-    padding: 16px 14px 64px;
+    --page-pad-x: 14px;
+    padding: 16px var(--page-pad-x) 64px;
   }
 
   .site-header {
@@ -281,12 +286,21 @@ h1.tagline {
 
 @media (max-width: 480px) {
   .page {
-    padding: 12px 10px 56px;
+    --page-pad-x: 10px;
+    padding: 12px var(--page-pad-x) 56px;
   }
 
+  /* Five equal-width nav links (Plan…Saved) must share a ≤355px content
+     row at 375px-wide phones. Keep the gap tight and trim the per-link
+     padding so the last link ("Saved") doesn't run off the right edge. */
   .site-nav {
-    gap: 12px;
+    gap: 4px;
     font-size: 13px;
+  }
+
+  .site-nav a {
+    padding: 9px 4px;
+    min-width: 0;
   }
 
   /* Hide decorative emoji glyphs on phones. Toolbar buttons already
