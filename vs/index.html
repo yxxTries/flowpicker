@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI coding model comparisons — every X vs Y matchup (2026)</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="description" content="Side-by-side comparisons of AI coding models: SWE-bench, HumanEval, MMLU, context window, and price for every popular matchup." />
+  <link rel="canonical" href="https://flowpicker.xyz/vs/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://flowpicker.xyz/vs/" />
+  <meta property="og:title" content="AI coding model comparisons — every X vs Y matchup (2026)" />
+  <meta property="og:description" content="Side-by-side comparisons of AI coding models: SWE-bench, HumanEval, MMLU, context window, and price for every popular matchup." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../src/styles/base.css" />
+  <link rel="stylesheet" href="../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html">Plan</a>
+        <a href="../browse.html" id="browse-link">Browse</a>
+        <a href="../templates.html">Templates</a>
+        <a href="../compare.html">Compare</a>
+        <a href="../leaderboard.html">Leaderboard</a>
+        <a href="../saved.html">Saved</a>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../">Home</a> › <a href="../compare.html">Compare</a> › All matchups</p>
+
+    <section class="seo-hero">
+      <h1>AI coding model comparisons</h1>
+      <p>Every popular "X vs Y" matchup, compared on SWE-bench, HumanEval, MMLU, context window, and price — with a clear verdict on each. Want a matchup that isn't here? <a href="../compare.html">Build any comparison live</a>.</p>
+    </section>
+
+    <section class="seo-section">
+      <div class="seo-card-grid">
+        <a class="seo-card" href="gpt-5-1-vs-gemini-3-pro/">
+          <p class="seo-card-title">GPT-5.1 vs Gemini 3 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-gpt-5-1-codex/">
+          <p class="seo-card-title">GPT-5.1 vs GPT-5.1 Codex</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-gpt-5-5/">
+          <p class="seo-card-title">GPT-5.1 vs GPT-5.5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-gemini-3-pro/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Gemini 3 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-gpt-5-5/">
+          <p class="seo-card-title">Gemini 3 Pro vs GPT-5.5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-gpt-5-5/">
+          <p class="seo-card-title">GPT-5.1 Codex vs GPT-5.5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-gpt-5-1/">
+          <p class="seo-card-title">Claude Opus 4.7 vs GPT-5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-gemini-3-pro/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Gemini 3 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-grok-5/">
+          <p class="seo-card-title">GPT-5.1 vs Grok 5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-grok-5/">
+          <p class="seo-card-title">Gemini 3 Pro vs Grok 5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-gpt-5-1-codex/">
+          <p class="seo-card-title">Claude Opus 4.7 vs GPT-5.1 Codex</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-gpt-5-5/">
+          <p class="seo-card-title">Claude Opus 4.7 vs GPT-5.5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-openai-o3/">
+          <p class="seo-card-title">GPT-5.1 vs o3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-grok-5/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Grok 5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-openai-o3/">
+          <p class="seo-card-title">Gemini 3 Pro vs o3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-kimi-k3/">
+          <p class="seo-card-title">GPT-5.1 vs Kimi K3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-openai-o3/">
+          <p class="seo-card-title">GPT-5.1 Codex vs o3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-kimi-k3/">
+          <p class="seo-card-title">Gemini 3 Pro vs Kimi K3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-kimi-k3/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Kimi K3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-grok-5/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Grok 5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-qwen-3-max/">
+          <p class="seo-card-title">GPT-5.1 vs Qwen 3 Max</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-qwen-3-max/">
+          <p class="seo-card-title">Gemini 3 Pro vs Qwen 3 Max</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-openai-o3/">
+          <p class="seo-card-title">Claude Opus 4.7 vs o3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-mistral-large-4/">
+          <p class="seo-card-title">GPT-5.1 vs Mistral Large 4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-qwen-3-max/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Qwen 3 Max</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-mistral-large-4/">
+          <p class="seo-card-title">Gemini 3 Pro vs Mistral Large 4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-kimi-k3/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Kimi K3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-mistral-large-4/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Mistral Large 4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-grok-code-fast-2/">
+          <p class="seo-card-title">GPT-5.1 vs Grok Code Fast 2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-grok-code-fast-2/">
+          <p class="seo-card-title">Gemini 3 Pro vs Grok Code Fast 2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-gpt-5-1/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs GPT-5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-gemini-3-pro/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Gemini 3 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-qwen-3-max/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Qwen 3 Max</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-grok-code-fast-2/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Grok Code Fast 2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-gpt-5-1-codex/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs GPT-5.1 Codex</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-gpt-5-5/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs GPT-5.5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-mistral-large-4/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Mistral Large 4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-gemini-2-5-pro/">
+          <p class="seo-card-title">GPT-5.1 vs Gemini 2.5 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-deepseek-v4/">
+          <p class="seo-card-title">GPT-5.1 vs DeepSeek V4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-gemini-2-5-pro/">
+          <p class="seo-card-title">Gemini 3 Pro vs Gemini 2.5 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-deepseek-v4/">
+          <p class="seo-card-title">Gemini 3 Pro vs DeepSeek V4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-gemini-2-5-pro/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Gemini 2.5 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-deepseek-v4/">
+          <p class="seo-card-title">GPT-5.1 Codex vs DeepSeek V4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-grok-code-fast-2/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Grok Code Fast 2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-claude-opus/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Claude Opus 4.7</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-grok-5/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Grok 5</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-qwen-coder-next/">
+          <p class="seo-card-title">GPT-5.1 vs Qwen 3 Coder Next</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-qwen-coder-next/">
+          <p class="seo-card-title">Gemini 3 Pro vs Qwen 3 Coder Next</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-openai-o3/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs o3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-gemini-2-5-pro/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Gemini 2.5 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-deepseek-v4/">
+          <p class="seo-card-title">Claude Opus 4.7 vs DeepSeek V4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-qwen-coder-next/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Qwen 3 Coder Next</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-kimi-k3/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Kimi K3</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-glm-5-1/">
+          <p class="seo-card-title">GPT-5.1 vs GLM 5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-glm-5-1/">
+          <p class="seo-card-title">Gemini 3 Pro vs GLM 5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-glm-5-1/">
+          <p class="seo-card-title">GPT-5.1 Codex vs GLM 5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-qwen-3-max/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Qwen 3 Max</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-qwen-coder-next/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Qwen 3 Coder Next</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-mistral-large-4/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Mistral Large 4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-claude-haiku-4-5-fast/">
+          <p class="seo-card-title">GPT-5.1 vs Claude Haiku 4.5 (Fast)</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-deepseek-r2/">
+          <p class="seo-card-title">GPT-5.1 vs DeepSeek R2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-claude-haiku-4-5-fast/">
+          <p class="seo-card-title">Gemini 3 Pro vs Claude Haiku 4.5 (Fast)</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-deepseek-r2/">
+          <p class="seo-card-title">Gemini 3 Pro vs DeepSeek R2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-glm-5-1/">
+          <p class="seo-card-title">Claude Opus 4.7 vs GLM 5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-claude-haiku-4-5-fast/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Claude Haiku 4.5 (Fast)</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-deepseek-r2/">
+          <p class="seo-card-title">GPT-5.1 Codex vs DeepSeek R2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-grok-code-fast-2/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Grok Code Fast 2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-gemini-2-5-pro/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Gemini 2.5 Pro</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-deepseek-v4/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs DeepSeek V4</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-claude-haiku-4-5-fast/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Claude Haiku 4.5 (Fast)</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-deepseek-r2/">
+          <p class="seo-card-title">Claude Opus 4.7 vs DeepSeek R2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-qwen-coder-next/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Qwen 3 Coder Next</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-glm-5-1/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs GLM 5.1</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-claude-haiku-4-5-fast/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Claude Haiku 4.5 (Fast)</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-deepseek-r2/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs DeepSeek R2</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-vs-gemini-3-flash/">
+          <p class="seo-card-title">GPT-5.1 vs Gemini 3 Flash</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gemini-3-pro-vs-gemini-3-flash/">
+          <p class="seo-card-title">Gemini 3 Pro vs Gemini 3 Flash</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="gpt-5-1-codex-vs-gemini-3-flash/">
+          <p class="seo-card-title">GPT-5.1 Codex vs Gemini 3 Flash</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-opus-vs-gemini-3-flash/">
+          <p class="seo-card-title">Claude Opus 4.7 vs Gemini 3 Flash</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+        <a class="seo-card" href="claude-sonnet-vs-gemini-3-flash/">
+          <p class="seo-card-title">Claude Sonnet 4.6 vs Gemini 3 Flash</p>
+          <p class="seo-card-desc">Benchmarks, context window, and price compared.</p>
+        </a>
+      </div>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Prefer a ranked view? See every model on one leaderboard.</p>
+      <a class="seo-cta-link" href="../leaderboard.html">Open the leaderboard →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../src/features/darkmode/darkmode.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>

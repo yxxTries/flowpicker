@@ -145,8 +145,16 @@
     <section class="seo-section">
       <h2>Conflicts &amp; caveats</h2>
       <ul>
+          <li>Trae&#39;s built-in model menu may not include GPT-5.5 Pro — Trae primarily ships with Claude/GPT/Gemini/DeepSeek.</li>
+          <li>Kiro&#39;s spec mode is tuned for Claude models — GPT-5.5 Pro may work but spec-driven flows are best with Claude.</li>
+          <li>Gemini CLI is locked to Google Gemini models — your LLM is GPT-5.5 Pro.</li>
           <li>Claude Code only works with Claude models — your LLM is GPT-5.5 Pro.</li>
           <li>Devin uses Cognition&#39;s proprietary model internally — your selected GPT-5.5 Pro will be ignored.</li>
+          <li>OpenAI Codex (Cloud) runs GPT-5.1 Codex internally — your selected GPT-5.5 Pro will be ignored.</li>
+          <li>Jules runs Gemini models internally — your selected GPT-5.5 Pro will be ignored.</li>
+          <li>The Claude Code SDK is tuned for Claude models — GPT-5.5 Pro may work via the model adapter but loses Claude-specific features (thinking, prompt caching, sub-agents).</li>
+          <li>Lovable uses a fixed internal model — your selected GPT-5.5 Pro will be ignored.</li>
+          <li>Replit Agent 3 uses its own model selection internally — your selected GPT-5.5 Pro will be ignored.</li>
         </ul>
     </section>
 

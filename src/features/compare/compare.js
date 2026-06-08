@@ -26,6 +26,12 @@
   let hideIdenticalRows = false;
   let suppressHashEvent = false;
 
+  // Attribute groups that start collapsed — the secondary detail most users
+  // don't need at a glance. They expand on click via the group header. The
+  // first three groups (Overview, Pricing, Performance) always stay open.
+  const COLLAPSED_BY_DEFAULT = new Set(['capabilities', 'platform', 'meta']);
+  const collapsedGroups = new Set(COLLAPSED_BY_DEFAULT);
+
   // -------- DOM refs (resolved at init) --------
   let elPicker, elSearch, elLayerFilter, elResults, elChips, elTable, elEmpty, elToggleIdentical, elCount, elClear;
 
@@ -360,14 +366,47 @@
       if (rowsForGroup.length === 0) continue;
       anyRow = true;
 
+      const isCollapsed = collapsedGroups.has(group.id);
+
       const groupRow = document.createElement('tr');
-      groupRow.className = 'cmp-row-group';
+      groupRow.className = 'cmp-row-group' + (isCollapsed ? ' is-collapsed' : '');
       const groupCell = document.createElement('th');
       groupCell.scope = 'colgroup';
       groupCell.colSpan = picked.length + 1;
-      groupCell.textContent = group.label;
+
+      // Clickable header that toggles the group open/closed.
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'cmp-group-toggle';
+      toggle.setAttribute('aria-expanded', String(!isCollapsed));
+
+      const caret = document.createElement('span');
+      caret.className = 'cmp-group-caret';
+      caret.setAttribute('aria-hidden', 'true');
+      caret.textContent = '▸';
+      toggle.appendChild(caret);
+
+      const groupLabel = document.createElement('span');
+      groupLabel.className = 'cmp-group-label';
+      groupLabel.textContent = group.label;
+      toggle.appendChild(groupLabel);
+
+      const groupCountEl = document.createElement('span');
+      groupCountEl.className = 'cmp-group-count';
+      groupCountEl.textContent = `${rowsForGroup.length} row${rowsForGroup.length === 1 ? '' : 's'}`;
+      toggle.appendChild(groupCountEl);
+
+      toggle.addEventListener('click', () => {
+        if (collapsedGroups.has(group.id)) collapsedGroups.delete(group.id);
+        else collapsedGroups.add(group.id);
+        renderTable();
+      });
+
+      groupCell.appendChild(toggle);
       groupRow.appendChild(groupCell);
       tbody.appendChild(groupRow);
+
+      if (isCollapsed) continue;
 
       for (const { key, values } of rowsForGroup) {
         const tr = document.createElement('tr');

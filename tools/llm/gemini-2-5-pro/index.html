@@ -144,8 +144,14 @@
     <section class="seo-section">
       <h2>Conflicts &amp; caveats</h2>
       <ul>
+          <li>Kiro&#39;s spec mode is tuned for Claude models — Gemini 2.5 Pro may work but spec-driven flows are best with Claude.</li>
+          <li>OpenAI Codex (VS Code) is tied to OpenAI&#39;s GPT-5.1 Codex family — Gemini 2.5 Pro is not selectable inside this integration.</li>
           <li>Claude Code only works with Claude models — your LLM is Gemini 2.5 Pro.</li>
           <li>Devin uses Cognition&#39;s proprietary model internally — your selected Gemini 2.5 Pro will be ignored.</li>
+          <li>OpenAI Codex (Cloud) runs GPT-5.1 Codex internally — your selected Gemini 2.5 Pro will be ignored.</li>
+          <li>The Claude Code SDK is tuned for Claude models — Gemini 2.5 Pro may work via the model adapter but loses Claude-specific features (thinking, prompt caching, sub-agents).</li>
+          <li>Lovable uses a fixed internal model — your selected Gemini 2.5 Pro will be ignored.</li>
+          <li>Replit Agent 3 uses its own model selection internally — your selected Gemini 2.5 Pro will be ignored.</li>
         </ul>
     </section>
 

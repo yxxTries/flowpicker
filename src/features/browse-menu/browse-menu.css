@@ -2,6 +2,16 @@
   position: relative;
 }
 
+/* The layer pill is absolutely positioned and floats below the header, out
+   of normal flow — so the page heading would otherwise slide up underneath
+   it. Reserve vertical room on the first content element after such a header
+   so the pill lands in clear space above the "Browse tools" heading. The
+   :not(.browse-menu-preview) guard keeps this off the Plan page, where the
+   pill is a transient hover preview that shouldn't reflow the layout. */
+.site-header:has(.browse-menu:not(.browse-menu-preview)) + .tagline {
+  margin-top: 50px;
+}
+
 .browse-menu[hidden] {
   display: none;
 }
@@ -9,20 +19,27 @@
 .browse-menu {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  /* Drop the flyout just below the header row instead of centering it
+     vertically over the nav. Anchored to the header's bottom border so it
+     reads as a dropdown and never collides with the primary nav links,
+     regardless of how many nav items there are. The small positive offset
+     gives it breathing room from the header so it sits nicely above the
+     "Browse tools" heading rather than crowding it. */
+  top: 100%;
+  transform: translate(-50%, 10px);
 
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
-  gap: 6px;
-  padding: 6px;
+  gap: 4px;
+  padding: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
 
-  transform-origin: center;
+  transform-origin: top center;
+  z-index: 20;
 }
 
 .browse-menu-preview {
@@ -38,13 +55,13 @@
   background: transparent;
   border: none;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .browse-menu-preview .browse-menu-item {
@@ -58,8 +75,10 @@
 }
 
 .browse-menu-item:hover {
-  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent-soft) 76%, var(--surface) 24%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
   color: var(--text);
+  transform: translateY(-1px);
 }
 
 .browse-menu-item:focus-visible {
@@ -76,20 +95,21 @@
   background: var(--accent);
   color: #fff;
   filter: brightness(1.05);
+  box-shadow: none;
 }
 
 @keyframes browse-menu-pop {
   0% {
     opacity: 0;
-    transform: translate(-50%, calc(-50% - 8px)) scaleX(0.6);
+    transform: translate(-50%, 2px) scaleX(0.6);
   }
   60% {
     opacity: 1;
-    transform: translate(-50%, -50%) scaleX(1.02);
+    transform: translate(-50%, 10px) scaleX(1.02);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scaleX(1);
+    transform: translate(-50%, 10px) scaleX(1);
   }
 }
 
@@ -117,6 +137,12 @@
    there's more, and the scrollbar is hidden so it feels native.
    Auto-scroll of the active chip into view is handled in JS.        */
 @media (max-width: 720px) {
+  /* On mobile the pill is in normal flow (or swapped for a <select>), so the
+     desktop overlap-clearance margin would just leave a dead gap. Reset it. */
+  .site-header:has(.browse-menu:not(.browse-menu-preview)) + .tagline {
+    margin-top: 0;
+  }
+
   /* Wrap the menu in a fade-edge mask so the leading/trailing chips
      softly fade where the scroll continues. Using a transparent
      mask-image rather than overlay siblings keeps the markup intact. */

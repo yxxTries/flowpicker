@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini CLI — Integration for AI coding (2026 review)</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="description" content="Gemini CLI integration: Free terminal agent powered by Gemini 3 Pro with generous quota for solo developers" />
+  <link rel="canonical" href="https://flowpicker.xyz/tools/integration/gemini-cli/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://flowpicker.xyz/tools/integration/gemini-cli/" />
+  <meta property="og:title" content="Gemini CLI — Integration for AI coding (2026 review)" />
+  <meta property="og:description" content="Gemini CLI integration: Free terminal agent powered by Gemini 3 Pro with generous quota for solo developers" />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gemini CLI — Integration for AI coding (2026 review)" />
+  <meta name="twitter:description" content="Gemini CLI integration: Free terminal agent powered by Gemini 3 Pro with generous quota for solo developers" />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../../src/styles/tokens.css" />
+  <link rel="stylesheet" href="../../../src/styles/base.css" />
+  <link rel="stylesheet" href="../../../src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="../../../src/features/seo-pages/seo-pages.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="../../../" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../../../index.html">Plan</a>
+        <a href="../../../browse.html" id="browse-link">Browse</a>
+        <a href="../../../templates.html">Templates</a>
+        <a href="../../../compare.html">Compare</a>
+        <a href="../../../saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <p class="seo-breadcrumb"><a href="../../../">Home</a> › <a href="../../">Tools</a> › <a href="../">Integration</a> › Gemini CLI</p>
+
+    <section class="seo-hero">
+      <h1>Gemini CLI</h1>
+      <p class="seo-hero-sub">Integration · Free terminal agent powered by Gemini 3 Pro with generous quota for solo developers</p>
+      <p class="seo-hero-links"><a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener nofollow">Website</a> · <a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/index.md" target="_blank" rel="noopener nofollow">Docs</a></p>
+    </section>
+
+    <section class="seo-section">
+      <h2>At a glance</h2>
+      <table class="seo-compare-table">
+        <tbody>
+          <tr><td>Pricing</td><td>Free (Gemini API quota)</td></tr>
+          <tr><td>Setup effort</td><td>Low</td></tr>
+          <tr><td>Released</td><td>2025</td></tr>
+          <tr><td>Open source</td><td>Yes</td></tr>
+          <tr><td>Interface</td><td>Terminal/CLI</td></tr>
+          <tr><td>Privacy</td><td>Sent to provider</td></tr>
+          <tr><td>Model choice</td><td>Fixed (Gemini)</td></tr>
+          <tr><td>Context handling</td><td>Repo-aware</td></tr>
+          <tr><td>Compatibility</td><td>Terminal (CLI)</td></tr>
+          <tr><td>Capabilities</td><td>CLI agent, Shell access, File edits, MCP, Long context (1M+), Tool use, Search grounding</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="seo-section">
+      <h2>What Gemini CLI does</h2>
+      <p>CLI agent, Shell access, File edits, MCP, Long context (1M+), Tool use, Search grounding</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Best for</h2>
+      <p>Free terminal agent powered by Gemini 3 Pro with generous quota for solo developers</p>
+    </section>
+
+    <section class="seo-section">
+      <h2>Works well with</h2>
+      <div class="seo-works-grid">
+        <div class="seo-works-col">
+          <h3>IDE / Editor</h3>
+          <ul><li><a href="../../ide/vscode/">VS Code</a></li><li><a href="../../ide/cursor/">Cursor</a></li><li><a href="../../ide/zed/">Zed</a></li><li><a href="../../ide/neovim/">Neovim</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>LLM Provider / Model</h3>
+          <ul><li><a href="../../llm/claude-opus/">Claude Opus 4.7</a></li><li><a href="../../llm/gpt4o/">GPT-4o</a></li><li><a href="../../llm/gemini/">Gemini 2.x</a></li><li><a href="../../llm/llama3/">Llama 3 (Ollama/Groq)</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Context / RAG</h3>
+          <ul><li><a href="../../context/none/">None (vanilla)</a></li><li><a href="../../context/greptile/">Greptile</a></li><li><a href="../../context/chromadb/">Local ChromaDB</a></li><li><a href="../../context/sourcegraph-cody/">Sourcegraph Cody Context</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Agent / Orchestration</h3>
+          <ul><li><a href="../../agent/none/">None</a></li><li><a href="../../agent/swe-agent/">SWE-agent</a></li><li><a href="../../agent/claude-code/">Claude Code</a></li><li><a href="../../agent/langgraph/">Custom LangGraph</a></li></ul>
+        </div>
+        <div class="seo-works-col">
+          <h3>Other tools</h3>
+          <ul><li><a href="../../others/github/">GitHub</a></li><li><a href="../../others/gitlab/">GitLab</a></li><li><a href="../../others/bitbucket/">Bitbucket</a></li><li><a href="../../others/gitea/">Gitea</a></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section">
+      <h2>Conflicts &amp; caveats</h2>
+      <ul>
+          <li>Replit has its own built-in AI Agent — external integrations like Gemini CLI cannot run inside the Replit web IDE.</li>
+          <li>Gemini CLI does not officially support Xcode. Use GitHub Copilot for Xcode or Direct API.</li>
+          <li>Gemini CLI has limited or no official Android Studio support. Use GitHub Copilot or JetBrains AI Assistant.</li>
+          <li>Void Editor is BYO-API-key first — Gemini CLI runs as an extension on top, which can work but isn&#39;t the intended Void workflow.</li>
+          <li>Lapce has a small plugin ecosystem; Gemini CLI may not have an official plugin yet.</li>
+          <li>Positron is VS Code-based but tuned for R/Python data science — Gemini CLI may install but is not officially supported.</li>
+          <li>Gemini CLI does not officially support RStudio — use direct API calls or the rstudio.cloud Copilot integration.</li>
+          <li>Gemini CLI does not officially support Spyder — use the direct API.</li>
+          <li>Cursor Mobile only runs Cursor-managed agents and background tasks — local-only integrations like Gemini CLI cannot run on the phone.</li>
+          <li>Gemini CLI does not officially support Eclipse — Copilot, Tabnine, and Codeium are the main supported options.</li>
+          <li>Gemini CLI does not officially support Apache NetBeans — Copilot and Tabnine are the main supported options.</li>
+          <li>Gemini CLI is locked to Google Gemini models — your LLM is Claude Sonnet 4.6.</li>
+          <li>@codebase (Cursor) only works with Cursor built-in integration (yours is Gemini CLI).</li>
+          <li>Continue&#39;s codebase indexing only works when the integration is Continue.dev (yours is Gemini CLI).</li>
+          <li>Windsurf codebase indexing only works with Windsurf Cascade integration (yours is Gemini CLI).</li>
+          <li>Aider architect mode requires the Aider integration (yours is Gemini CLI).</li>
+        </ul>
+    </section>
+
+    <div class="seo-cta">
+      <p class="seo-cta-text">Build a full stack around Gemini CLI — Flowpicker shows compatibility warnings before you commit.</p>
+      <a class="seo-cta-link" href="../../../index.html">Open the stack planner →</a>
+    </div>
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Gemini CLI","description":"Free terminal agent powered by Gemini 3 Pro with generous quota for solo developers","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://flowpicker.xyz/tools/integration/gemini-cli/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Free (Gemini API quota)"}}</script>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. Pick, compare, and share your AI coding workflow.</span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>window.App = { features: {} };</script>
+  <script src="../../../src/features/darkmode/darkmode.js"></script>
+  <script src="../../../src/features/browse-menu/browse-menu-preview.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+    });
+  </script>
+</body>
+</html>
