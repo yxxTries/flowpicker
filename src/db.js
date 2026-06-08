@@ -8,13 +8,50 @@ App.db = (() => {
   let layersCache = null;
 
   async function load() {
+    if (layersCache) return layersCache;
+
+    const fallback = cloneStaticLayers();
+    if (window.location.protocol === 'file:' && fallback) {
+      layersCache = fallback;
+      return layersCache;
+    }
+
     if (typeof initSqlJs !== 'function') {
+      if (fallback) {
+        layersCache = fallback;
+        return layersCache;
+      }
       throw new Error('sql.js not loaded — check vendor/sql-wasm.js script tag');
     }
-    const SQL = await initSqlJs({ locateFile: f => `vendor/${f}` });
+    let SQL;
+    try {
+      SQL = await initSqlJs({ locateFile: f => `vendor/${f}` });
+    } catch (err) {
+      if (fallback) {
+        console.warn('flowpicker: using static product data fallback', err);
+        layersCache = fallback;
+        return layersCache;
+      }
+      throw err;
+    }
 
-    const resp = await fetch('data/flowpicker.db');
+    const resp = await fetch('data/flowpicker.db').catch(err => {
+      if (fallback) {
+        console.warn('flowpicker: using static product data fallback', err);
+        return null;
+      }
+      throw err;
+    });
+    if (!resp) {
+      layersCache = fallback;
+      return layersCache;
+    }
     if (!resp.ok) {
+      if (fallback) {
+        console.warn(`flowpicker: using static product data fallback (${resp.status} ${resp.statusText})`);
+        layersCache = fallback;
+        return layersCache;
+      }
       throw new Error(`failed to fetch flowpicker.db: ${resp.status} ${resp.statusText}`);
     }
     const bytes = new Uint8Array(await resp.arrayBuffer());
@@ -22,6 +59,11 @@ App.db = (() => {
 
     layersCache = materializeLayers();
     return layersCache;
+  }
+
+  function cloneStaticLayers() {
+    if (!Array.isArray(window.FLOWPICKER_LAYERS)) return null;
+    return JSON.parse(JSON.stringify(window.FLOWPICKER_LAYERS));
   }
 
   function materializeLayers() {
