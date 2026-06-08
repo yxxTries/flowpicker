@@ -10,6 +10,12 @@ App.features.export = (() => {
     const { exportToolbar, shareBtn, exportBtn, exportMenu } = App.refs;
     if (!exportToolbar) return;
 
+    // Stash each button's original tooltip so refresh() can restore it after
+    // the empty-stack "pick a tool first" hint is no longer needed.
+    for (const btn of [shareBtn, exportBtn, document.getElementById('save-btn')]) {
+      if (btn && btn.title) btn.dataset.title = btn.title;
+    }
+
     shareBtn.addEventListener('click', onShare);
 
     exportBtn.addEventListener('click', (e) => {
@@ -35,9 +41,28 @@ App.features.export = (() => {
   }
 
   function refresh() {
-    const { exportToolbar } = App.refs;
+    const { exportToolbar, shareBtn, exportBtn } = App.refs;
     if (!exportToolbar) return;
     exportToolbar.hidden = false;
+
+    // Share/Save/Export only make sense once something is selected. With an
+    // empty stack, Share is a silent no-op (buildShareUrl returns null) and
+    // Save would persist a blank flow — so disable the whole toolbar instead
+    // of letting users click buttons that quietly do nothing.
+    const hasAny = Object.keys(App.state.selections).length > 0;
+    const saveBtn = document.getElementById('save-btn');
+    for (const btn of [shareBtn, saveBtn, exportBtn]) {
+      if (!btn) continue;
+      btn.disabled = !hasAny;
+      if (!hasAny) {
+        btn.setAttribute('aria-disabled', 'true');
+        btn.title = 'Pick at least one tool first';
+      } else {
+        btn.removeAttribute('aria-disabled');
+        btn.title = btn.dataset.title || btn.title;
+      }
+    }
+    if (!hasAny) closeMenu();
   }
 
   // ---- Share link ----------------------------------------------------------

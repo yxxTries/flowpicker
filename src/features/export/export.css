@@ -30,6 +30,29 @@
   outline: none;
 }
 
+/* Empty stack: Share/Save/Export have nothing to act on. Dim them and drop
+   the pointer cursor so the disabled state reads visually, not just via the
+   button[disabled] attribute. */
+.toolbar-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.toolbar-btn:disabled:hover,
+.toolbar-btn:disabled:focus-visible {
+  background: none;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.toolbar-btn.is-primary:disabled:hover,
+.toolbar-btn.is-primary:disabled:focus-visible {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  filter: none;
+}
+
 .toolbar-btn.is-primary {
   background: var(--accent);
   color: #fff;

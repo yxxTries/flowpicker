@@ -677,6 +677,12 @@
 @media (max-width: 1024px) {
   .browse-layout {
     flex-direction: column;
+    /* Stretch children to the full column width. The base rule uses
+       align-items:flex-start (so the desktop sidebar + results sit at the
+       top), but once stacked, flex-start makes the results column shrink to
+       its widest card's content — leaving dead space on the right. Stretch
+       fills the row edge-to-edge. */
+    align-items: stretch;
   }
 
   .browse-filters {
@@ -758,8 +764,12 @@
     z-index: 30;
     display: flex;
     gap: 8px;
-    margin: 0 -14px 12px;
-    padding: 10px 14px;
+    /* Bleed to the page edges by cancelling exactly the page's own padding.
+       Using the shared --page-pad-x (14px @720, 10px @480) instead of a
+       hardcoded -14px stops the toolbar overshooting the viewport — that
+       mismatch was adding ~8px of horizontal scroll on phones ≤480px. */
+    margin: 0 calc(-1 * var(--page-pad-x)) 12px;
+    padding: 10px var(--page-pad-x);
     background: var(--bg);
     border-bottom: 1px solid var(--border);
   }
@@ -902,6 +912,12 @@
   .browse-results .browse-card {
     padding: 12px 48px 12px 14px;
     border-radius: 10px;
+    /* Grid items default to min-width:auto, so a card refuses to shrink below
+       its widest min-content — here the nowrap "macOS, Windows, Linux" chip.
+       On narrow phones that pushed the whole card (and its absolutely-placed
+       + button) past the right edge, clipping the +. min-width:0 lets the card
+       honour the 1fr track; the chips then wrap/ellipsize within it. */
+    min-width: 0;
   }
 
   .browse-results .browse-card h3 {
@@ -917,6 +933,7 @@
     flex-wrap: wrap;
     gap: 4px 6px;
     font-size: 11.5px;
+    min-width: 0;
   }
 
   .browse-results .browse-card dt {

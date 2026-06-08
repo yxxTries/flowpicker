@@ -233,7 +233,7 @@ App.features.table = (() => {
       layerCell.className = 'col-layer';
       const requiredMarker = layer.optional
         ? '<span class="layer-optional">(optional)</span>'
-        : '<span class="layer-required" title="Required for stack analysis" aria-label="Required">●</span>';
+        : '<span class="layer-required" title="Required for stack analysis">Required</span>';
       layerCell.innerHTML =
         `<span class="layer-name">${layer.name}</span>` +
         `<button type="button" class="layer-info-btn" data-layer="${layer.id}" aria-label="About ${layer.name}" aria-expanded="false">i</button>` +

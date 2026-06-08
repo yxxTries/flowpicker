@@ -38,6 +38,12 @@
   border-spacing: 0;
   background: var(--surface);
   table-layout: fixed;
+  /* Contain the table in a soft card so it reads as one scannable unit
+     rather than floating columns. Radius is clipped against the rounded
+     header/last-row corners below via overflow:hidden. */
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .picker-table th,
@@ -130,6 +136,35 @@
   vertical-align: middle;
 }
 
+/* Horizontal rule between body rows so the eye keeps its track across all
+   8 columns (rows vary in height when "Best for" wraps).
+
+   Drawn as a 1px linear-gradient on the row background rather than a per-cell
+   border-top. With border-collapse:separate each cell snapped its own 1px top
+   border to the device-pixel grid independently; the shorter Layer/Selection
+   cells landed on a different sub-pixel row than the taller wrapped cells, so
+   the line visibly broke under the Selection column. A background gradient
+   paints one continuous line across the whole row, immune to that snapping.
+   First row meets the header and the last meets the card's bottom border, so
+   the rule starts on the 2nd row to avoid doubling. */
+.picker-table tbody tr:not(:first-child) {
+  background-image: linear-gradient(var(--border), var(--border));
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100% 1px;
+}
+
+/* Subtle row hover anchors a layer name on the left to its attributes on
+   the right while scanning a wide row. The divider gradient is kept as a
+   second background layer so the line survives the hover tint. */
+.picker-table tbody tr {
+  transition: background-color 0.12s ease;
+}
+
+.picker-table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--accent-soft) 45%, transparent);
+}
+
 .layer-name {
   font-weight: 600;
 }
@@ -144,9 +179,15 @@
 .layer-required {
   display: inline-block;
   margin-left: 8px;
-  font-size: 8px;
-  line-height: 1;
+  padding: 1px 7px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
   vertical-align: middle;
   cursor: help;
 }
@@ -345,6 +386,20 @@
   .picker-table {
     background: transparent;
     table-layout: auto;
+    /* Drop the desktop card frame — each <tr> is its own card here. */
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  /* Reset the desktop row dividers + hover; cards carry their own borders
+     and a full-card hover tint would fight the card surface. */
+  .picker-table tbody tr:not(:first-child) td {
+    border-top: 0;
+  }
+
+  .picker-table tbody tr:hover {
+    background: var(--surface);
   }
 
   /* Header row only makes sense for the table layout — hide visually
