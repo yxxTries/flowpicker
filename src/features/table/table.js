@@ -231,13 +231,9 @@ App.features.table = (() => {
 
       const layerCell = document.createElement('td');
       layerCell.className = 'col-layer';
-      const requiredMarker = layer.optional
-        ? '<span class="layer-optional">(optional)</span>'
-        : '<span class="layer-required" title="Required for stack analysis">Required</span>';
       layerCell.innerHTML =
         `<span class="layer-name">${layer.name}</span>` +
-        `<button type="button" class="layer-info-btn" data-layer="${layer.id}" aria-label="About ${layer.name}" aria-expanded="false">i</button>` +
-        requiredMarker;
+        `<button type="button" class="layer-info-btn" data-layer="${layer.id}" aria-label="About ${layer.name}" aria-expanded="false">i</button>`;
       tr.appendChild(layerCell);
 
       const selCell = document.createElement('td');

@@ -169,29 +169,6 @@
   font-weight: 600;
 }
 
-.layer-optional {
-  margin-left: 6px;
-  font-weight: 400;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.layer-required {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 1px 7px;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  background: var(--accent-soft);
-  border-radius: 999px;
-  vertical-align: middle;
-  cursor: help;
-}
-
 .layer-info-btn {
   display: inline-flex;
   align-items: center;
@@ -451,11 +428,6 @@
     color: var(--text);
     text-transform: none;
     letter-spacing: 0;
-  }
-
-  .picker-table td.col-layer .layer-optional {
-    font-size: 11px;
-    color: var(--muted);
   }
 
 
