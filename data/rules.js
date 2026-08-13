@@ -34,11 +34,14 @@ const COMPATIBILITY_RULES = [
     when: s => {
       if (s.integration?.id !== 'cursor-built' || !s.llm) return false;
       const cursorSupported = new Set([
-        'claude-sonnet', 'claude-opus', 'claude-haiku', 'claude-haiku-4-5-fast',
+        'claude-sonnet', 'claude-opus', 'claude-haiku',
+        'claude-fable-5', 'claude-opus-5', 'claude-sonnet-5', 'claude-opus-4-8', 'claude-opus-4-6',
         'gpt4o', 'openai-o3', 'openai-o4-mini', 'openai-gpt4-1',
-        'gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro', 'gpt-5-1', 'gpt-5-1-codex', 'gpt-5-1-codex-max',
-        'gemini', 'gemini-2-5-pro', 'gemini-2-5-flash', 'gemini-3-flash', 'gemini-3-pro', 'gemini-3-deep-think',
-        'grok-4.3', 'grok-4.20', 'grok-fast', 'grok-5', 'grok-code-fast-2',
+        'gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro', 'gpt-5-1',
+        'gpt-5-6-sol', 'gpt-5-6-terra', 'gpt-5-6-luna', 'gpt-5-3-codex', 'gpt-5-4-mini', 'gpt-5-4-nano',
+        'gemini-2-5-pro', 'gemini-2-5-flash', 'gemini-3-flash', 'gemini-3-deep-think',
+        'gemini-3-1-pro', 'gemini-3-6-flash', 'gemini-3-5-flash',
+        'grok-4-3', 'grok-4-20', 'grok-5', 'grok-code-fast-2', 'grok-4-5', 'grok-4-6',
         'deepseek', 'deepseek-v4-flash', 'deepseek-v4-pro', 'deepseek-r2', 'deepseek-v4',
         'gpt-oss-120b', 'gpt-oss-20b',
         'kimi-k2-6', 'kimi-k3',
@@ -96,10 +99,13 @@ const COMPATIBILITY_RULES = [
     id: 'codex-vscode-needs-openai',
     when: s => {
       if (s.integration?.id !== 'codex-vscode' || !s.llm) return false;
-      const openai = ['gpt4o', 'openai-o3', 'openai-o4-mini', 'openai-gpt4-1', 'gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro', 'gpt-5-1', 'gpt-5-1-codex', 'gpt-5-1-codex-max'];
+      // Hosted OpenAI API models only — the gpt-oss open weights are made by
+      // OpenAI but are not selectable inside the Codex extension, so this
+      // stays an explicit list rather than a provider check.
+      const openai = ['gpt4o', 'openai-o3', 'openai-o4-mini', 'openai-gpt4-1', 'gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro', 'gpt-5-1', 'gpt-5-6-sol', 'gpt-5-6-terra', 'gpt-5-6-luna', 'gpt-5-3-codex', 'gpt-5-4-mini', 'gpt-5-4-nano'];
       return !openai.includes(s.llm.id);
     },
-    message: s => `OpenAI Codex (VS Code) is tied to OpenAI's GPT-5.1 Codex family — ${s.llm.name} is not selectable inside this integration.`,
+    message: s => `OpenAI Codex (VS Code) is tied to OpenAI's hosted GPT-5 and Codex models — ${s.llm.name} is not selectable inside this integration.`,
   },
   {
     id: 'zed-agent-needs-zed',
@@ -118,7 +124,7 @@ const COMPATIBILITY_RULES = [
   },
   {
     id: 'antigravity-prefers-gemini',
-    when: s => s.ide?.id === 'antigravity' && s.llm && !s.llm.id.startsWith('gemini') && !s.llm.id.startsWith('claude') && !['gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro', 'gpt-5-1', 'gpt-5-1-codex', 'gpt-5-1-codex-max'].includes(s.llm.id),
+    when: s => s.ide?.id === 'antigravity' && s.llm && !s.llm.id.startsWith('gemini') && !s.llm.id.startsWith('claude') && !['gpt-5-4', 'gpt-5-5', 'gpt-5-5-pro', 'gpt-5-1', 'gpt-5-6-sol', 'gpt-5-6-terra', 'gpt-5-6-luna', 'gpt-5-3-codex', 'gpt-5-4-mini', 'gpt-5-4-nano'].includes(s.llm.id),
     message: s => `${s.ide.name} is built around Gemini 3 Pro; Claude and recent GPT-5 models also work, but ${s.llm.name} is not in the supported model list.`,
   },
   {
@@ -128,7 +134,7 @@ const COMPATIBILITY_RULES = [
   },
   {
     id: 'trae-fixed-models',
-    when: s => s.ide?.id === 'trae' && s.llm && !['claude-sonnet','claude-opus','claude-haiku','claude-haiku-4-5-fast','gpt4o','gpt-5-4','gpt-5-5','gpt-5-1','gpt-5-1-codex','deepseek','deepseek-v4','deepseek-v4-pro','deepseek-r2','gemini','gemini-2-5-pro','gemini-3-pro','grok-4.3','grok-5','grok-code-fast-2'].includes(s.llm.id),
+    when: s => s.ide?.id === 'trae' && s.llm && !['claude-sonnet','claude-opus','claude-haiku','claude-opus-5','claude-sonnet-5','gpt4o','gpt-5-4','gpt-5-5','gpt-5-1','gpt-5-6-sol','gpt-5-6-terra','gpt-5-3-codex','deepseek','deepseek-v4','deepseek-v4-pro','deepseek-r2','gemini-2-5-pro','gemini-3-1-pro','gemini-3-6-flash','grok-4-3','grok-4-5','grok-5','grok-code-fast-2'].includes(s.llm.id),
     message: s => `Trae's built-in model menu may not include ${s.llm.name} — Trae primarily ships with Claude/GPT/Gemini/DeepSeek.`,
   },
   {
@@ -238,7 +244,7 @@ const COMPATIBILITY_RULES = [
   {
     id: 'selfhosted-llm-cloud-context-privacy',
     when: s => {
-      const selfHostedLLMs = ['llama3', 'deepseek', 'qwen-3', 'qwen-3.6', 'qwen-coder', 'qwen-coder-next', 'gemma-4', 'llama-4', 'phi-4', 'phi-5', 'mistral-large-3', 'mistral-large-4', 'devstral-2', 'magistral-2', 'ministral-14b', 'gpt-oss-120b', 'gpt-oss-20b', 'glm-5.1', 'glm-5-air', 'laguna-xs2', 'minimax-m2.7', 'mimo-v2.5-pro', 'ling-2.6-1t', 'granite-4.1', 'kimi-k2-6', 'kimi-k3', 'hy3-preview', 'step-3-5-flash', 'nemotron-3-super', 'nemotron-3-nano-omni', 'qwen-3-5-397b', 'qwen-3-6-27b', 'qwen-3-max', 'jamba-mini-2', 'jamba-large-2', 'jamba-1-7', 'deepseek-v4', 'llama-4-behemoth', 'llama-4-scout', 'hermes-4', 'yi-3-lightning'];
+      const selfHostedLLMs = ['llama3', 'deepseek', 'qwen-3', 'qwen-3-6', 'qwen-coder', 'qwen-coder-next', 'gemma-4', 'llama-4', 'phi-4', 'phi-5', 'mistral-large-3', 'mistral-large-4', 'devstral-2', 'magistral-2', 'ministral-14b', 'gpt-oss-120b', 'gpt-oss-20b', 'glm-5-1', 'glm-5-air', 'laguna-xs2', 'minimax-m2-7', 'mimo-v2-5-pro', 'ling-2-6-1t', 'granite-4-1', 'kimi-k2-6', 'kimi-k3', 'hy3-preview', 'step-3-5-flash', 'nemotron-3-super', 'nemotron-3-nano-omni', 'qwen-3-5-397b', 'qwen-3-6-27b', 'qwen-3-max', 'jamba-mini-2', 'jamba-large-2', 'jamba-1-7', 'deepseek-v4', 'llama-4-behemoth', 'llama-4-scout', 'hermes-4', 'yi-3-lightning'];
       const cloudContexts = ['cursor-cb', 'greptile', 'sourcegraph-cody', 'copilot-idx', 'pinecone', 'windsurf-idx', 'redis-vector', 'milvus', 'mem0', 'turbopuffer', 'mongodb-atlas-vector', 'supabase-vector', 'augment-context', 'sweep-index'];
       return selfHostedLLMs.includes(s.llm?.id) && cloudContexts.includes(s.context?.id);
     },

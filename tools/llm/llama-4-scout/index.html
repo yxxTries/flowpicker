@@ -91,16 +91,16 @@
           <tr><td>Context tier</td><td>500K+</td></tr>
           <tr><td>Speed tier</td><td>Fast</td></tr>
           <tr><td>Latency</td><td>low</td></tr>
-          <tr><td>Knowledge cutoff</td><td>Aug 2025</td></tr>
+          <tr><td>Knowledge cutoff</td><td>Aug 2024</td></tr>
           <tr><td>Modality</td><td>Multimodal (vision)</td></tr>
-          <tr><td>Model ID</td><td>llama-4-scout</td></tr>
+          <tr><td>Model ID</td><td>meta-llama/Llama-4-Scout-17B-16E-Instruct</td></tr>
           <tr><td>Provider</td><td>Meta</td></tr>
           <tr><td>HumanEval</td><td>88%</td></tr>
           <tr><td>MMLU</td><td>82%</td></tr>
           <tr><td>SWE-Bench</td><td>52%</td></tr>
           <tr><td>Benchmark</td><td>Best long-context open-weight model at this size</td></tr>
           <tr><td>Released</td><td>Apr 2025</td></tr>
-          <tr><td>Hosting</td><td>Open/Self-host</td></tr>
+          <tr><td>Hosting</td><td>Closed/API + Self-host</td></tr>
           <tr><td>Capabilities</td><td>Vision, Tool use, MoE, Function calling, 10M context, Single-GPU friendly</td></tr>
         </tbody>
       </table>
@@ -149,7 +149,7 @@
           <li>Google Antigravity is built around Gemini 3 Pro; Claude and recent GPT-5 models also work, but Llama 4 Scout is not in the supported model list.</li>
           <li>Kiro&#39;s spec mode is tuned for Claude models — Llama 4 Scout may work but spec-driven flows are best with Claude.</li>
           <li>Cursor&#39;s built-in model menu may not include Llama 4 Scout — verify it&#39;s available in your Cursor model picker.</li>
-          <li>OpenAI Codex (VS Code) is tied to OpenAI&#39;s GPT-5.1 Codex family — Llama 4 Scout is not selectable inside this integration.</li>
+          <li>OpenAI Codex (VS Code) is tied to OpenAI&#39;s hosted GPT-5 and Codex models — Llama 4 Scout is not selectable inside this integration.</li>
           <li>Gemini CLI is locked to Google Gemini models — your LLM is Llama 4 Scout.</li>
           <li>Privacy conflict: Self-hosted Llama 4 Scout sends code to cloud @codebase (Cursor). Use local context (Continue indexing, ChromaDB, LanceDB, pgvector, Vespa self-hosted) for true privacy.</li>
           <li>SWE-agent with Llama 4 Scout (≤8K max output) may struggle with multi-file edits. Use models with 16K+ output capacity.</li>

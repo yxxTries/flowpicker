@@ -9,6 +9,21 @@ import os
 
 DB = os.path.join(os.path.dirname(__file__), '..', 'data', 'flowpicker.db')
 
+# Entries below that have since been removed from the database on purpose.
+# This script only skips ids that are ALREADY present, so without this guard a
+# re-run would silently resurrect every row the August 2026 refresh deleted.
+# Keyed by (layer_id, option_id) -> why it was removed.
+RETIRED = {
+    ('llm', 'claude-haiku-4-5-fast'):
+        'Model never existed. Anthropic has no `claude-haiku-4-5-fast` id; fast mode is a '
+        'request parameter (speed="fast") on Opus 5 / 4.8, not a Haiku SKU. The entry also '
+        'carried an invented knowledge cutoff and SWE-bench score.',
+    ('llm', 'gpt-5-1-codex'):
+        'Shut down by OpenAI 2026-07-23; replacement is gpt-5.6-sol.',
+    ('llm', 'gpt-5-1-codex-max'):
+        'Shut down by OpenAI 2026-07-23; replacement is gpt-5.6-sol.',
+}
+
 # ============================================================================
 # IDE LAYER — new entries
 # ============================================================================
@@ -1892,6 +1907,11 @@ def insert_all():
         next_pos = cur.fetchone()[0] + 1
         added_here = 0
         for opt_id, name, attrs in entries:
+            # Never re-add something that was deliberately retired.
+            retired_reason = RETIRED.get((layer_id, opt_id))
+            if retired_reason:
+                print(f'  SKIP (retired): {layer_id}/{opt_id} — {retired_reason}')
+                continue
             # Skip if already exists
             cur.execute('SELECT 1 FROM options WHERE layer_id=? AND id=?', (layer_id, opt_id))
             if cur.fetchone():
