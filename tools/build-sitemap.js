@@ -18,6 +18,7 @@ const TOP_LEVEL = [
   { loc: '/', priority: '1.0', changefreq: 'weekly' },
   { loc: '/browse.html', priority: '0.8', changefreq: 'weekly' },
   { loc: '/templates.html', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/ai-agents.html', priority: '0.9', changefreq: 'weekly' },
   { loc: '/compare.html', priority: '0.9', changefreq: 'weekly' },
   { loc: '/leaderboard.html', priority: '0.9', changefreq: 'weekly' },
   { loc: '/saved.html', priority: '0.4', changefreq: 'monthly' },
@@ -102,6 +103,11 @@ function urlEntry({ loc, priority, changefreq }) {
   }
   for (const f of listHtml(path.join(ROOT, 'pricing'))) {
     entries.push({ loc: `/pricing/${f}`, priority: '0.7', changefreq: 'monthly' });
+  }
+  // Agent use-case pages — see tools/build-agent-pages.js. Long-form research
+  // pages, so they rank higher and are refreshed as vendor pricing moves.
+  for (const f of listHtml(path.join(ROOT, 'ai-agents'))) {
+    entries.push({ loc: `/ai-agents/${f}`, priority: '0.9', changefreq: 'monthly' });
   }
   for (const e of collectVsPages()) entries.push(e);
   for (const e of collectToolsPages()) entries.push(e);

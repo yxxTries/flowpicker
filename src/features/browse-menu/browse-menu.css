@@ -42,8 +42,41 @@
   z-index: 20;
 }
 
-.browse-menu-preview {
-  animation: browse-menu-pop 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+/* ── Hover dropdown ───────────────────────────────────────────────
+   Hovering the Browse link opens a plain vertical dropdown anchored
+   under the link. The pill layout above is reserved for the Browse
+   page itself, which is where clicking Browse lands. The left offset
+   is measured against the header in browse-menu-preview.js. */
+.browse-menu.browse-menu-preview {
+  left: var(--browse-menu-anchor-left, 0px);
+  top: 100%;
+  bottom: auto;
+  margin-top: 8px;
+  transform: none;
+
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 2px;
+  min-width: 200px;
+  padding: 6px;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  transform-origin: top left;
+  animation: browse-dropdown-in 140ms ease-out both;
+}
+
+/* Hover bridge across the header's bottom padding. Without it the
+   pointer leaves the link into dead space on the way down and the
+   close timer can fire mid-travel. */
+.browse-menu.browse-menu-preview::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -28px;
+  height: 28px;
 }
 
 .browse-menu-handoff-ready .browse-menu:not(.browse-menu-preview) {
@@ -64,9 +97,17 @@
   transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
-.browse-menu-preview .browse-menu-item {
-  animation: browse-menu-item-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(180ms + var(--i, 0) * 60ms);
+.browse-menu.browse-menu-preview .browse-menu-item {
+  text-align: left;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* Keep the shared hover tint, but drop the chip treatment: rows in a
+   list shouldn't lift or wear a ring. */
+.browse-menu.browse-menu-preview .browse-menu-item:hover {
+  box-shadow: none;
+  transform: none;
 }
 
 .browse-menu-handoff-ready .browse-menu:not(.browse-menu-preview) .browse-menu-item {
@@ -110,6 +151,17 @@
   100% {
     opacity: 1;
     transform: translate(-50%, 10px) scaleX(1);
+  }
+}
+
+@keyframes browse-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -224,29 +276,9 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 
-  /* The Plan-page preview pill animation looks fine collapsed but should
-     still be centered horizontally so it doesn't anchor on top of the
-     brand. Push it below the header by removing the vertical centering. */
-  .browse-menu-preview {
-    top: auto;
-    bottom: -8px;
-    transform: translate(-50%, 100%);
-  }
-
-  @keyframes browse-menu-pop {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, calc(100% - 8px)) scaleX(0.6);
-    }
-    60% {
-      opacity: 1;
-      transform: translate(-50%, 100%) scaleX(1.02);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(-50%, 100%) scaleX(1);
-    }
-  }
+  /* The hover dropdown needs no mobile treatment: it is skipped on
+     coarse pointers, and on a narrow mouse-driven window it anchors
+     itself under the Browse link from JS like it does on desktop. */
 }
 
 /* Native <select> layer picker is desktop-hidden; the pill nav handles

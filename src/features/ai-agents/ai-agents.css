@@ -1,0 +1,257 @@
+/* Styles for the /ai-agents/ use-case pages. Layered on top of
+   seo-pages.css — only the pieces those pages don't already have:
+   the call-flow diagram, stat tiles, layer badges, and pros/cons cards. */
+
+/* ---- index: search box ---- */
+.agent-search {
+  margin: 14px 0 4px;
+  max-width: 420px;
+}
+
+.agent-search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.agent-search-input::placeholder { color: var(--muted); }
+
+.agent-search-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+/* ---- index: agent use-case cards ---- */
+.agent-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin: 16px 0 8px;
+}
+
+.agent-index-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.agent-index-card:hover,
+.agent-index-card:focus-visible {
+  border-color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* display:block above would otherwise beat the [hidden] attribute the
+   search filter sets, leaving filtered-out cards visible. */
+.agent-index-card[hidden] {
+  display: none;
+}
+
+.agent-index-card h3 {
+  margin: 0 0 6px;
+  font-size: 15.5px;
+  font-weight: 600;
+}
+
+.agent-index-card p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.agent-index-card.is-soon {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ---- stat tiles (the "why this market" numbers) ---- */
+.agent-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 18px 0 8px;
+}
+
+.agent-stat {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.agent-stat-value {
+  display: block;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.agent-stat-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ---- call-flow diagram ---- */
+.agent-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 8px;
+  margin: 14px 0 10px;
+}
+
+.agent-flow-step {
+  flex: 1 1 130px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.agent-flow-step b {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.agent-flow-step span {
+  display: block;
+  margin-top: 3px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.agent-flow-arrow {
+  align-self: center;
+  color: var(--muted);
+  font-size: 14px;
+  flex: 0 0 auto;
+}
+
+/* ---- layer badge used in the market-map table ---- */
+.agent-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ---- pros / cons cards ---- */
+.agent-pc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+  margin: 14px 0 8px;
+}
+
+.agent-pc {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.agent-pc h3 {
+  margin: 0 0 2px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.agent-pc-meta {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.agent-pc ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 8px;
+}
+
+.agent-pc li {
+  position: relative;
+  padding-left: 20px;
+  margin: 0 0 5px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.agent-pc li::before {
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+}
+
+.agent-pc .is-pro::before {
+  content: "+";
+  color: var(--status-good);
+}
+
+.agent-pc .is-con::before {
+  content: "−";
+  color: var(--status-bad);
+}
+
+.agent-pc-verdict {
+  margin: 10px 0 0;
+  padding-top: 9px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.agent-pc-verdict b {
+  color: var(--text);
+}
+
+/* ---- small print: methodology / as-of note ---- */
+.agent-note {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.agent-sources {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.agent-sources a {
+  color: var(--muted);
+  border-bottom: 1px dotted currentColor;
+}
+
+.agent-sources a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .agent-flow-arrow { display: none; }
+  .agent-stat-value { font-size: 19px; }
+}
