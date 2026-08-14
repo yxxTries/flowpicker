@@ -22,7 +22,7 @@ const DRY = process.argv.includes('--dry-run');
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 // tools/ holds one directory per layer plus `lib`, which is source code.
-const NOT_A_LAYER = new Set(['lib']);
+const NOT_A_LAYER = new Set(['lib', 'agent-pages']);
 
 function rm(target) {
   if (DRY) return;

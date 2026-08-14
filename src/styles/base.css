@@ -230,8 +230,8 @@ h1.tagline {
   }
 
   .site-nav a {
-    /* Six nav items don't fit on one phone row. Let them wrap onto a
-       second row by giving each a basis of roughly a third of the width
+    /* Seven nav items don't fit on one phone row. Let them wrap onto
+       further rows by giving each a basis of roughly a third of the width
        (3 per row), so chips stay readable instead of being crushed. */
     flex: 1 1 calc(33.333% - 6px);
     text-align: center;

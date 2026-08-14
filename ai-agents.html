@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Agents by Job (2026) — Providers, Pricing &amp; Pros/Cons | Flowpicker</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="description" content="One page per agentic job: AI receptionist, customer service, SDR, scheduling, intake and more. Every provider compared with real pricing, how each handles the work, and honest pros and cons." />
+  <link rel="canonical" href="https://flowpicker.xyz/ai-agents.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://flowpicker.xyz/ai-agents.html" />
+  <meta property="og:title" content="AI Agents by Job (2026) — Providers, Pricing &amp; Pros/Cons" />
+  <meta property="og:description" content="One page per agentic job: AI receptionist, customer service, SDR, scheduling, intake and more. Every provider compared with real pricing and honest pros and cons." />
+  <meta property="og:image" content="https://flowpicker.xyz/og-image.png" />
+  <meta property="og:site_name" content="Flowpicker" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Agents by Job (2026) — Providers, Pricing &amp; Pros/Cons" />
+  <meta name="twitter:description" content="One page per agentic job: AI receptionist, customer service, SDR, scheduling, intake and more. Every provider compared with real pricing and honest pros and cons." />
+  <meta name="twitter:image" content="https://flowpicker.xyz/og-image.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "AI Agents by Job",
+  "url": "https://flowpicker.xyz/ai-agents.html",
+  "description": "One page per agentic job — providers, pricing and pros/cons for each AI agent vertical.",
+  "isPartOf": { "@type": "WebSite", "name": "Flowpicker", "url": "https://flowpicker.xyz/" }
+}
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6NNRR7E8G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P6NNRR7E8G');
+  </script>
+
+  <script>
+    (() => {
+      const saved = localStorage.getItem('flowpicker-dark-mode');
+      const isDark = saved !== null ? saved === 'true' : true;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.backgroundColor = '#1a1a19';
+      } else {
+        document.documentElement.style.backgroundColor = '#fafaf9';
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/features/browse-menu/browse-menu.css" />
+  <link rel="stylesheet" href="src/features/auth/auth.css" />
+  <link rel="stylesheet" href="src/features/ai-agents/ai-agents.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a href="/" class="brand">Flowpicker</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Plan</a>
+        <a href="browse.html" id="browse-link">Browse</a>
+        <a href="templates.html">Templates</a>
+        <a href="ai-agents.html" class="active" aria-current="page">AI Agents</a>
+        <a href="compare.html">Compare</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="saved.html">Saved</a>
+      </nav>
+      <nav class="browse-menu browse-menu-preview" aria-label="Layers" aria-hidden="true" hidden>
+        <button type="button" class="browse-menu-item" data-layer="ide" style="--i:0" tabindex="-1">IDE / Editor</button>
+        <button type="button" class="browse-menu-item" data-layer="llm" style="--i:1" tabindex="-1">LLM Provider / Model</button>
+        <button type="button" class="browse-menu-item" data-layer="integration" style="--i:2" tabindex="-1">Integration</button>
+        <button type="button" class="browse-menu-item" data-layer="context" style="--i:3" tabindex="-1">Context / RAG</button>
+        <button type="button" class="browse-menu-item" data-layer="agent" style="--i:4" tabindex="-1">Agent / Orchestration</button>
+        <button type="button" class="browse-menu-item" data-layer="others" style="--i:5" tabindex="-1">Others</button>
+      </nav>
+      <div id="auth-header-slot"></div>
+      <button type="button" id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <h1 class="tagline">AI agents by job</h1>
+    <p class="tagline-sub">One page per agentic job: how the agent works, every provider worth knowing, how each one handles the work, and where each one breaks. Pricing read from vendor pages, not press releases.</p>
+
+    <div class="agent-search">
+      <input type="search" id="agent-search-input" class="agent-search-input"
+             placeholder="Search agent jobs — receptionist, sales, support…"
+             aria-label="Search AI agent use cases" autocomplete="off" />
+    </div>
+
+    <div class="agent-index-grid" id="agent-index-grid">
+      <!-- agent-index:start -->
+      <a class="agent-index-card" href="ai-agents/ai-receptionist.html" data-search="receptionist answers the business phone line — books, qualifies, routes, logs. 15 providers compared. ai receptionist virtual receptionist ai phone answering service ai front desk ai answering service best ai receptionist 2026 ai receptionist pricing rosie goodcall slang.ai smith.ai retell ai bland ai synthflow vapi elevenlabs agents openai realtime api livekit agents / pipecat sierra polyai &amp; parloa assort health">
+        <h3>Receptionist</h3>
+        <p>Answers the business phone line — books, qualifies, routes, logs. 15 providers compared.</p>
+      </a>
+      <a class="agent-index-card" href="ai-agents/ai-customer-service-agent.html" data-search="customer service resolves support tickets and chats end to end. 13 providers, all priced per resolution. ai customer service agent ai support agent ai customer support per resolution pricing intercom fin pricing decagon ai zendesk ai agents best ai support agent 2026 ai support agent shopify ecommerce ai support helpdesk ai agent intercom fin decagon sierra zendesk ai agents salesforce agentforce ada gorgias forethought polyai &amp; parloa freshworks freddy crescendo build your own">
+        <h3>Customer service</h3>
+        <p>Resolves support tickets and chats end to end. 13 providers, all priced per resolution.</p>
+      </a>
+      <a class="agent-index-card" href="ai-agents/ai-sdr-sales-agent.html" data-search="sdr / sales prospects, personalises and books meetings. the category that overpromised — and what replaced it. ai sdr ai sales agent ai sdr pricing 11x pricing artisan ai ava regie.ai clay gtm best ai sdr 2026 ai sales development representative 11x artisan aisdr regie.ai qualified (piper) clay unify common room apollo.io outreach / salesloft agentforce sdr build your own">
+        <h3>SDR / sales</h3>
+        <p>Prospects, personalises and books meetings. The category that overpromised — and what replaced it.</p>
+      </a>
+      <a class="agent-index-card" href="ai-agents/ai-appointment-scheduling-agent.html" data-search="booking &amp; scheduling two different markets wearing one name — customer booking vs internal calendar. 14 providers. ai scheduling agent ai appointment booking ai booking system ai calendar assistant motion vs reclaim calendly ai patient scheduling ai ai appointment scheduling 2026 luma health phreesia assort health boulevard mindbody slang.ai rosie / goodcall motion reclaim.ai calendly cal.com build your own">
+        <h3>Booking & scheduling</h3>
+        <p>Two different markets wearing one name — customer booking vs internal calendar. 14 providers.</p>
+      </a>
+      <a class="agent-index-card" href="ai-agents/ai-intake-agent.html" data-search="client &amp; patient intake captures and qualifies new clients where one lead is worth thousands. legal and healthcare. ai intake agent ai legal intake law firm intake software ai patient intake personal injury ai lawmatics clio grow phreesia best legal intake software 2026 smith.ai lawmatics clio grow qualifyai / josef eve supio evenup darrow phreesia luma health assort health retell / vapi">
+        <h3>Client & patient intake</h3>
+        <p>Captures and qualifies new clients where one lead is worth thousands. Legal and healthcare.</p>
+      </a>
+      <!-- agent-index:end -->
+    </div>
+    <p class="agent-note" id="agent-search-empty" hidden>No agent page matches that yet.</p>
+  </main>
+
+  <footer class="site-footer">
+    <span>Flowpicker — AI coding stack builder. </span>
+    <div class="site-footer-links">
+      <a href="https://github.com/yxxTries" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="mailto:amil.shahul777@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <div id="auth-modal" class="auth-modal" hidden>
+    <div class="auth-modal-backdrop"></div>
+    <div class="auth-modal-panel"></div>
+  </div>
+
+  <script>window.App = { features: {} };</script>
+  <script src="src/features/selections-store/selections-store.js"></script>
+  <script src="src/features/darkmode/darkmode.js"></script>
+  <script src="src/features/browse-menu/browse-menu-preview.js"></script>
+  <script src="src/features/auth/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.App && App.features.darkmode) App.features.darkmode.init();
+
+      // Client-side filter over the generated cards. Each card carries a
+      // data-search blob (title + description + keywords) built by
+      // tools/build-agent-pages.js, so no separate index file is needed.
+      const input = document.getElementById('agent-search-input');
+      const grid = document.getElementById('agent-index-grid');
+      const empty = document.getElementById('agent-search-empty');
+      if (!input || !grid) return;
+      const cards = Array.from(grid.querySelectorAll('.agent-index-card'));
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        let shown = 0;
+        for (const card of cards) {
+          const match = !q || (card.dataset.search || '').includes(q);
+          card.hidden = !match;
+          if (match) shown++;
+        }
+        if (empty) empty.hidden = shown > 0;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -17,9 +17,10 @@
     "build:alternatives": "node tools/build-alternatives-pages.js",
     "build:best-for": "node tools/build-best-for-pages.js",
     "build:pricing": "node tools/build-pricing-pages.js",
+    "build:agents": "node tools/build-agent-pages.js",
     "build:sitemap": "node tools/build-sitemap.js",
     "build:prune": "node scripts/prune-orphaned-pages.js",
-    "build": "node tools/build-static-pages.js && node tools/build-compare-pages.js && node tools/build-alternatives-pages.js && node tools/build-best-for-pages.js && node tools/build-pricing-pages.js && node scripts/prune-orphaned-pages.js && node tools/build-sitemap.js",
+    "build": "node tools/build-static-pages.js && node tools/build-compare-pages.js && node tools/build-alternatives-pages.js && node tools/build-best-for-pages.js && node tools/build-pricing-pages.js && node tools/build-agent-pages.js && node scripts/prune-orphaned-pages.js && node tools/build-sitemap.js",
     "data:normalize": "node scripts/normalize-llm-data.js",
     "data:update": "node scripts/apply-model-updates.js"
   },

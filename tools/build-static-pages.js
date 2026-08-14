@@ -290,6 +290,7 @@ function pageHeader({ title, description, canonical }) {
         <a href="../../../index.html">Plan</a>
         <a href="../../../browse.html" id="browse-link">Browse</a>
         <a href="../../../templates.html">Templates</a>
+        <a href="../../../ai-agents.html">AI Agents</a>
         <a href="../../../compare.html">Compare</a>
         <a href="../../../saved.html">Saved</a>
       </nav>
@@ -501,6 +502,7 @@ function renderLayerIndex(layer, options) {
         <a href="../../index.html">Plan</a>
         <a href="../../browse.html" id="browse-link">Browse</a>
         <a href="../../templates.html">Templates</a>
+        <a href="../../ai-agents.html">AI Agents</a>
         <a href="../../compare.html">Compare</a>
         <a href="../../saved.html">Saved</a>
       </nav>
@@ -627,6 +629,7 @@ ${links}
         <a href="../index.html">Plan</a>
         <a href="../browse.html" id="browse-link">Browse</a>
         <a href="../templates.html">Templates</a>
+        <a href="../ai-agents.html">AI Agents</a>
         <a href="../compare.html">Compare</a>
         <a href="../saved.html">Saved</a>
       </nav>
